@@ -1,0 +1,109 @@
+---
+// À propos
+---
+<section class="section section-alt" id="apropos" aria-labelledby="apropos-title">
+  <div class="container">
+    <div class="apropos-inner">
+      <div class="apropos-photo reveal">
+        <img
+          src="/profil-steve-deguilly.jpg"
+          alt="Steve Deguilly"
+          loading="lazy"
+          width="360"
+          height="450"
+        />
+      </div>
+      <div class="apropos-content reveal">
+        <p class="section-tag">Qui je suis</p>
+        <div>
+          <h2 class="apropos-name" id="apropos-title">Steve Deguilly</h2>
+          <p class="apropos-role">
+            Directeur de transformation digitale freelance · Nice & Monaco
+          </p>
+        </div>
+        <p class="apropos-body">
+          Pendant 18 ans au sein du groupe XPair à Monaco, j'ai grandi du poste d'UX
+          designer à la direction du numérique. Six ans au CODIR à piloter la stratégie
+          digitale et des équipes pluridisciplinaires.
+        </p>
+        <p class="apropos-body">
+          J'y ai conçu et porté EnerJ-meeting de zéro à un événement B2B de référence :
+          4 000+ professionnels par édition, 20 000+ connexions générées via un algorithme
+          de matchmaking que j'ai développé. Huit ans d'exploitation continue.
+        </p>
+        <p class="apropos-body">
+          J'y ai surtout appris ce qui fait la différence : ne pas se contenter de la
+          stratégie. Descendre sur le terrain. Livrer.
+        </p>
+        <p class="apropos-body">
+          Depuis septembre 2024, je suis indépendant via Creastory Conseil (Nice).
+          J'accompagne des organisations qui veulent vraiment transformer — pas juste en parler.
+        </p>
+        <p class="apropos-body apropos-side">
+          En parallèle de mes missions, je travaille sur un projet personnel autour de la
+          sécurité et de la conformité des applications générées par IA — encore en phase
+          de réflexion.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .apropos-inner {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+  @media (max-width: 1023px) {
+    .apropos-inner { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .apropos-photo {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .apropos-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .apropos-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 8px;
+  }
+  .apropos-name {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    line-height: 1.1;
+    margin: 0;
+  }
+  .apropos-role {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--color-text-muted);
+    margin: 4px 0 0;
+  }
+  .apropos-body {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    color: var(--color-text-primary);
+    line-height: 1.7;
+    max-width: 580px;
+    margin: 0;
+  }
+  .apropos-body + .apropos-body { margin-top: -8px; }
+  .apropos-side {
+    color: var(--color-text-muted);
+    font-size: 15px;
+  }
+</style>

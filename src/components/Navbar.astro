@@ -1,0 +1,204 @@
+---
+export interface Props {
+  showProjetsLink?: boolean;
+}
+const { showProjetsLink = false } = Astro.props;
+---
+<nav id="navbar" aria-label="Navigation principale">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="Steve Deguilly — Accueil">
+        <div class="nav-logo-mark" aria-hidden="true">S</div>
+        <span class="nav-logo-name">Steve Deguilly</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/#approche">Approche</a></li>
+        <li><a href="/#cas-concrets">Cas concrets</a></li>
+        <li><a href="/projets">Tous les projets</a></li>
+        <li><a href="/#apropos">À propos</a></li>
+      </ul>
+      <a href="/#contact" class="btn-cta nav-cta-desktop">Réserver un appel</a>
+      <button
+        type="button"
+        class="nav-hamburger"
+        id="hamburger"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+        aria-controls="drawer"
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-drawer" id="drawer" role="dialog" aria-label="Menu mobile" aria-modal="true">
+  <button type="button" class="nav-drawer-close" id="drawer-close" aria-label="Fermer le menu">✕</button>
+  <a href="/#approche">Approche</a>
+  <a href="/#cas-concrets">Cas concrets</a>
+  <a href="/projets">Tous les projets</a>
+  <a href="/#apropos">À propos</a>
+  <a href="/#contact" class="btn-cta">Réserver un appel →</a>
+</div>
+
+<style>
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+    background: var(--color-bg-cream);
+    border-bottom: 1px solid transparent;
+    transition: border-color 200ms, backdrop-filter 200ms;
+  }
+  nav.scrolled {
+    border-bottom-color: var(--color-border);
+    backdrop-filter: blur(8px);
+    background: rgba(245,241,234,0.92);
+  }
+  .nav-inner {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--color-primary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-bg-cream);
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .nav-logo-name {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color 150ms;
+  }
+  .nav-links a:hover { color: var(--color-primary); }
+
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-text-primary);
+    border-radius: 2px;
+    transition: 200ms;
+  }
+
+  @media (max-width: 767px) {
+    .nav-links, .nav-cta-desktop { display: none; }
+    .nav-hamburger { display: flex; }
+  }
+
+  .nav-drawer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--color-bg-cream);
+    z-index: 200;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 48px 40px;
+    gap: 32px;
+  }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+  .nav-drawer-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--color-text-primary);
+    cursor: pointer;
+  }
+  .nav-drawer .btn-cta {
+    margin-top: 16px;
+    font-size: 16px;
+    padding: 13px 22px;
+  }
+</style>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  const hamburger = document.getElementById('hamburger') as HTMLButtonElement | null;
+  const drawer = document.getElementById('drawer');
+  const drawerClose = document.getElementById('drawer-close');
+  const drawerLinks = drawer ? drawer.querySelectorAll('a') : [];
+
+  function toggleDrawer() {
+    if (!drawer || !hamburger) return;
+    const isOpen = drawer.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+
+  function closeDrawer() {
+    if (!drawer || !hamburger) return;
+    drawer.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  if (hamburger) hamburger.addEventListener('click', toggleDrawer);
+  if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+  drawerLinks.forEach(a => a.addEventListener('click', closeDrawer));
+
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  }
+
+  // ESC to close drawer
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer?.classList.contains('open')) closeDrawer();
+  });
+</script>

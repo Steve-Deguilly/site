@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout
+  title="Confidentialité — Steve Deguilly"
+  description="Politique de confidentialité du site steve-deguilly.com — données collectées, droits RGPD, cookies."
+  canonical="/confidentialite"
+>
+  <nav aria-label="Navigation principale">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo" aria-label="Steve Deguilly — Accueil">
+          <div class="nav-logo-mark" aria-hidden="true">S</div>
+          <span class="nav-logo-name">Steve Deguilly</span>
+        </a>
+        <a href="/" class="nav-back">← Retour au site</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="legal-page">
+    <div class="container">
+      <h1>Politique de confidentialité</h1>
+
+      <section>
+        <h2>En résumé</h2>
+        <p>
+          Ce site ne dépose <strong>aucun cookie tiers</strong> et n'utilise <strong>aucun
+          traceur publicitaire</strong>. Aucune donnée personnelle n'est collectée si
+          vous vous contentez de consulter les pages.
+        </p>
+      </section>
+
+      <section>
+        <h2>Données collectées</h2>
+        <p>
+          Lorsque vous réservez un appel via Cal.com (lien externe), les informations
+          que vous fournissez (nom, email, message) sont traitées par Cal.com selon leur
+          propre politique de confidentialité, puis transmises à Steve Deguilly par email.
+          Elles sont utilisées uniquement pour répondre à votre demande.
+        </p>
+        <p>
+          Si vous me contactez par email à <a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a>,
+          votre adresse et le contenu de votre message sont conservés le temps nécessaire
+          au traitement de votre demande.
+        </p>
+      </section>
+
+      <section>
+        <h2>Statistiques de fréquentation</h2>
+        <p>
+          Le site utilise <strong>Cloudflare Web Analytics</strong>, un service de mesure
+          d'audience anonymisé qui n'utilise pas de cookies, ne suit pas les visiteurs
+          entre les sites et ne collecte aucune donnée personnelle (pas d'adresse IP, pas
+          d'empreinte navigateur).
+        </p>
+      </section>
+
+      <section>
+        <h2>Vos droits (RGPD)</h2>
+        <p>
+          Conformément au Règlement Général sur la Protection des Données (RGPD) et à la
+          loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification,
+          d'effacement, d'opposition, de limitation du traitement et de portabilité de
+          vos données. Pour exercer ces droits, contactez :
+          <a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a>.
+        </p>
+        <p>
+          Vous pouvez également introduire une réclamation auprès de la
+          <a href="https://www.cnil.fr" target="_blank" rel="noopener">CNIL</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Hébergement et transferts</h2>
+        <p>
+          Le site est hébergé par Cloudflare, Inc. (États-Unis). Les transferts de données
+          hors UE sont encadrés par les clauses contractuelles types adoptées par la
+          Commission européenne.
+        </p>
+      </section>
+
+      <section>
+        <h2>Modifications</h2>
+        <p>
+          Cette politique peut être mise à jour. La date de dernière modification figure
+          en bas de page.
+        </p>
+        <p style="color:var(--color-text-muted);font-size:14px;margin-top:24px;">
+          Dernière mise à jour : mai 2026.
+        </p>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+    background: rgba(245,241,234,0.95);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(8px);
+  }
+  .nav-inner {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 32px; height: 32px;
+    background: var(--color-primary);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-bg-cream);
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 500;
+  }
+  .nav-logo-name {
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 500;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+  }
+  .nav-back {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 400;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 150ms;
+  }
+  .nav-back:hover { color: var(--color-primary); }
+
+  .legal-page {
+    padding: 64px 0 96px;
+  }
+  .legal-page h1 {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--color-text-primary);
+    margin: 0 0 48px;
+  }
+  .legal-page section {
+    margin-bottom: 36px;
+    max-width: 720px;
+  }
+  .legal-page h2 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    margin: 0 0 12px;
+  }
+  .legal-page p {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    margin: 0 0 12px;
+  }
+  .legal-page a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .legal-page a:hover { text-decoration: underline; }
+  @media (max-width: 767px) {
+    .legal-page { padding: 40px 0 64px; }
+    .legal-page h1 { font-size: 32px; margin-bottom: 32px; }
+  }
+</style>

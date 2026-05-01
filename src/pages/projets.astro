@@ -1,0 +1,446 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { projets, secteursFilter, competencesFilter } from '../data/projets';
+---
+<Layout
+  title="Missions et projets — Steve Deguilly"
+  description="Liste de réalisations majeures de Steve Deguilly — de l'UX au CODIR, sur 4 secteurs (média B2B, formation, e-santé, événementiel)."
+  canonical="/projets"
+>
+  <nav aria-label="Navigation principale">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo" aria-label="Steve Deguilly — Accueil">
+          <div class="nav-logo-mark" aria-hidden="true">S</div>
+          <span class="nav-logo-name">Steve Deguilly</span>
+        </a>
+        <a href="/" class="nav-back">← Retour au site</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="page-header">
+      <div class="container">
+        <h1>Missions et projets</h1>
+        <p>Liste de réalisations majeures · de l'UX au CODIR · 4 secteurs</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <section class="filters-bar" aria-label="Filtres">
+        <div class="filter-row">
+          <span class="filter-label">Secteur</span>
+          <div class="filter-chips" id="filter-secteur">
+            <button class="chip-filter active" type="button" data-filter="secteur" data-value="all">Tous</button>
+            {secteursFilter.map((s) => (
+              <button class="chip-filter" type="button" data-filter="secteur" data-value={s}>{s}</button>
+            ))}
+          </div>
+        </div>
+        <div class="filter-row">
+          <span class="filter-label">Compétence</span>
+          <div class="filter-chips" id="filter-competence">
+            <button class="chip-filter active" type="button" data-filter="competence" data-value="all">Toutes</button>
+            {competencesFilter.map((c) => (
+              <button class="chip-filter" type="button" data-filter="competence" data-value={c.value}>{c.label}</button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div class="results-meta">
+        <div class="period-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:rgba(45,90,79,0.2);"></div>
+            <span>2006–2024 · XPair / EnerJ-meeting</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:rgba(201,122,75,0.3);"></div>
+            <span>2024+ · Creastory Conseil</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="projects-table" aria-label="Tableau des projets">
+        <thead>
+          <tr>
+            <th>Client / Contexte</th>
+            <th>Mission</th>
+            <th>Compétences</th>
+            <th>Résultat</th>
+          </tr>
+        </thead>
+        <tbody>
+          {projets.map((p) => (
+            <tr class={`project-row period-${p.period}`} data-secteur={p.secteur} data-tags={p.tags.join(',')}>
+              <td class="td-client">{p.client}</td>
+              <td class="td-mission">{p.mission}</td>
+              <td class="td-tags">
+                {p.tags.map((t) => <span class="tag-pill">{t}</span>)}
+              </td>
+              <td class={`td-result ${p.result === '—' ? 'muted' : ''}`} set:html={p.result}></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div class="projects-cards">
+        {projets.map((p) => (
+          <article class={`project-card period-${p.period}`} data-secteur={p.secteur} data-tags={p.tags.join(',')}>
+            <div class="card-top">
+              <span class="card-client">{p.client}</span>
+            </div>
+            <div class="card-mission">{p.mission}</div>
+            <div class="card-bottom">
+              <div>
+                {p.tags.map((t) => <span class="tag-pill">{t}</span>)}
+              </div>
+              {p.result !== '—' && <span class="card-result" set:html={p.result}></span>}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <aside class="page-footer-block">
+        <p>
+          * Liste non exhaustive —
+          <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener">me contacter pour en savoir plus</a>.
+          Certains projets sont anonymisés (NDA).
+        </p>
+        <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener" class="btn-cta">
+          Réserver un appel →
+        </a>
+      </aside>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* Sticky nav specific to this page */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+    background: rgba(245,241,234,0.95);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(8px);
+  }
+  .nav-inner {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 32px; height: 32px;
+    background: var(--color-primary);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-bg-cream);
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 500;
+  }
+  .nav-logo-name {
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 500;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+  }
+  .nav-back {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 400;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 150ms;
+  }
+  .nav-back:hover { color: var(--color-primary); }
+
+  .page-header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .page-header h1 {
+    font-family: var(--font-serif);
+    font-size: 48px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.05;
+    color: var(--color-text-primary);
+    margin: 0 0 12px;
+  }
+  .page-header p {
+    font-family: var(--font-sans);
+    font-size: 16px; color: var(--color-text-muted);
+    margin: 0;
+  }
+  @media (max-width: 767px) {
+    .page-header { padding: 40px 0 32px; }
+    .page-header h1 { font-size: 32px; }
+  }
+
+  .filters-bar {
+    padding: 28px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .filter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-label {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-text-muted);
+    min-width: 80px;
+  }
+  .filter-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .chip-filter {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 150ms;
+    white-space: nowrap;
+  }
+  .chip-filter:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  .chip-filter.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-bg-cream);
+  }
+
+  .results-meta {
+    padding: 20px 0 0;
+  }
+  .period-legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+  }
+
+  .projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+  }
+  .projects-table th {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--color-text-muted);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+  .projects-table th:first-child { padding-left: 12px; }
+
+  .project-row {
+    border-bottom: 1px solid rgba(220,213,199,0.5);
+    transition: background 120ms;
+  }
+  .project-row:hover { background: rgba(45,90,79,0.03); }
+  .project-row td {
+    padding: 14px 16px;
+    vertical-align: top;
+  }
+  .project-row td:first-child { padding-left: 12px; }
+
+  .project-row.period-xpair { background-color: rgba(45, 90, 79, 0.04); }
+  .project-row.period-xpair:hover { background-color: rgba(45,90,79,0.07); }
+  .project-row.period-creastory { background-color: rgba(201, 122, 75, 0.05); }
+  .project-row.period-creastory:hover { background-color: rgba(201,122,75,0.09); }
+  .project-row.hidden { display: none; }
+
+  .td-client {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 500;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    width: 160px;
+  }
+  .td-mission {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-primary);
+    line-height: 1.5;
+  }
+  .td-tags { width: 200px; }
+  .tag-pill {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    color: var(--color-accent-cool);
+    background: rgba(143,165,171,0.13);
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin: 2px 2px 2px 0;
+    white-space: nowrap;
+  }
+  .td-result {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-primary-deep);
+    white-space: nowrap;
+    width: 160px;
+  }
+  .td-result.muted {
+    font-family: var(--font-sans);
+    color: var(--color-text-muted);
+    font-size: 12px;
+  }
+
+  .projects-cards {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .project-card {
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-cream);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .project-card.period-xpair { background: rgba(45, 90, 79, 0.04); border-color: rgba(45,90,79,0.12); }
+  .project-card.period-creastory { background: rgba(201, 122, 75, 0.05); border-color: rgba(201,122,75,0.12); }
+  .project-card.hidden { display: none; }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .card-client {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .card-mission {
+    font-family: var(--font-sans);
+    font-size: 13px; color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .card-result {
+    font-family: var(--font-mono);
+    font-size: 13px; color: var(--color-primary-deep);
+    font-weight: 500;
+  }
+
+  @media (max-width: 767px) {
+    .projects-table { display: none; }
+    .projects-cards { display: flex; }
+  }
+
+  .page-footer-block {
+    margin: 64px 0 80px;
+    padding: 40px 48px;
+    background: var(--color-surface-warm);
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+  }
+  @media (max-width: 767px) {
+    .page-footer-block {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 28px 24px;
+      margin-top: 40px;
+      margin-bottom: 48px;
+    }
+  }
+  .page-footer-block p {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    max-width: 480px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .page-footer-block p a {
+    color: var(--color-primary);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .page-footer-block p a:hover { text-decoration: underline; }
+</style>
+
+<script>
+  type Filters = { secteur: string; competence: string };
+  const activeFilters: Filters = { secteur: 'all', competence: 'all' };
+
+  const rows = document.querySelectorAll<HTMLElement>('.project-row');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+
+  function matchesFilters(el: HTMLElement): boolean {
+    const secteur = el.dataset.secteur || '';
+    const tags = (el.dataset.tags || '').split(',');
+    const secteurOk = activeFilters.secteur === 'all' || secteur === activeFilters.secteur;
+    const compOk = activeFilters.competence === 'all' || tags.includes(activeFilters.competence);
+    return secteurOk && compOk;
+  }
+
+  function applyFilters() {
+    rows.forEach((row) => row.classList.toggle('hidden', !matchesFilters(row)));
+    cards.forEach((card) => card.classList.toggle('hidden', !matchesFilters(card)));
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.chip-filter').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filterType = btn.dataset.filter as keyof Filters;
+      const value = btn.dataset.value || 'all';
+      document.querySelectorAll(`.chip-filter[data-filter="${filterType}"]`).forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeFilters[filterType] = value;
+      applyFilters();
+    });
+  });
+</script>

@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import PourQui from '../components/PourQui.astro';
+import DomainesIntervention from '../components/DomainesIntervention.astro';
+import Approche from '../components/Approche.astro';
+import CasConcrets from '../components/CasConcrets.astro';
+import APropos from '../components/APropos.astro';
+import CTAFinal from '../components/CTAFinal.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout
+  title="Steve Deguilly — Directeur de transformation digitale"
+  description="Du COPIL au déploiement. 18 ans à faire passer les projets en production. Freelance basé à Nice / Monaco / Sophia Antipolis."
+  canonical="/"
+>
+  <Navbar />
+  <main>
+    <Hero />
+    <PourQui />
+    <DomainesIntervention />
+    <Approche />
+    <CasConcrets />
+    <APropos />
+    <CTAFinal />
+  </main>
+  <Footer />
+</Layout>

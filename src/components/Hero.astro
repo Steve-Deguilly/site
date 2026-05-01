@@ -1,0 +1,240 @@
+---
+// Hero section
+---
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div>
+          <span class="chip">
+            <span class="chip-dot"></span>
+            Disponible · Monaco / Nice / Sophia Antipolis
+          </span>
+        </div>
+        <h1 class="hero-h1">Directeur de<br />transformation<br />digitale.</h1>
+        <p class="hero-sub">
+          Du COPIL au déploiement. 18 ans à faire passer les projets en production —
+          pas seulement à les présenter.
+        </p>
+        <div class="hero-actions">
+          <a
+            href="https://cal.com/steve-deguilly/30min"
+            target="_blank"
+            rel="noopener"
+            class="btn-cta hero-cta"
+          >Réserver un premier échange →</a>
+          <a href="#approche" class="btn-secondary">Voir mon approche</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-item">
+            <span class="trust-num" data-target="18" data-suffix="">0</span>
+            <span class="trust-label">ans d'expérience terrain</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-num" data-target="80" data-suffix="+">0+</span>
+            <span class="trust-label">projets livrés</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-num" data-target="150" data-suffix="K">0K</span>
+            <span class="trust-label">utilisateurs servis</span>
+          </div>
+        </div>
+        <p class="hero-trust-note">
+          Zéro interruption de service sur 5 migrations majeures · Reporting CODIR depuis 6 ans
+        </p>
+      </div>
+      <div class="hero-right">
+        <div class="hero-photo-wrap">
+          <img
+            src="/profil-steve-deguilly.jpg"
+            alt="Portrait de Steve Deguilly, Directeur de transformation digitale freelance"
+            width="400"
+            height="500"
+          />
+        </div>
+        <div class="hero-badge">
+          <span class="hero-badge-num">
+            <span style="color:rgba(245,241,234,0.5)">45 min</span>
+            <span class="hero-badge-arrow"> → </span>
+            <span style="color:var(--color-accent-cta)">2 min</span>
+          </span>
+          <span class="hero-badge-label">process d'analyse automatisé · plateforme HDS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: 72px 0 80px;
+    background: var(--color-bg-cream);
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .hero-h1 {
+    font-family: var(--font-serif);
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 8px 0 0;
+  }
+  .hero-sub {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+    max-width: 480px;
+    margin: 0;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .hero-cta.btn-cta {
+    padding: 13px 22px;
+    font-size: 14px;
+  }
+  .hero-trust {
+    display: flex;
+    gap: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border);
+    margin-top: 8px;
+  }
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .trust-num {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--color-primary-deep);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .trust-label {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+  }
+  .hero-trust-note {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin: 12px 0 0;
+  }
+
+  .hero-right { position: relative; }
+  .hero-photo-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--color-surface-warm);
+    aspect-ratio: 4/5;
+  }
+  .hero-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .hero-badge {
+    position: absolute;
+    bottom: 28px;
+    left: -20px;
+    background: var(--color-primary-deep);
+    color: var(--color-bg-cream);
+    border-radius: 10px;
+    padding: 12px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hero-badge-num {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .hero-badge-arrow {
+    color: var(--color-accent-cta);
+    margin: 0 4px;
+  }
+  .hero-badge-label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: rgba(245,241,234,0.6);
+  }
+
+  @media (max-width: 1023px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-h1 { font-size: 44px; }
+    .hero-right { max-width: 400px; }
+  }
+  @media (max-width: 767px) {
+    .hero { padding: 40px 0 56px; }
+    .hero-h1 { font-size: 36px; }
+    .hero-sub { font-size: 18px; }
+    .hero-trust { gap: 24px; }
+    .trust-num { font-size: 22px; }
+    .hero-badge { left: 12px; bottom: 16px; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<script>
+  function animateCount(el: HTMLElement, target: number, suffix: string, duration = 1500) {
+    let start = 0;
+    const step = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target + suffix;
+    };
+    requestAnimationFrame(step);
+  }
+
+  const trustSection = document.querySelector('.hero-trust');
+  if (trustSection && 'IntersectionObserver' in window) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const els = entry.target.querySelectorAll<HTMLElement>('[data-target]');
+          els.forEach(el => {
+            const target = parseInt(el.dataset.target || '0');
+            const suffix = el.dataset.suffix || '';
+            if (reduced) {
+              el.textContent = target + suffix;
+            } else {
+              animateCount(el, target, suffix);
+            }
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    observer.observe(trustSection);
+  }
+</script>

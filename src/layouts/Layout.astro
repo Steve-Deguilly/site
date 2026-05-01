@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Steve Deguilly — Directeur de transformation digitale',
+  description = "Du COPIL au déploiement. 18 ans à faire passer les projets en production. Freelance basé à Nice / Monaco / Sophia Antipolis.",
+  ogImage = '/og-image.jpg',
+  canonical = Astro.url.pathname,
+} = Astro.props;
+
+const siteUrl = 'https://steve-deguilly.com';
+const fullCanonical = `${siteUrl}${canonical === '/' ? '' : canonical}`;
+const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={fullCanonical} />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={fullCanonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={fullOgImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Steve Deguilly" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={fullOgImage} />
+
+  <!-- Theme color -->
+  <meta name="theme-color" content="#F5F1EA" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- JSON-LD Person -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Steve Deguilly",
+    "jobTitle": "Directeur de transformation digitale",
+    "url": siteUrl,
+    "image": `${siteUrl}/profil-steve-deguilly.jpg`,
+    "email": "sdeguilly@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nice",
+      "addressCountry": "FR"
+    },
+    "sameAs": [
+      "https://linkedin.com/in/steve-deguilly"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Creastory Conseil"
+    }
+  })} />
+</head>
+<body>
+  <slot />
+
+  <!-- Reveal animation observer -->
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    if (revealEls.length > 0 && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealEls.forEach(el => observer.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

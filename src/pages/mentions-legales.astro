@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout
+  title="Mentions légales — Steve Deguilly"
+  description="Mentions légales du site steve-deguilly.com — éditeur, hébergeur, contact."
+  canonical="/mentions-legales"
+>
+  <nav aria-label="Navigation principale">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo" aria-label="Steve Deguilly — Accueil">
+          <div class="nav-logo-mark" aria-hidden="true">S</div>
+          <span class="nav-logo-name">Steve Deguilly</span>
+        </a>
+        <a href="/" class="nav-back">← Retour au site</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="legal-page">
+    <div class="container">
+      <h1>Mentions légales</h1>
+
+      <section>
+        <h2>Éditeur du site</h2>
+        <p>
+          <strong>Steve Deguilly</strong>, opérant sous l'enseigne commerciale
+          <strong>Creastory Conseil</strong>.<br />
+          Adresse professionnelle : Nice, France.<br />
+          Email : <a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a><br />
+          SIRET : en cours d'immatriculation
+        </p>
+      </section>
+
+      <section>
+        <h2>Directeur de la publication</h2>
+        <p>Steve Deguilly</p>
+      </section>
+
+      <section>
+        <h2>Hébergement</h2>
+        <p>
+          Le site <strong>steve-deguilly.com</strong> est hébergé par<br />
+          <strong>Cloudflare, Inc.</strong><br />
+          101 Townsend St, San Francisco, CA 94107, États-Unis<br />
+          <a href="https://www.cloudflare.com" target="_blank" rel="noopener">www.cloudflare.com</a>
+        </p>
+      </section>
+
+      <section>
+        <h2>Propriété intellectuelle</h2>
+        <p>
+          L'ensemble des contenus présents sur ce site (textes, images, logos, photographies)
+          est la propriété de Steve Deguilly, sauf mention contraire. Toute reproduction,
+          représentation, modification ou exploitation, totale ou partielle, est interdite
+          sans autorisation écrite préalable.
+        </p>
+      </section>
+
+      <section>
+        <h2>Crédits</h2>
+        <p>
+          Conception et développement : Steve Deguilly.<br />
+          Polices : Fraunces, Inter, JetBrains Mono (Google Fonts, licence SIL Open Font).
+        </p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p>
+          Pour toute question relative au site ou au respect de la vie privée :
+          <a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a>
+        </p>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 72px;
+    background: rgba(245,241,234,0.95);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(8px);
+  }
+  .nav-inner {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 32px; height: 32px;
+    background: var(--color-primary);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-bg-cream);
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 500;
+  }
+  .nav-logo-name {
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 500;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+  }
+  .nav-back {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 400;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+    transition: color 150ms;
+  }
+  .nav-back:hover { color: var(--color-primary); }
+
+  .legal-page {
+    padding: 64px 0 96px;
+  }
+  .legal-page h1 {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--color-text-primary);
+    margin: 0 0 48px;
+  }
+  .legal-page section {
+    margin-bottom: 36px;
+    max-width: 720px;
+  }
+  .legal-page h2 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    margin: 0 0 12px;
+  }
+  .legal-page p {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .legal-page a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .legal-page a:hover { text-decoration: underline; }
+  @media (max-width: 767px) {
+    .legal-page { padding: 40px 0 64px; }
+    .legal-page h1 { font-size: 32px; margin-bottom: 32px; }
+  }
+</style>

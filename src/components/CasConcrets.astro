@@ -1,0 +1,176 @@
+---
+const cas = [
+  {
+    chip: 'E-santé · HDS · RGPD',
+    status: 'En cours',
+    statusType: 'ongoing',
+    title: 'Plateforme SaaS e-santé',
+    metricNum: '45 min → 2 min',
+    metricLabel: 'sur le process d\'analyse',
+    italicNote: "Zéro erreur d'interprétation · Production en 3 mois",
+    body: "Architecture from scratch d'une plateforme SaaS sécurisée. Intégration IA (LLMs, RAG) et automatisation des flux via n8n. Mise en conformité HDS.",
+  },
+  {
+    chip: 'Formation · Éducation Nationale',
+    status: 'Terminé',
+    statusType: 'done',
+    title: 'Refonte SI Formation',
+    metricNum: '+34%',
+    metricLabel: 'de CA dès la 1ère année',
+    italicNote: '150 000 utilisateurs mis en conformité · Ouverture Académies et grands comptes',
+    body: "Refonte complète des parcours pédagogiques. Intégration Moodle via LTI. Mise en conformité RGPD à grande échelle. Mise en place KPIs/OKRs.",
+  },
+  {
+    chip: 'Média B2B · Presse spécialisée',
+    status: 'Terminé',
+    statusType: 'done',
+    title: 'Pivot stratégique média B2B',
+    metricNum: '+22%',
+    metricLabel: 'consultations · +14% rétention',
+    italicNote: 'En 6 mois',
+    body: "Pilotage du pivot d'un site communication vieillissant vers un portail presse en ligne. Gouvernance projet, pilotage prestataires, conduite du changement, mise en place d'une solution hybride pour répondre aux délais.",
+  },
+  {
+    chip: 'Événementiel B2B · Génie climatique',
+    status: 'Terminé',
+    statusType: 'done',
+    title: 'Plateforme événementielle B2B',
+    metricNum: '20 000+',
+    metricLabel: 'mises en relation/édition · 4 000+ participants/édition',
+    italicNote: 'Créé, exploité et fait évoluer sur 8 ans',
+    body: "Conception et développement from scratch : 3 sites (Node.js/MongoDB), 3 apps mobiles (PWA, Android, iOS), BO client avec messagerie + prise de RDV, CMS maison, algorithme de matchmaking propriétaire.",
+  },
+];
+---
+<section class="section" id="cas-concrets" aria-labelledby="cas-title">
+  <div class="container">
+    <p class="section-tag">Transformations livrées</p>
+    <h2 class="section-h2" id="cas-title">Quelques projets.<br />Des chiffres réels.</h2>
+    <div class="cas-grid reveal">
+      {cas.map((c) => (
+        <article class="cas-card">
+          <div class="cas-header">
+            <span class="cas-chip">{c.chip}</span>
+            <span class={`cas-status ${c.statusType}`}>{c.status}</span>
+          </div>
+          <h3 class="cas-title">{c.title}</h3>
+          <div class="cas-metric">
+            <span class="cas-metric-num">{c.metricNum}</span>
+            <span class="cas-metric-label">{c.metricLabel}</span>
+          </div>
+          <p class="cas-italic">{c.italicNote}</p>
+          <p class="cas-body">{c.body}</p>
+        </article>
+      ))}
+    </div>
+    <div class="cas-cta">
+      <a href="/projets">Voir toutes les missions et projets →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 1023px) { .cas-grid { grid-template-columns: 1fr; gap: 14px; } }
+
+  .cas-card {
+    background: var(--color-surface-warm);
+    border-radius: 12px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 200ms ease-out;
+  }
+  .cas-card:hover { transform: translateY(-4px); }
+
+  .cas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .cas-chip {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-accent-cool);
+    background: rgba(143,165,171,0.15);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .cas-status {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+  .cas-status.done { color: var(--color-text-muted); background: rgba(107,117,112,0.1); }
+  .cas-status.ongoing { color: var(--color-accent-cta); background: rgba(201,122,75,0.1); }
+
+  .cas-title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+    margin: 0;
+  }
+  .cas-metric {
+    border-top: 1px solid rgba(26,36,33,0.1);
+    padding-top: 16px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .cas-metric-num {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--color-primary-deep);
+    letter-spacing: -0.01em;
+  }
+  .cas-metric-label {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+  .cas-italic {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    font-style: italic;
+    margin: -4px 0 0;
+  }
+  .cas-body {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .cas-cta {
+    text-align: right;
+    margin-top: 24px;
+  }
+  .cas-cta a {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms;
+  }
+  .cas-cta a:hover { border-bottom-color: var(--color-accent-cta); }
+</style>
