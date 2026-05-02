@@ -9,6 +9,9 @@
   Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()
   Cross-Origin-Opener-Policy: same-origin
   X-DNS-Prefetch-Control: on
+  Link: <https://cal.com/steve-deguilly/30min>; rel="appointment"; title="Réserver un appel découverte de 30 minutes"
+  Link: <https://linkedin.com/in/steve-deguilly>; rel="me"; title="Profil LinkedIn"
+  Link: <mailto:sdeguilly@gmail.com>; rel="author"; title="Email direct"
 
 # Cache long pour les assets statiques versionnés Astro
 /_astro/*
