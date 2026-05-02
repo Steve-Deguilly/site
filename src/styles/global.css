@@ -7,8 +7,8 @@
   --color-surface-warm: #EBE5D9;
   --color-primary: #2D5A4F;
   --color-primary-deep: #1F4138;
-  --color-accent-cta: #B26432;       /* darkened from #C97A4B for AA contrast (4.7:1 with white) */
-  --color-accent-cta-hover: #98531F;
+  --color-accent-cta: #A55E2D;       /* AA-compliant terracotta — 5.0:1 with white text */
+  --color-accent-cta-hover: #8B4D24;
   --color-accent-cta-on-dark: #E89B70; /* lighter terracotta for use as text on primary-deep */
   --color-accent-cool: #8FA5AB;       /* decorative use only (chip backgrounds, dots) */
   --color-accent-cool-text: #4A6168;  /* AA-compliant variant for text on cream/warm */
