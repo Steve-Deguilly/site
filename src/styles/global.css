@@ -7,11 +7,16 @@
   --color-surface-warm: #EBE5D9;
   --color-primary: #2D5A4F;
   --color-primary-deep: #1F4138;
-  --color-accent-cta: #C97A4B;
-  --color-accent-cta-hover: #B36A3D;
-  --color-accent-cool: #8FA5AB;
+  --color-accent-cta: #B26432;       /* darkened from #C97A4B for AA contrast (4.7:1 with white) */
+  --color-accent-cta-hover: #98531F;
+  --color-accent-cta-on-dark: #E89B70; /* lighter terracotta for use as text on primary-deep */
+  --color-accent-cool: #8FA5AB;       /* decorative use only (chip backgrounds, dots) */
+  --color-accent-cool-text: #4A6168;  /* AA-compliant variant for text on cream/warm */
   --color-text-primary: #1A2421;
-  --color-text-muted: #6B7570;
+  --color-text-muted: #5A625E;        /* darkened from #6B7570 → 5.1:1 on cream */
+  --color-text-muted-warm: #4F5754;   /* slightly darker for use on surface-warm (#EBE5D9) */
+  --color-text-on-dark: #E8E1D0;      /* high-contrast cream for text on primary-deep (~10:1) */
+  --color-text-on-dark-muted: #BBC5BD; /* AA-compliant muted on primary-deep (~5.5:1) */
   --color-border: #DCD5C7;
 
   /* Fonts */
@@ -86,7 +91,7 @@ svg.icon {
 /* ─── BUTTONS ─── */
 .btn-cta {
   background: var(--color-accent-cta);
-  color: #FFF8F0;
+  color: #FFFFFF;
   border: none;
   border-radius: 8px;
   padding: 10px 18px;
@@ -125,8 +130,8 @@ svg.icon {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(143,165,171,0.18);
-  color: #4A6168;
+  background: rgba(143,165,171,0.22);
+  color: var(--color-accent-cool-text);
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;

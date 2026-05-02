@@ -54,6 +54,11 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
   <!-- Theme color -->
   <meta name="theme-color" content="#F5F1EA" />
 
+  <!-- Preload LCP image on home only -->
+  {canonical === '/' && (
+    <link rel="preload" as="image" href="/profil-steve-deguilly.jpg" fetchpriority="high" />
+  )}
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

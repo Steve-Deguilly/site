@@ -48,16 +48,20 @@
           <img
             src="/profil-steve-deguilly.jpg"
             alt="Portrait de Steve Deguilly, Directeur de transformation digitale freelance"
-            width="400"
-            height="500"
+            width="800"
+            height="1000"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
           />
         </div>
-        <div class="hero-badge" data-astro-cid-bbe6dxrz=""> 
-          <span class="hero-badge-num" data-astro-cid-bbe6dxrz=""> 
-            <span data-astro-cid-bbe6dxrz="" style="color:var(--color-accent-cta)">Business</span> 
-            <span class="hero-badge-arrow" data-astro-cid-bbe6dxrz="">🤝 </span> 
-            <span style="color:var(--color-accent-cta)" data-astro-cid-bbe6dxrz="">Technique</span> </span> 
-            <span class="hero-badge-label" data-astro-cid-bbe6dxrz="">L'alignement parfait entre votre CODIR et l'opérationnel.</span> 
+        <div class="hero-badge">
+          <span class="hero-badge-num">
+            <span class="hero-badge-accent">Business</span>
+            <span class="hero-badge-arrow">🤝</span>
+            <span class="hero-badge-accent">Technique</span>
+          </span>
+          <span class="hero-badge-label">L'alignement parfait entre votre CODIR et l'opérationnel.</span>
         </div>
       </div>
     </div>
@@ -174,14 +178,16 @@
     font-weight: 500;
     letter-spacing: -0.01em;
   }
+  .hero-badge-accent {
+    color: var(--color-accent-cta-on-dark);
+  }
   .hero-badge-arrow {
-    color: var(--color-accent-cta);
     margin: 0 4px;
   }
   .hero-badge-label {
     font-family: var(--font-sans);
     font-size: 11px;
-    color: rgba(245,241,234,0.6);
+    color: var(--color-text-on-dark-muted);
   }
 
   @media (max-width: 1023px) {
