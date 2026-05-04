@@ -16,13 +16,33 @@ const year = new Date().getFullYear();
         © {year} Steve Deguilly · Creastory Conseil · Nice · SIRET en cours
       </p>
     </div>
+
+    <div class="footer-bottom">
+      <a
+        class="badge-francenum"
+        href="https://www.francenum.gouv.fr/activateurs/creastory-conseil"
+        target="_blank"
+        rel="noopener"
+        aria-label="Activateur France Num — voir la fiche Creastory Conseil"
+      >
+        <svg class="badge-flag" viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="0" width="6" height="14" fill="#002395"/>
+          <rect x="6" y="0" width="6" height="14" fill="#FFFFFF"/>
+          <rect x="12" y="0" width="6" height="14" fill="#ED2939"/>
+        </svg>
+        <span class="badge-text">
+          <span class="badge-label">Activateur</span>
+          <span class="badge-sub">France Num</span>
+        </span>
+      </a>
+    </div>
   </div>
 </footer>
 
 <style>
   footer {
     background: var(--color-primary-deep);
-    padding: 40px 0;
+    padding: 40px 0 32px;
     border-top: 1px solid rgba(245,241,234,0.08);
   }
   .footer-inner {
@@ -32,11 +52,21 @@ const year = new Date().getFullYear();
     gap: 24px;
     flex-wrap: wrap;
   }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    padding-top: 24px;
+    margin-top: 24px;
+    border-top: 1px solid rgba(245,241,234,0.08);
+  }
   @media (max-width: 767px) {
     .footer-inner {
       flex-direction: column;
       align-items: flex-start;
       gap: 20px;
+    }
+    .footer-bottom {
+      justify-content: flex-start;
     }
   }
   .footer-logo {
@@ -66,5 +96,46 @@ const year = new Date().getFullYear();
     font-size: 12px;
     color: var(--color-text-on-dark-muted);
     margin: 0;
+  }
+
+  /* Badge France Num */
+  .badge-francenum {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px;
+    border: 1px solid rgba(245,241,234,0.15);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: border-color 150ms, background 150ms;
+  }
+  .badge-francenum:hover {
+    border-color: rgba(245,241,234,0.3);
+    background: rgba(245,241,234,0.05);
+  }
+  .badge-flag {
+    width: 18px;
+    height: 14px;
+    border-radius: 2px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .badge-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .badge-label {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-on-dark);
+    letter-spacing: 0.01em;
+  }
+  .badge-sub {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--color-text-on-dark-muted);
+    letter-spacing: 0.01em;
   }
 </style>
