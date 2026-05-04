@@ -3,109 +3,170 @@ const year = new Date().getFullYear();
 ---
 <footer>
   <div class="container">
-    <div class="footer-inner">
-      <div class="footer-logo">Steve Deguilly</div>
-      <ul class="footer-links">
-        <li><a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a></li>
-        <li><a href="https://linkedin.com/in/steve-deguilly" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="/projets">Tous les projets</a></li>
-        <li><a href="/mentions-legales">Mentions légales</a></li>
-        <li><a href="/confidentialite">Confidentialité</a></li>
-      </ul>
-      <p class="footer-meta">
-        © {year} Steve Deguilly · Creastory Conseil · Nice · SIRET en cours
-      </p>
+
+    <div class="footer-grid">
+
+      <!-- Colonne 1 : Contact -->
+      <div class="footer-col">
+        <p class="col-label">Contact</p>
+        <p class="footer-name">Steve Deguilly</p>
+        <p class="footer-tagline">Directeur de Transformation Digitale freelance — Nice</p>
+        <ul class="footer-contact-links">
+          <li><a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a></li>
+          <li><a href="https://linkedin.com/in/steve-deguilly" target="_blank" rel="noopener">LinkedIn → steve-deguilly</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne 2 : Navigation -->
+      <div class="footer-col">
+        <p class="col-label">Navigation</p>
+        <ul class="footer-nav">
+          <li><a href="/#pour-qui">Pour qui</a></li>
+          <li><a href="/#domaines">Domaines d'intervention</a></li>
+          <li><a href="/#approche">Mon approche</a></li>
+          <li><a href="/#cas-concrets">Cas concrets</a></li>
+          <li><a href="/#a-propos">À propos</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne 3 : Accréditations -->
+      <div class="footer-col">
+        <p class="col-label">Accréditations</p>
+        <a
+          class="badge-francenum"
+          href="https://www.francenum.gouv.fr/activateurs/creastory-conseil"
+          target="_blank"
+          rel="noopener"
+          aria-label="Activateur France Num — voir la fiche Creastory Conseil"
+        >
+          <picture>
+            <source srcset="/marques-filles-Activateur.avif" type="image/avif" />
+            <img
+              src="/marques-filles-Activateur.webp"
+              alt="Activateur France Num"
+              class="badge-img"
+              width="80"
+              height="auto"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </a>
+        <p class="badge-desc">Programme gouvernemental d'accompagnement numérique des PME</p>
+      </div>
+
     </div>
 
+    <!-- Barre légale -->
     <div class="footer-bottom">
-      <a
-        class="badge-francenum"
-        href="https://www.francenum.gouv.fr/activateurs/creastory-conseil"
-        target="_blank"
-        rel="noopener"
-        aria-label="Activateur France Num — voir la fiche Creastory Conseil"
-      >
-        <svg class="badge-flag" viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="0" y="0" width="6" height="14" fill="#002395"/>
-          <rect x="6" y="0" width="6" height="14" fill="#FFFFFF"/>
-          <rect x="12" y="0" width="6" height="14" fill="#ED2939"/>
-        </svg>
-        <span class="badge-text">
-          <span class="badge-label">Activateur</span>
-          <span class="badge-sub">France Num</span>
-        </span>
-      </a>
+      <p class="footer-meta">
+        Steve Deguilly opère via <strong>Creastory Conseil</strong> · SIRET : 93182223300017 · Nice, France
+      </p>
+      <ul class="footer-legal">
+        <li><a href="/mentions-legales">Mentions légales</a></li>
+        <li><a href="/confidentialite">Confidentialité</a></li>
+        <li>© {year}</li>
+      </ul>
     </div>
+
   </div>
 </footer>
 
 <style>
   footer {
     background: var(--color-primary-deep);
-    padding: 40px 0 32px;
+    padding: 56px 0 32px;
     border-top: 1px solid rgba(245,241,234,0.08);
   }
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
+
+  /* Grille 3 colonnes */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(245,241,234,0.08);
   }
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    padding-top: 24px;
-    margin-top: 24px;
-    border-top: 1px solid rgba(245,241,234,0.08);
-  }
-  @media (max-width: 767px) {
-    .footer-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 20px;
-    }
-    .footer-bottom {
-      justify-content: flex-start;
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
     }
   }
-  .footer-logo {
+  @media (max-width: 600px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  /* Étiquettes de colonne */
+  .col-label {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(245,241,234,0.4);
+    margin: 0 0 14px;
+  }
+
+  /* Colonne Contact */
+  .footer-name {
     font-family: var(--font-serif);
     font-size: 16px;
     font-weight: 500;
     color: var(--color-text-on-dark);
+    margin: 0 0 6px;
   }
-  .footer-links {
-    display: flex;
-    gap: 24px;
+  .footer-tagline {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: rgba(245,241,234,0.5);
+    margin: 0 0 16px;
+    line-height: 1.5;
+  }
+  .footer-contact-links {
     list-style: none;
     margin: 0;
     padding: 0;
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
-  .footer-links a {
+  .footer-contact-links a {
     font-family: var(--font-sans);
     font-size: 13px;
-    color: var(--color-text-on-dark-muted);
+    color: rgba(245,241,234,0.6);
     text-decoration: none;
     transition: color 150ms;
   }
-  .footer-links a:hover { color: var(--color-bg-cream); }
-  .footer-meta {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    color: var(--color-text-on-dark-muted);
-    margin: 0;
-  }
+  .footer-contact-links a:hover { color: var(--color-bg-cream); }
 
-  /* Badge France Num */
-  .badge-francenum {
-    display: inline-flex;
-    align-items: center;
+  /* Colonne Navigation */
+  .footer-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
-    padding: 7px 14px;
+  }
+  .footer-nav a {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: rgba(245,241,234,0.6);
+    text-decoration: none;
+    transition: color 150ms;
+  }
+  .footer-nav a:hover { color: var(--color-bg-cream); }
+
+  /* Colonne Accréditations */
+  .badge-francenum {
+    display: inline-block;
+    padding: 10px 14px;
     border: 1px solid rgba(245,241,234,0.15);
-    border-radius: 6px;
+    border-radius: 8px;
     text-decoration: none;
     transition: border-color 150ms, background 150ms;
   }
@@ -113,29 +174,62 @@ const year = new Date().getFullYear();
     border-color: rgba(245,241,234,0.3);
     background: rgba(245,241,234,0.05);
   }
-  .badge-flag {
-    width: 18px;
-    height: 14px;
-    border-radius: 2px;
-    overflow: hidden;
-    flex-shrink: 0;
+  .badge-img {
+    display: block;
+    width: 100px;
+    height: auto;
   }
-  .badge-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-  }
-  .badge-label {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--color-text-on-dark);
-    letter-spacing: 0.01em;
-  }
-  .badge-sub {
+  .badge-desc {
     font-family: var(--font-sans);
     font-size: 11px;
-    color: var(--color-text-on-dark-muted);
-    letter-spacing: 0.01em;
+    color: rgba(245,241,234,0.35);
+    margin: 12px 0 0;
+    line-height: 1.5;
+    max-width: 180px;
+  }
+
+  /* Barre légale */
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    flex-wrap: wrap;
+  }
+  .footer-meta {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: rgba(245,241,234,0.35);
+    margin: 0;
+  }
+  .footer-meta strong {
+    font-weight: 500;
+    color: rgba(245,241,234,0.5);
+  }
+  .footer-legal {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-legal li {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: rgba(245,241,234,0.35);
+  }
+  .footer-legal a {
+    color: rgba(245,241,234,0.35);
+    text-decoration: none;
+    transition: color 150ms;
+  }
+  .footer-legal a:hover { color: rgba(245,241,234,0.6); }
+  @media (max-width: 600px) {
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>
