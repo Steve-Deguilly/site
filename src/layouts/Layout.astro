@@ -9,8 +9,8 @@ export interface Props {
 }
 
 const {
-  title = 'Steve Deguilly — Directeur de transformation digitale',
-  description = "Du COPIL au déploiement. 18 ans à faire passer les projets en production. Freelance basé à Nice / Monaco / Sophia Antipolis.",
+  title = 'Steve Deguilly — Architecte IA & Automatisation (RAG, n8n, LLMs souverains)',
+  description = "RAG souverain, n8n, LLMs sécurisés. 18 ans à automatiser les processus métier qui freinent vos équipes. Freelance — Nice, Monaco, Sophia Antipolis.",
   ogImage = '/og-image.jpg',
   canonical = Astro.url.pathname,
 } = Astro.props;
@@ -85,7 +85,7 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Steve Deguilly",
-    "jobTitle": "Directeur de transformation digitale",
+    "jobTitle": "Architecte IA & Automatisation",
     "url": siteUrl,
     "image": `${siteUrl}/profil-steve-deguilly.jpg`,
     "email": "sdeguilly@gmail.com",
