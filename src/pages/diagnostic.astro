@@ -85,7 +85,7 @@ const jsonLd = {
     <header class="diag-header">
       <div class="container">
         <p class="diag-kicker">Outil gratuit · 2 minutes</p>
-        <h1>Diagnostic d'automatisation — où en est votre entreprise ?</h1>
+        <h1>Diagnostic d'automatisation<br />où en est votre entreprise ?</h1>
         <p class="diag-intro">{INTRO}</p>
       </div>
     </header>
@@ -140,7 +140,7 @@ const jsonLd = {
 </Layout>
 
 <style>
-  /* Header */
+  /* Header (hero centré, largeur de lecture confortable) */
   .diag-header { padding: 64px 0 32px; text-align: center; }
   .diag-kicker {
     font-family: var(--font-sans);
@@ -155,14 +155,14 @@ const jsonLd = {
     letter-spacing: -0.02em; line-height: 1.08;
     color: var(--color-text-primary);
     margin: 0 auto 20px;
-    max-width: 640px;
+    /* max-width: 640px; */
   }
   .diag-intro {
     font-family: var(--font-sans);
     font-size: 17px; line-height: 1.65;
     color: var(--color-text-muted);
     margin: 0 auto;
-    max-width: 620px;
+    /* max-width: 640px; */
   }
   @media (max-width: 767px) {
     .diag-header { padding: 40px 0 24px; }
@@ -181,13 +181,18 @@ const jsonLd = {
 
   /* Comment ça marche */
   .diag-how { padding: 24px 0 8px; }
-  .diag-how .container { max-width: 700px; }
   .diag-how-list {
     list-style: none;
     margin: 0; padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px 28px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 32px;
+  }
+  @media (max-width: 900px) {
+    .diag-how-list { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .diag-how-list { grid-template-columns: 1fr; }
   }
   .diag-how-list li {
     position: relative;
@@ -202,19 +207,16 @@ const jsonLd = {
     color: var(--color-primary);
     font-weight: 600;
   }
-  @media (max-width: 600px) {
-    .diag-how-list { grid-template-columns: 1fr; }
-  }
-
   /* Quiz */
   .diag-quiz-section { padding: 40px 0 56px; }
 
-  /* Bloc preuve */
-  .diag-proof {
-    padding: 28px 0;
+  /* Bloc preuve — dans la colonne, séparateur sobre (filets fins haut/bas, sans bandeau) */
+  .diag-proof { padding: 8px 0; }
+  .diag-proof .container {
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
-    background: var(--color-surface-warm);
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
   .diag-proof-badges {
     list-style: none;
@@ -241,11 +243,13 @@ const jsonLd = {
 
   /* FAQ */
   .diag-faq { padding: 64px 0 80px; }
-  .diag-faq .container { max-width: 760px; }
   .diag-faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 48px;
+  }
+  @media (max-width: 767px) {
+    .diag-faq-list { grid-template-columns: 1fr; gap: 28px; }
   }
   .diag-faq-item h3 {
     font-family: var(--font-sans);
