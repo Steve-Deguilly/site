@@ -1,8 +1,9 @@
 ---
-export interface Props {
-  showProjetsLink?: boolean;
-}
-const { showProjetsLink = false } = Astro.props;
+// Menu lean partagé (logo + Diagnostic + Réalisations + CTA appel). Rendu sur les 3 pages.
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const onHome = path === '/';
+const onDiagnostic = path === '/diagnostic';
+const onProjets = path === '/projets';
 ---
 <nav id="navbar" aria-label="Navigation principale">
   <div class="container">
@@ -12,13 +13,11 @@ const { showProjetsLink = false } = Astro.props;
         <span class="nav-logo-name">Steve Deguilly</span>
       </a>
       <ul class="nav-links">
-        <li><a href="/#approche">Approche</a></li>
-        <li><a href="/#cas-concrets">Cas concrets</a></li>
-        <li><a href="/projets">Tous les projets</a></li>
-        <li><a href="/diagnostic" data-diag-entry="navbar">Diagnostic</a></li>
-        <li><a href="/#apropos">À propos</a></li>
+        <li><a href="/" aria-current={onHome ? 'page' : undefined}>Accueil</a></li>
+        <li><a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a></li>
+        <li><a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a></li>
       </ul>
-      <a href="/#contact" class="btn-cta nav-cta-desktop">Réserver un appel</a>
+      <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener" class="btn-cta nav-cta-desktop">Réserver un appel</a>
       <button
         type="button"
         class="nav-hamburger"
@@ -35,12 +34,10 @@ const { showProjetsLink = false } = Astro.props;
 
 <div class="nav-drawer" id="drawer" role="dialog" aria-label="Menu mobile" aria-modal="true">
   <button type="button" class="nav-drawer-close" id="drawer-close" aria-label="Fermer le menu">✕</button>
-  <a href="/#approche">Approche</a>
-  <a href="/#cas-concrets">Cas concrets</a>
-  <a href="/projets">Tous les projets</a>
-  <a href="/diagnostic" data-diag-entry="navbar">Diagnostic</a>
-  <a href="/#apropos">À propos</a>
-  <a href="/#contact" class="btn-cta">Réserver un appel →</a>
+  <a href="/" aria-current={onHome ? 'page' : undefined}>Accueil</a>
+  <a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a>
+  <a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a>
+  <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener" class="btn-cta">Réserver un appel →</a>
 </div>
 
 <style>
@@ -95,7 +92,7 @@ const { showProjetsLink = false } = Astro.props;
     display: flex;
     gap: 32px;
     list-style: none;
-    margin: 0;
+    margin: 0 32px 0 auto; /* margin-left:auto → menu aligné à droite, à côté du CTA */
     padding: 0;
   }
   .nav-links a {
@@ -107,6 +104,7 @@ const { showProjetsLink = false } = Astro.props;
     transition: color 150ms;
   }
   .nav-links a:hover { color: var(--color-primary); }
+  .nav-links a[aria-current="page"] { color: var(--color-primary); font-weight: 500; }
 
   .nav-hamburger {
     display: none;
@@ -151,6 +149,7 @@ const { showProjetsLink = false } = Astro.props;
     color: var(--color-text-primary);
     text-decoration: none;
   }
+  .nav-drawer a[aria-current="page"] { color: var(--color-primary); }
   .nav-drawer-close {
     position: absolute;
     top: 24px;
