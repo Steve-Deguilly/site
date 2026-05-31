@@ -11,8 +11,7 @@ const CAL_STANDARD: CTA = {
   external: true,
 };
 
-// ⚠ TODO (dépendance spec §9) : créer l'événement Cal.com « optimisation 20 min ».
-//    URL provisoire en attendant la création de l'event court.
+// Événement Cal.com court « optimisation 20 min » (profil Optimisateur). Event créé et confirmé (2026-05-31).
 const CAL_COURT: CTA = {
   label: 'Échanger 20 min sur vos pistes d’optimisation',
   destination: 'calcom-court',
