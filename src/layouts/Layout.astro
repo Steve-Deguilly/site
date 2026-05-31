@@ -84,6 +84,7 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${siteUrl}/#person`,
     "name": "Steve Deguilly",
     "jobTitle": "Architecte IA & Automatisation",
     "url": siteUrl,
@@ -94,6 +95,15 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
       "addressLocality": "Nice",
       "addressCountry": "FR"
     },
+    "knowsAbout": [
+      "Automatisation des processus",
+      "n8n",
+      "RAG",
+      "LLM",
+      "Transformation digitale",
+      "RGPD",
+      "HDS"
+    ],
     "sameAs": [
       "https://linkedin.com/in/steve-deguilly"
     ],
@@ -102,6 +112,9 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
       "name": "Creastory Conseil"
     }
   })} />
+
+  <!-- Balises <head> additionnelles spécifiques à la page (ex. JSON-LD GEO) -->
+  <slot name="head" />
 </head>
 <body>
   <slot />
@@ -123,6 +136,18 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
       revealEls.forEach(el => el.classList.add('visible'));
     }
   </script>
+  <!-- Suivi des points d'entrée vers /diagnostic (délégué, toutes pages) -->
+  <script>
+    import { track, ANALYTICS_EVENTS } from '../lib/diagnostic/analytics';
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement | null;
+      const entry = target?.closest<HTMLElement>('[data-diag-entry]');
+      if (entry) {
+        track(ANALYTICS_EVENTS.entryClick, { source: entry.dataset.diagEntry || '' });
+      }
+    });
+  </script>
+
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9e52449fe86c4b11b3f721fc64e9ec1f"}'></script>
   <!-- End Cloudflare Web Analytics -->
 </body>

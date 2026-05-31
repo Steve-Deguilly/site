@@ -14,7 +14,7 @@
         <h1 class="hero-h1">Architecte IA<br />& Automatisation.</h1>
         <p class="hero-sub">
           J'industrialise les processus métier qui freinent vos équipes : RAG souverain, n8n,
-          LLMs sécurisés. 18 ans à passer les projets en production — pas seulement à les présenter.
+          LLMs sécurisés. 18 ans à passer les projets en production, pas seulement à les présenter.
         </p>
         <div class="hero-actions">
           <a
@@ -23,7 +23,7 @@
             rel="noopener"
             class="btn-cta hero-cta"
           >Réserver un premier échange →</a>
-          <a href="#approche" class="btn-secondary">Voir mon approche</a>
+          <a href="/diagnostic" class="btn-secondary" data-diag-entry="hero">Faire le diagnostic (2 min)</a>
         </div>
         <div class="hero-trust">
           <div class="trust-item">
@@ -147,6 +147,27 @@
     font-size: 12px;
     color: var(--color-text-muted);
     margin: 12px 0 0;
+  }
+
+  .hero-scroll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 48px auto 0;
+    color: var(--color-text-muted);
+    border-radius: 999px;
+    transition: color 150ms;
+    animation: hero-scroll-bounce 2s ease-in-out infinite;
+  }
+  .hero-scroll:hover { color: var(--color-primary); }
+  @keyframes hero-scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll { animation: none; }
   }
 
   .hero-right { position: relative; }

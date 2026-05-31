@@ -1,0 +1,270 @@
+---
+// Page /diagnostic — Partie B : wrapper éditorial + SEO + GEO + FAQ + bloc preuve.
+// ⚠ Contenu citable (intro, "comment ça marche", FAQ) = rendu côté serveur, HORS de l'îlot JS.
+//    Le quiz (DiagnosticQuiz) est un îlot interactif hydraté par-dessus.
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import DiagnosticQuiz from '../components/DiagnosticQuiz.astro';
+import { INTRO, HOW_IT_WORKS, FAQ } from '../lib/diagnostic/content';
+
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/diagnostic`;
+
+// ── JSON-LD @graph (GEO) — rendu statique dans le <head> via slot="head" ──
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      '@id': `${pageUrl}/#webapp`,
+      name: 'Diagnostic d’automatisation',
+      url: pageUrl,
+      description:
+        'Diagnostic gratuit en 6 questions qui situe une entreprise sur deux axes (maturité et douleur) et renvoie un profil et des leviers d’action pour automatiser ses processus.',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'fr',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+      provider: { '@id': `${siteUrl}/#organization` },
+      creator: { '@id': `${siteUrl}/#person` },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}/#faq`,
+      mainEntity: FAQ.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${siteUrl}/#organization`,
+      name: 'Creastory Conseil',
+      url: siteUrl,
+      email: 'sdeguilly@gmail.com',
+      founder: { '@id': `${siteUrl}/#person` },
+      areaServed: 'France',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Nice',
+        addressCountry: 'FR',
+      },
+      identifier: {
+        '@type': 'PropertyValue',
+        propertyID: 'SIRET',
+        value: '93182223300017',
+      },
+      sameAs: ['https://linkedin.com/in/steve-deguilly'],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Diagnostic d’automatisation', item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title="Diagnostic d'automatisation gratuit — Steve Deguilly"
+  description="Évaluez en 6 questions la maturité et la douleur de votre organisation face à l'automatisation. Profil et leviers d'action concrets. Gratuit, sans email."
+  canonical="/diagnostic"
+  ogImage="/og-diagnostic.jpg"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+
+  <main>
+    <!-- Header éditorial citable -->
+    <header class="diag-header">
+      <div class="container">
+        <p class="diag-kicker">Outil gratuit · 2 minutes</p>
+        <h1>Diagnostic d'automatisation<br />où en est votre entreprise ?</h1>
+        <p class="diag-intro">{INTRO}</p>
+      </div>
+    </header>
+
+    <!-- Comment ça marche (statique, citable) -->
+    <section class="diag-how" aria-labelledby="diag-how-title">
+      <div class="container">
+        <h2 id="diag-how-title" class="section-tag-h2">Comment ça marche</h2>
+        <ul class="diag-how-list">
+          {HOW_IT_WORKS.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- Le quiz (îlot interactif) — son CTA résultat clôt le parcours -->
+    <section class="diag-quiz-section" aria-label="Questionnaire">
+      <div class="container">
+        <DiagnosticQuiz />
+      </div>
+    </section>
+
+    <!-- Bloc preuve / making-of — APRÈS le CTA, jamais avant ni entre les étapes -->
+    <aside class="diag-proof" aria-label="À propos de cet outil">
+      <div class="container">
+        <ul class="diag-proof-badges">
+          <li>Conçu en méthode spec-driven</li>
+          <li>Sans cookie ni tracking</li>
+          <li>Optimisé pour les moteurs IA</li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- FAQ citable (statique) -->
+    <section class="diag-faq" aria-labelledby="diag-faq-title">
+      <div class="container">
+        <h2 id="diag-faq-title" class="section-tag-h2">Questions fréquentes</h2>
+        <div class="diag-faq-list">
+          {FAQ.map((item) => (
+            <article class="diag-faq-item">
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Header (hero centré, largeur de lecture confortable) */
+  .diag-header { padding: 64px 0 32px; text-align: center; }
+  .diag-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .diag-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.08;
+    color: var(--color-text-primary);
+    margin: 0 auto 20px;
+    /* max-width: 640px; */
+  }
+  .diag-intro {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto;
+    /* max-width: 640px; */
+  }
+  @media (max-width: 767px) {
+    .diag-header { padding: 40px 0 24px; }
+    .diag-header h1 { font-size: 30px; }
+    .diag-intro { font-size: 16px; }
+  }
+
+  /* Section titles partagés */
+  .section-tag-h2 {
+    font-family: var(--font-serif);
+    font-size: 26px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0 0 24px;
+  }
+
+  /* Comment ça marche */
+  .diag-how { padding: 24px 0 8px; }
+  .diag-how-list {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 32px;
+  }
+  @media (max-width: 900px) {
+    .diag-how-list { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .diag-how-list { grid-template-columns: 1fr; }
+  }
+  .diag-how-list li {
+    position: relative;
+    padding-left: 26px;
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.5;
+    color: var(--color-text-primary);
+  }
+  .diag-how-list li::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  /* Quiz */
+  .diag-quiz-section { padding: 40px 0 56px; }
+
+  /* Bloc preuve — dans la colonne, séparateur sobre (filets fins haut/bas, sans bandeau) */
+  .diag-proof { padding: 8px 0; }
+  .diag-proof .container {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .diag-proof-badges {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 28px;
+  }
+  .diag-proof-badges li {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-text-muted-warm);
+    padding-left: 20px;
+  }
+  .diag-proof-badges li::before {
+    content: '●';
+    position: absolute; left: 0;
+    color: var(--color-primary);
+    font-size: 9px;
+    top: 4px;
+  }
+
+  /* FAQ */
+  .diag-faq { padding: 64px 0 80px; }
+  .diag-faq-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 48px;
+  }
+  @media (max-width: 767px) {
+    .diag-faq-list { grid-template-columns: 1fr; gap: 28px; }
+  }
+  .diag-faq-item h3 {
+    font-family: var(--font-sans);
+    font-size: 17px; font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 8px;
+    line-height: 1.4;
+  }
+  .diag-faq-item p {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  @media (max-width: 767px) {
+    .diag-faq { padding: 48px 0 64px; }
+  }
+</style>
