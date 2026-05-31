@@ -1,30 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { projets, secteursFilter, competencesFilter } from '../data/projets';
 ---
 <Layout
-  title="Missions et projets — Steve Deguilly"
-  description="Liste de réalisations majeures de Steve Deguilly — de l'UX au CODIR, sur 4 secteurs (média B2B, formation, e-santé, événementiel)."
+  title="Projets livrés — 18 ans, 4 secteurs — Steve Deguilly"
+  description="De l'UX au comité de direction, sur 4 secteurs (média B2B, formation, e-santé, événementiel) : un aperçu des projets pilotés et livrés en 18 ans."
   canonical="/projets"
+  ogImage="/og-projets.jpg"
 >
-  <nav aria-label="Navigation principale">
-    <div class="container">
-      <div class="nav-inner">
-        <a href="/" class="nav-logo" aria-label="Steve Deguilly — Accueil">
-          <div class="nav-logo-mark" aria-hidden="true">S</div>
-          <span class="nav-logo-name">Steve Deguilly</span>
-        </a>
-        <a href="/" class="nav-back">← Retour au site</a>
-      </div>
-    </div>
-  </nav>
+  <Navbar />
 
   <main>
     <header class="page-header">
       <div class="container">
-        <h1>Missions et projets</h1>
-        <p>Liste de réalisations majeures · de l'UX au CODIR · 4 secteurs</p>
+        <p class="page-kicker">Parcours · 18 ans · 4 secteurs</p>
+        <h1>Des projets livrés, pas seulement présentés.</h1>
+        <p class="page-intro">De l'UX au comité de direction, sur quatre secteurs — média B2B, formation, e-santé, événementiel — voici un aperçu des projets que j'ai pilotés et livrés en 18 ans. Le fil rouge : descendre du COPIL au déploiement, et faire passer les projets en production.</p>
       </div>
     </header>
 
@@ -119,72 +112,32 @@ import { projets, secteursFilter, competencesFilter } from '../data/projets';
 </Layout>
 
 <style>
-  /* Sticky nav specific to this page */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    height: 72px;
-    background: rgba(245,241,234,0.95);
-    border-bottom: 1px solid var(--color-border);
-    backdrop-filter: blur(8px);
-  }
-  .nav-inner {
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
-  .nav-logo-mark {
-    width: 32px; height: 32px;
-    background: var(--color-primary);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--color-bg-cream);
-    font-family: var(--font-serif);
-    font-size: 17px; font-weight: 500;
-  }
-  .nav-logo-name {
-    font-family: var(--font-serif);
-    font-size: 17px; font-weight: 500;
-    color: var(--color-text-primary);
-    letter-spacing: -0.01em;
-  }
-  .nav-back {
+  /* Header — style /diagnostic (kicker + H1 + intro, centré) */
+  .page-header { padding: 64px 0 32px; text-align: center; }
+  .page-kicker {
     font-family: var(--font-sans);
-    font-size: 14px; font-weight: 400;
-    color: var(--color-text-muted);
-    text-decoration: none;
-    display: flex; align-items: center; gap: 6px;
-    transition: color 150ms;
-  }
-  .nav-back:hover { color: var(--color-primary); }
-
-  .page-header {
-    padding: 64px 0 48px;
-    border-bottom: 1px solid var(--color-border);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
   }
   .page-header h1 {
     font-family: var(--font-serif);
-    font-size: 48px; font-weight: 500;
-    letter-spacing: -0.02em; line-height: 1.05;
+    font-size: 42px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.08;
     color: var(--color-text-primary);
-    margin: 0 0 12px;
+    margin: 0 auto 20px;
   }
-  .page-header p {
+  .page-intro {
     font-family: var(--font-sans);
-    font-size: 16px; color: var(--color-text-muted);
-    margin: 0;
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto;
   }
   @media (max-width: 767px) {
-    .page-header { padding: 40px 0 32px; }
-    .page-header h1 { font-size: 32px; }
+    .page-header { padding: 40px 0 24px; }
+    .page-header h1 { font-size: 30px; }
+    .page-intro { font-size: 16px; }
   }
 
   .filters-bar {
