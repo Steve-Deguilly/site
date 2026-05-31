@@ -1,0 +1,392 @@
+---
+// Îlot interactif du mini-diagnostic (A3 navigation + A5 résultat).
+// État & analytics câblés dans le <script>. Le contenu citable (intro, FAQ) vit HORS de cet îlot
+// (Partie B, rendu statique) — ne rien ajouter ici qui doive être lu par les moteurs IA.
+import { QUESTIONS_BY_ORDER, TOTAL_QUESTIONS } from '../lib/diagnostic/questions';
+---
+
+<section class="diag" aria-labelledby="diag-progress-label">
+  <!-- Progression -->
+  <div class="diag-progress">
+    <div class="diag-progress-bar" aria-hidden="true">
+      <div class="diag-progress-fill" id="diag-progress-fill"></div>
+    </div>
+    <p class="diag-progress-label" id="diag-progress-label" aria-live="polite">Question 1 / {TOTAL_QUESTIONS}</p>
+  </div>
+
+  <!-- Questions : une par écran -->
+  {QUESTIONS_BY_ORDER.map((q, i) => (
+    <fieldset class="diag-screen q-screen" data-index={i} data-qid={q.id} hidden tabindex="-1">
+      <legend class="diag-question">{q.prompt}</legend>
+      <div class="diag-options">
+        {q.options.map((opt, oi) => (
+          <label class="diag-option">
+            <input type="radio" name={q.id} value={oi} />
+            <span class="diag-option-body">
+              <span class="diag-option-label">{opt.label}</span>
+              {opt.hint && <span class="diag-option-hint">{opt.hint}</span>}
+            </span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  ))}
+
+  <!-- Écran résultat (rempli par JS) -->
+  <div class="diag-screen result-screen" data-index={TOTAL_QUESTIONS} hidden tabindex="-1" role="region" aria-label="Votre résultat">
+    <p class="diag-result-kicker">Votre profil</p>
+    <h2 class="diag-result-title"><span id="r-emoji" aria-hidden="true"></span> <span id="r-title"></span></h2>
+
+    <div class="diag-gauges">
+      <div class="diag-gauge">
+        <div class="diag-gauge-head"><span>Maturité</span><span id="r-mat-pct">0 %</span></div>
+        <div class="diag-gauge-track"><div class="diag-gauge-fill" id="r-mat-fill"></div></div>
+      </div>
+      <div class="diag-gauge">
+        <div class="diag-gauge-head"><span>Douleur</span><span id="r-dou-pct">0 %</span></div>
+        <div class="diag-gauge-track"><div class="diag-gauge-fill diag-gauge-fill--dou" id="r-dou-fill"></div></div>
+      </div>
+    </div>
+
+    <p class="diag-result-diag" id="r-diag"></p>
+
+    <ul class="diag-leviers" id="r-leviers"></ul>
+
+    <div class="diag-result-actions">
+      <a id="r-cta" class="btn-cta diag-cta" href="#" target="_blank" rel="noopener"></a>
+      <button type="button" class="btn-secondary diag-restart" id="diag-restart">Refaire le diagnostic</button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="diag-nav">
+    <button type="button" class="diag-back" id="diag-back" hidden>← Précédent</button>
+  </div>
+</section>
+
+<style>
+  .diag {
+    max-width: 620px;
+    margin: 0 auto;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background: var(--color-bg-cream);
+    padding: 32px;
+  }
+  @media (max-width: 767px) { .diag { padding: 22px; border-radius: 12px; } }
+
+  /* Progression */
+  .diag-progress { margin-bottom: 28px; }
+  .diag-progress-bar {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-surface-warm);
+    overflow: hidden;
+  }
+  .diag-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--color-primary);
+    border-radius: 999px;
+    transition: width 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .diag-progress-label {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin: 10px 0 0;
+  }
+
+  /* Écrans */
+  .diag-screen { border: none; margin: 0; padding: 0; min-width: 0; }
+  .diag-screen[hidden] { display: none; }
+  .diag-screen:focus { outline: none; }
+
+  .diag-question {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  @media (max-width: 767px) { .diag-question { font-size: 20px; } }
+
+  /* Options */
+  .diag-options { display: flex; flex-direction: column; gap: 10px; }
+  .diag-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 150ms, background 150ms;
+  }
+  .diag-option:hover { border-color: var(--color-primary); background: rgba(45,90,79,0.03); }
+  .diag-option:has(input:checked) {
+    border-color: var(--color-primary);
+    background: rgba(45,90,79,0.06);
+  }
+  .diag-option input {
+    margin: 3px 0 0;
+    accent-color: var(--color-primary);
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+  }
+  .diag-option-body { display: flex; flex-direction: column; gap: 3px; }
+  .diag-option-label {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+  }
+  .diag-option-hint {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+  }
+
+  /* Navigation */
+  .diag-nav { margin-top: 24px; min-height: 20px; }
+  .diag-back {
+    background: none;
+    border: none;
+    padding: 4px 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: color 150ms;
+  }
+  .diag-back:hover { color: var(--color-primary); }
+  .diag-back[hidden] { display: none; }
+
+  /* Résultat */
+  .diag-result-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 8px;
+  }
+  .diag-result-title {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0 0 24px;
+  }
+  @media (max-width: 767px) { .diag-result-title { font-size: 24px; } }
+
+  .diag-gauges { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+  .diag-gauge-head {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin-bottom: 6px;
+  }
+  .diag-gauge-track {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--color-surface-warm);
+    overflow: hidden;
+  }
+  .diag-gauge-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--color-primary);
+    border-radius: 999px;
+    transition: width 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .diag-gauge-fill--dou { background: var(--color-accent-cta); }
+
+  .diag-result-diag {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    margin: 0 0 20px;
+  }
+  .diag-leviers {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .diag-leviers li {
+    position: relative;
+    padding-left: 26px;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+  }
+  .diag-leviers li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  .diag-result-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .diag-cta { padding: 12px 22px; font-size: 15px; }
+</style>
+
+<script>
+  import { QUESTIONS_BY_ORDER, TOTAL_QUESTIONS } from '../lib/diagnostic/questions';
+  import { buildResult } from '../lib/diagnostic/scoring';
+  import { load, save, clear, isComplete } from '../lib/diagnostic/state';
+  import { track, ANALYTICS_EVENTS } from '../lib/diagnostic/analytics';
+  import type { DiagnosticState } from '../lib/diagnostic/state';
+
+  const screens = Array.from(document.querySelectorAll<HTMLElement>('.diag-screen'));
+  const qScreens = Array.from(document.querySelectorAll<HTMLElement>('.q-screen'));
+  const resultScreen = document.querySelector<HTMLElement>('.result-screen')!;
+  const progressFill = document.getElementById('diag-progress-fill')!;
+  const progressLabel = document.getElementById('diag-progress-label')!;
+  const backBtn = document.getElementById('diag-back') as HTMLButtonElement;
+  const restartBtn = document.getElementById('diag-restart') as HTMLButtonElement;
+
+  let state: DiagnosticState = load();
+
+  // diagnostic_started : une fois par chargement, si le quiz n'est pas déjà terminé.
+  if (!isComplete(state.answers)) {
+    track(ANALYTICS_EVENTS.started);
+  }
+
+  function syncRadios() {
+    qScreens.forEach((screen) => {
+      const qid = screen.dataset.qid!;
+      const chosen = state.answers[qid];
+      screen.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((input) => {
+        input.checked = chosen !== undefined && Number(input.value) === chosen;
+      });
+    });
+  }
+
+  function renderResult() {
+    const { gauges, profile } = buildResult(state.answers);
+    document.getElementById('r-emoji')!.textContent = profile.emoji;
+    document.getElementById('r-title')!.textContent = profile.title;
+    document.getElementById('r-mat-pct')!.textContent = `${gauges.maturite} %`;
+    document.getElementById('r-dou-pct')!.textContent = `${gauges.douleur} %`;
+    document.getElementById('r-mat-fill')!.style.width = `${gauges.maturite}%`;
+    document.getElementById('r-dou-fill')!.style.width = `${gauges.douleur}%`;
+    document.getElementById('r-diag')!.textContent = profile.diagnostic;
+
+    const leviers = document.getElementById('r-leviers')!;
+    leviers.innerHTML = '';
+    profile.leviers.forEach((lev) => {
+      const li = document.createElement('li');
+      li.textContent = lev;
+      leviers.appendChild(li);
+    });
+
+    const cta = document.getElementById('r-cta') as HTMLAnchorElement;
+    cta.textContent = profile.cta.label;
+    cta.href = profile.cta.href;
+    cta.dataset.destination = profile.cta.destination;
+    cta.dataset.profil = profile.id;
+
+    return profile;
+  }
+
+  function render() {
+    const pos = state.position;
+    const atResult = pos >= TOTAL_QUESTIONS;
+
+    screens.forEach((screen) => {
+      const idx = Number(screen.dataset.index);
+      screen.hidden = idx !== pos;
+    });
+
+    if (atResult) {
+      renderResult();
+      progressFill.style.width = '100%';
+      progressLabel.textContent = 'Diagnostic terminé';
+      backBtn.hidden = true;
+    } else {
+      const human = pos + 1;
+      progressFill.style.width = `${Math.round((human / TOTAL_QUESTIONS) * 100)}%`;
+      progressLabel.textContent = `Question ${human} / ${TOTAL_QUESTIONS}`;
+      backBtn.hidden = pos === 0; // « Précédent » actif dès la Q2
+    }
+
+    // Focus sur l'écran courant (clavier / lecteurs d'écran)
+    const active = screens.find((s) => !s.hidden);
+    active?.focus({ preventScroll: true });
+  }
+
+  function persist() {
+    save(state);
+  }
+
+  // Avance auto au choix d'une réponse.
+  qScreens.forEach((screen) => {
+    const qid = screen.dataset.qid!;
+    const index = Number(screen.dataset.index);
+    screen.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((input) => {
+      input.addEventListener('change', () => {
+        state.answers[qid] = Number(input.value);
+        const wasComplete = isComplete(state.answers);
+        // Avance : question suivante, ou écran résultat si on vient de répondre à la dernière.
+        state.position = index < TOTAL_QUESTIONS - 1 ? index + 1 : TOTAL_QUESTIONS;
+        persist();
+        const movingToResult = state.position >= TOTAL_QUESTIONS;
+        render();
+        if (movingToResult && wasComplete) {
+          const { profile } = buildResult(state.answers);
+          track(ANALYTICS_EVENTS.completed, { profil: profile.id });
+        }
+      });
+    });
+  });
+
+  backBtn.addEventListener('click', () => {
+    if (state.position > 0) {
+      state.position = Math.min(state.position, TOTAL_QUESTIONS) - 1;
+      persist();
+      render();
+    }
+  });
+
+  restartBtn.addEventListener('click', () => {
+    clear();
+    state = { answers: {}, position: 0 };
+    syncRadios();
+    render();
+  });
+
+  // Clic CTA → analytics.
+  (document.getElementById('r-cta') as HTMLAnchorElement).addEventListener('click', (e) => {
+    const a = e.currentTarget as HTMLAnchorElement;
+    track(ANALYTICS_EVENTS.ctaClick, {
+      profil: a.dataset.profil || '',
+      destination: a.dataset.destination || '',
+    });
+  });
+
+  // Boot.
+  syncRadios();
+  render();
+</script>

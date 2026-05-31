@@ -1,0 +1,101 @@
+---
+// Page hôte du mini-diagnostic — VOLONTAIREMENT MINIMALE (Partie A).
+// L'habillage éditorial complet (intro citable, bloc « Comment ça marche », FAQ, JSON-LD GEO,
+// OG dédié, bloc preuve making-of) est la PARTIE B et sera ajouté dans un chantier séparé.
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import DiagnosticQuiz from '../components/DiagnosticQuiz.astro';
+---
+<Layout
+  title="Diagnostic d'automatisation — Steve Deguilly"
+  description="6 questions, 2 minutes : situez la maturité et la douleur de votre organisation, et repartez avec un profil et des leviers d'action concrets."
+  canonical="/diagnostic"
+>
+  <nav aria-label="Navigation principale">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo" aria-label="Steve Deguilly — Accueil">
+          <div class="nav-logo-mark" aria-hidden="true">S</div>
+          <span class="nav-logo-name">Steve Deguilly</span>
+        </a>
+        <a href="/" class="nav-back">← Retour au site</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="diag-header">
+      <div class="container">
+        <h1>Diagnostic d'automatisation — où en est votre entreprise ?</h1>
+        <p>6 questions, 2 minutes. Vous obtenez un profil et des leviers d'action. Gratuit, sans email.</p>
+      </div>
+    </header>
+
+    <div class="container diag-wrap">
+      <DiagnosticQuiz />
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  nav {
+    height: 72px;
+    background: rgba(245,241,234,0.95);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-inner {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark {
+    width: 32px; height: 32px;
+    background: var(--color-primary);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--color-bg-cream);
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 500;
+  }
+  .nav-logo-name {
+    font-family: var(--font-serif);
+    font-size: 17px; font-weight: 500;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+  }
+  .nav-back {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 150ms;
+  }
+  .nav-back:hover { color: var(--color-primary); }
+
+  .diag-header { padding: 56px 0 32px; text-align: center; }
+  .diag-header h1 {
+    font-family: var(--font-serif);
+    font-size: 38px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.1;
+    color: var(--color-text-primary);
+    margin: 0 auto 14px;
+    max-width: 620px;
+  }
+  .diag-header p {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--color-text-muted);
+    margin: 0 auto;
+    max-width: 520px;
+  }
+  @media (max-width: 767px) {
+    .diag-header { padding: 36px 0 24px; }
+    .diag-header h1 { font-size: 28px; }
+  }
+
+  .diag-wrap { padding-bottom: 80px; }
+</style>
