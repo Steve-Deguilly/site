@@ -60,6 +60,7 @@ const onProjets = path === '/projets';
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
   }
   .nav-logo {
     display: flex;
@@ -92,8 +93,13 @@ const onProjets = path === '/projets';
     display: flex;
     gap: 32px;
     list-style: none;
-    margin: 0 32px 0 auto; /* margin-left:auto → menu aligné à droite, à côté du CTA */
+    margin: 0;
     padding: 0;
+    /* zone centrale : liens centrés horizontalement, indépendamment des largeurs logo/CTA */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
   .nav-links a {
     font-family: var(--font-sans);
