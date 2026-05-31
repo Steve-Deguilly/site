@@ -16,7 +16,9 @@ const {
 } = Astro.props;
 
 const siteUrl = 'https://steve-deguilly.com';
-const fullCanonical = `${siteUrl}${canonical === '/' ? '' : canonical}`;
+// Canonical avec slash final pour coller aux URL du sitemap (format directory d'Astro).
+const canonicalPath = canonical === '/' ? '/' : `${canonical.replace(/\/+$/, '')}/`;
+const fullCanonical = `${siteUrl}${canonicalPath}`;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 ---
 <!DOCTYPE html>
