@@ -28,4 +28,6 @@ export const ANALYTICS_EVENTS = {
   started: 'diagnostic_started',
   completed: 'diagnostic_completed',
   ctaClick: 'diagnostic_cta_click',
+  // Clic sur un point d'entrée vers /diagnostic depuis le site (propriété source : hero|bloc|navbar).
+  entryClick: 'diagnostic_entry_click',
 } as const;

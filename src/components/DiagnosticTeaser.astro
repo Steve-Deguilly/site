@@ -1,0 +1,47 @@
+---
+// Bloc teaser du diagnostic — entrée secondaire, placée juste avant le CTA final.
+// Volontairement plus discret que CTAFinal (fond clair + bouton outline) pour ne pas
+// concurrencer l'action dominante « Réserver un appel ».
+---
+<section class="section section-alt diag-teaser" aria-labelledby="diag-teaser-title">
+  <div class="container">
+    <div class="diag-teaser-inner reveal">
+      <span class="section-tag">Diagnostic gratuit</span>
+      <h2 id="diag-teaser-title">Pas sûr de votre niveau d'automatisation ?</h2>
+      <p>
+        En 2 minutes, situez votre maturité et votre douleur, et repartez avec un profil
+        et 3 leviers d'action prioritaires.
+      </p>
+      <a href="/diagnostic" class="btn-secondary" data-diag-entry="bloc">Faire le diagnostic (2 min) →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .diag-teaser-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 620px;
+  }
+  .diag-teaser-inner h2 {
+    font-family: var(--font-serif);
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .diag-teaser-inner p {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-text-muted-warm);
+    margin: 0 0 8px;
+  }
+  @media (max-width: 767px) {
+    .diag-teaser-inner h2 { font-size: 26px; }
+  }
+</style>

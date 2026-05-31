@@ -23,7 +23,7 @@
             rel="noopener"
             class="btn-cta hero-cta"
           >Réserver un premier échange →</a>
-          <a href="#approche" class="btn-secondary">Voir mon approche</a>
+          <a href="/diagnostic" class="btn-secondary" data-diag-entry="hero">Faire le diagnostic (2 min)</a>
         </div>
         <div class="hero-trust">
           <div class="trust-item">
@@ -68,6 +68,11 @@
         </div>
       </div>
     </div>
+    <a href="#approche" class="hero-scroll" aria-label="Voir mon approche">
+      <svg class="icon" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </a>
   </div>
 </section>
 
@@ -147,6 +152,27 @@
     font-size: 12px;
     color: var(--color-text-muted);
     margin: 12px 0 0;
+  }
+
+  .hero-scroll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 48px auto 0;
+    color: var(--color-text-muted);
+    border-radius: 999px;
+    transition: color 150ms;
+    animation: hero-scroll-bounce 2s ease-in-out infinite;
+  }
+  .hero-scroll:hover { color: var(--color-primary); }
+  @keyframes hero-scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll { animation: none; }
   }
 
   .hero-right { position: relative; }
