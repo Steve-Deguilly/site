@@ -80,37 +80,58 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
     />
   </noscript>
 
-  <!-- JSON-LD Person -->
+  <!-- JSON-LD — entités globales (Person + Organization), référencées par @id sur toutes les pages -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "Person",
-    "@id": `${siteUrl}/#person`,
-    "name": "Steve Deguilly",
-    "jobTitle": "Architecte IA & Automatisation",
-    "url": siteUrl,
-    "image": `${siteUrl}/profil-steve-deguilly.jpg`,
-    "email": "sdeguilly@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Nice",
-      "addressCountry": "FR"
-    },
-    "knowsAbout": [
-      "Automatisation des processus",
-      "n8n",
-      "RAG",
-      "LLM",
-      "Transformation digitale",
-      "RGPD",
-      "HDS"
-    ],
-    "sameAs": [
-      "https://linkedin.com/in/steve-deguilly"
-    ],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Creastory Conseil"
-    }
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": `${siteUrl}/#person`,
+        "name": "Steve Deguilly",
+        "jobTitle": "Architecte IA & Automatisation",
+        "url": siteUrl,
+        "image": `${siteUrl}/profil-steve-deguilly.jpg`,
+        "email": "sdeguilly@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nice",
+          "addressCountry": "FR"
+        },
+        "knowsAbout": [
+          "Automatisation des processus",
+          "n8n",
+          "RAG",
+          "LLM",
+          "Transformation digitale",
+          "RGPD",
+          "HDS"
+        ],
+        "sameAs": [
+          "https://linkedin.com/in/steve-deguilly"
+        ],
+        "worksFor": { "@id": `${siteUrl}/#organization` }
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": `${siteUrl}/#organization`,
+        "name": "Creastory Conseil",
+        "url": siteUrl,
+        "email": "sdeguilly@gmail.com",
+        "founder": { "@id": `${siteUrl}/#person` },
+        "areaServed": "France",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nice",
+          "addressCountry": "FR"
+        },
+        "identifier": {
+          "@type": "PropertyValue",
+          "propertyID": "SIRET",
+          "value": "93182223300017"
+        },
+        "sameAs": ["https://linkedin.com/in/steve-deguilly"]
+      }
+    ]
   })} />
 
   <!-- Balises <head> additionnelles spécifiques à la page (ex. JSON-LD GEO) -->
