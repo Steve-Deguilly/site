@@ -79,6 +79,22 @@ const IMAGES = [
     url: 'steve-deguilly.com/projets',
     titleSize: 64,
   },
+  {
+    file: 'og-mentions-legales.jpg',
+    kicker: 'INFORMATIONS LÉGALES',
+    lines: ['Mentions légales'],
+    subtitle: 'Éditeur · directeur de publication · hébergeur · contact',
+    url: 'steve-deguilly.com/mentions-legales',
+    titleSize: 76,
+  },
+  {
+    file: 'og-confidentialite.jpg',
+    kicker: 'CONFIDENTIALITÉ · RGPD',
+    lines: ['Confidentialité'],
+    subtitle: 'Sans cookie tiers · données minimales · droits RGPD',
+    url: 'steve-deguilly.com/confidentialite',
+    titleSize: 76,
+  },
 ];
 
 for (const img of IMAGES) {
