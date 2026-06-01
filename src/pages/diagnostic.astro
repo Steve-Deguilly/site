@@ -89,17 +89,6 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- Bloc preuve / making-of — APRÈS le CTA, jamais avant ni entre les étapes -->
-    <aside class="diag-proof" aria-label="À propos de cet outil">
-      <div class="container">
-        <ul class="diag-proof-badges">
-          <li>Conçu en méthode spec-driven</li>
-          <li>Sans cookie ni tracking</li>
-          <li>Optimisé pour les moteurs IA</li>
-        </ul>
-      </div>
-    </aside>
-
     <!-- FAQ citable (statique) -->
     <section class="diag-faq" aria-labelledby="diag-faq-title">
       <div class="container">
@@ -189,37 +178,6 @@ const jsonLd = {
   }
   /* Quiz */
   .diag-quiz-section { padding: 40px 0 56px; }
-
-  /* Bloc preuve — dans la colonne, séparateur sobre (filets fins haut/bas, sans bandeau) */
-  .diag-proof { padding: 8px 0; }
-  .diag-proof .container {
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
-  .diag-proof-badges {
-    list-style: none;
-    margin: 0; padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px 28px;
-  }
-  .diag-proof-badges li {
-    position: relative;
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--color-text-muted-warm);
-    padding-left: 20px;
-  }
-  .diag-proof-badges li::before {
-    content: '●';
-    position: absolute; left: 0;
-    color: var(--color-primary);
-    font-size: 9px;
-    top: 4px;
-  }
 
   /* FAQ */
   .diag-faq { padding: 64px 0 80px; }

@@ -47,8 +47,8 @@ const year = new Date().getFullYear();
               src="/marques-filles-Activateur.webp"
               alt="Activateur France Num"
               class="badge-img"
-              width="80"
-              height="auto"
+              width="100"
+              height="91"
               loading="lazy"
               decoding="async"
             />
@@ -70,6 +70,8 @@ const year = new Date().getFullYear();
         <li>© {year}</li>
       </ul>
     </div>
+
+    <p class="footer-proof">Conçu en méthode spec-driven · Sans cookie ni tracking · Optimisé pour les moteurs IA</p>
 
   </div>
 </footer>
@@ -233,5 +235,15 @@ const year = new Date().getFullYear();
       flex-direction: column;
       align-items: flex-start;
     }
+  }
+
+  /* Mention de preuve — une ligne discrète, sur toutes les pages */
+  .footer-proof {
+    margin: 20px 0 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--color-text-on-dark-muted);
+    text-align: center;
   }
 </style>
