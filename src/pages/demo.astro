@@ -71,6 +71,19 @@ const jsonLd = {
       </div>
     </header>
 
+    <!-- Comment ça marche — schéma animé (SVG servi via <img> depuis /public) -->
+    <section class="demo-how section" aria-label="Comment fonctionne la démo">
+      <div class="container">
+        <figure id="demo-pipe" class="demo-pipe">
+          <img
+            src="/pipeline_demo_chat_cnil_anime_02062026.svg"
+            alt="Comment fonctionne la démo : question, anti-robot, document CNIL, Mistral, réponse"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+    </section>
+
     <section class="demo-section" aria-label="Démonstration">
       <div class="container">
         <DemoChat />
@@ -81,19 +94,6 @@ const jsonLd = {
           <a href={CNIL_PDF_URL} target="_blank" rel="noopener" class="demo-cnil-link">CNIL</a>{' '}
           {COPY.attributionSuffix}
         </p>
-      </div>
-    </section>
-
-    <!-- Comment ça marche — schéma du pipeline (SVG inline, classes/ids préfixés pipe- pour éviter toute collision) -->
-    <section class="demo-how section" aria-label="Comment fonctionne la démo">
-      <div class="container">
-        <figure id="demo-pipe" class="demo-pipe">
-          <img
-            src="/pipeline_demo_chat_cnil_anime_02062026.svg"
-            alt="Comment fonctionne la démo : question, anti-robot, document CNIL, Mistral, réponse"
-            loading="lazy"
-          />
-        </figure>
       </div>
     </section>
 
