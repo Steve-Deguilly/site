@@ -100,7 +100,7 @@ const jsonLd = {
     <!-- CTA Cal.com (en plus du CTA permanent de la navbar) -->
     <section class="demo-cta section section-alt" aria-label="Prendre rendez-vous">
       <div class="container">
-        <h2 class="demo-cta-title">Envie de ça sur vos propres process&nbsp;?</h2>
+        <h2 class="demo-cta-title">Besoin d'un assistant sur vos propres documents&nbsp;?</h2>
         <p class="demo-cta-text">
           Cette démo tourne sur un document public. Sur vos documents métier, le même principe industrialise
           des process entiers. Parlons-en.
@@ -143,7 +143,7 @@ const jsonLd = {
     .demo-intro { font-size: 16px; }
   }
 
-  .demo-section { padding: 24px 0 64px; }
+  .demo-section { padding: 24px 0 24px; }
 
   .demo-rgpd {
     font-family: var(--font-sans);
@@ -172,7 +172,8 @@ const jsonLd = {
   }
 
   /* CTA final — bandeau clair (section-alt #EBE5D9) */
-  .demo-cta { text-align: center; }
+  /* Haut resserré vs le bloc chat ; bas conservé (rythme standard) avant le footer. */
+  .demo-cta { text-align: center; padding-top: 48px; }
   .demo-cta-title {
     font-family: var(--font-serif);
     font-size: 32px; font-weight: 500;
