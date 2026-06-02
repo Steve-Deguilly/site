@@ -36,6 +36,8 @@ export const SUGGESTED_QUESTIONS = [
   'Quand faut-il réaliser une AIPD ?',
   'Quelles règles pour le web scraping ?',
   'Comment gérer les durées de conservation ?',
+  'Comment informer les personnes concernées ?',
+  'Quelles mesures de sécurité prévoir ?',
 ] as const;
 
 /** Libellés UI (centralisés pour cohérence éditoriale). */
