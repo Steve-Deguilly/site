@@ -11,10 +11,8 @@
 /** Webhook n8n de prod (HTTPS + CORS steve-deguilly.com). Contrat figé : POST {question,turnstileToken} → 200 {answer}. */
 export const WEBHOOK_URL = 'https://n8n.creastory.fr/webhook/demo-SDpro-cnil-x7k2';
 
-/** Site key Cloudflare Turnstile (publique).
- *  ⚠ PLACEHOLDER — à remplacer par la vraie valeur fournie par Steve avant le test live.
- *  Tant que c'est ce placeholder, le widget ne validera pas réellement (test live bloqué, build OK). */
-export const TURNSTILE_SITE_KEY = 'TURNSTILE_SITE_KEY_PLACEHOLDER';
+/** Site key Cloudflare Turnstile (publique ; le secret reste dans n8n). */
+export const TURNSTILE_SITE_KEY = '0x4AAAAAADdtd5XZICnAaOD7';
 
 /** Cap de questions par session (garde-fou coût, CÔTÉ CLIENT — le serveur n'enforce rien en v1). */
 export const MAX_QUESTIONS = 10;
