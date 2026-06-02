@@ -88,82 +88,11 @@ const jsonLd = {
     <section class="demo-how" aria-label="Comment fonctionne la démo">
       <div class="container">
         <figure id="demo-pipe" class="demo-pipe">
-          <svg viewBox="0 0 1120 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="pipe-ttl pipe-dsc">
-            <title id="pipe-ttl">Pipeline de la démo de chat documentaire</title>
-            <desc id="pipe-dsc">Cinq étapes : question du visiteur, vérification anti-robot Turnstile, injection du document CNIL sans RAG, génération par Mistral (modèle européen), puis réponse sourcée ou refus si l'information n'est pas dans le document. Une branche montre le blocage si la vérification anti-robot échoue.</desc>
-            <style>
-              .pipe-bg{fill:#F5F1EA;}
-              .pipe-card{fill:#EBE5D9;stroke:#2D5A4F;stroke-width:1.5;}
-              .pipe-card-ai{fill:#EBE5D9;stroke:#A55E2D;stroke-width:2;}
-              .pipe-numc{fill:#2D5A4F;}
-              .pipe-numc-ai{fill:#A55E2D;}
-              .pipe-num{font-family:'JetBrains Mono',ui-monospace,monospace;fill:#F5F1EA;font-weight:700;font-size:14px;}
-              .pipe-ttl-t{font-family:Fraunces,Georgia,serif;fill:#1A2421;font-size:27px;font-weight:600;}
-              .pipe-h{font-family:Inter,system-ui,sans-serif;fill:#1A2421;font-weight:600;font-size:16px;}
-              .pipe-sub{font-family:Inter,system-ui,sans-serif;fill:#5A625E;font-size:12.5px;}
-              .pipe-cap{font-family:Inter,system-ui,sans-serif;fill:#5A625E;font-size:13.5px;}
-              .pipe-refus{fill:#F5F1EA;stroke:#5A625E;stroke-width:1.4;stroke-dasharray:5 4;}
-              .pipe-lbl{font-family:Inter,system-ui,sans-serif;fill:#5A625E;font-size:11.5px;font-style:italic;}
-              .pipe-flow{stroke:#2D5A4F;stroke-width:2;fill:none;}
-              .pipe-flow-d{stroke:#5A625E;stroke-width:1.6;fill:none;stroke-dasharray:5 4;}
-            </style>
-            <defs>
-              <marker id="pipe-ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M0,0 L10,5 L0,10 z" fill="#2D5A4F"/>
-              </marker>
-              <marker id="pipe-ahd" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-                <path d="M0,0 L10,5 L0,10 z" fill="#5A625E"/>
-              </marker>
-            </defs>
-
-            <rect class="pipe-bg" x="0" y="0" width="1120" height="450"/>
-
-            <text class="pipe-ttl-t" x="40" y="56">Comment fonctionne la démo</text>
-
-            <line class="pipe-flow" x1="216" y1="196" x2="246" y2="196" marker-end="url(#pipe-ah)"/>
-            <line class="pipe-flow" x1="428" y1="196" x2="458" y2="196" marker-end="url(#pipe-ah)"/>
-            <line class="pipe-flow" x1="640" y1="196" x2="670" y2="196" marker-end="url(#pipe-ah)"/>
-            <line class="pipe-flow" x1="852" y1="196" x2="882" y2="196" marker-end="url(#pipe-ah)"/>
-
-            <path class="pipe-flow-d" d="M338,248 L338,300" marker-end="url(#pipe-ahd)"/>
-            <text class="pipe-lbl" x="348" y="276">échec</text>
-
-            <rect class="pipe-card" x="36" y="144" width="180" height="104" rx="14"/>
-            <circle class="pipe-numc" cx="60" cy="168" r="14"/>
-            <text class="pipe-num" x="60" y="173" text-anchor="middle">1</text>
-            <text class="pipe-h" x="126" y="196" text-anchor="middle">Question</text>
-            <text class="pipe-sub" x="126" y="218" text-anchor="middle">Le visiteur interroge</text>
-
-            <rect class="pipe-card" x="248" y="144" width="180" height="104" rx="14"/>
-            <circle class="pipe-numc" cx="272" cy="168" r="14"/>
-            <text class="pipe-num" x="272" y="173" text-anchor="middle">2</text>
-            <text class="pipe-h" x="338" y="196" text-anchor="middle">Anti-robot</text>
-            <text class="pipe-sub" x="338" y="218" text-anchor="middle">Turnstile · Cloudflare</text>
-
-            <rect class="pipe-card" x="460" y="144" width="180" height="104" rx="14"/>
-            <circle class="pipe-numc" cx="484" cy="168" r="14"/>
-            <text class="pipe-num" x="484" y="173" text-anchor="middle">3</text>
-            <text class="pipe-h" x="550" y="196" text-anchor="middle">Document CNIL</text>
-            <text class="pipe-sub" x="550" y="218" text-anchor="middle">injecté, sans RAG</text>
-
-            <rect class="pipe-card-ai" x="672" y="144" width="180" height="104" rx="14"/>
-            <circle class="pipe-numc-ai" cx="696" cy="168" r="14"/>
-            <text class="pipe-num" x="696" y="173" text-anchor="middle">4</text>
-            <text class="pipe-h" x="762" y="196" text-anchor="middle">Mistral</text>
-            <text class="pipe-sub" x="762" y="218" text-anchor="middle">modèle européen</text>
-
-            <rect class="pipe-card" x="884" y="144" width="180" height="104" rx="14"/>
-            <circle class="pipe-numc" cx="908" cy="168" r="14"/>
-            <text class="pipe-num" x="908" y="173" text-anchor="middle">5</text>
-            <text class="pipe-h" x="974" y="196" text-anchor="middle">Réponse</text>
-            <text class="pipe-sub" x="974" y="218" text-anchor="middle">sourcée, ou « non couvert »</text>
-
-            <rect class="pipe-refus" x="258" y="300" width="160" height="58" rx="12"/>
-            <text class="pipe-h" x="338" y="326" text-anchor="middle" font-size="14px">Requête bloquée</text>
-            <text class="pipe-sub" x="338" y="345" text-anchor="middle">robot détecté</text>
-
-            <text class="pipe-cap" x="40" y="416">Aucune donnée stockée  ·  modèle européen (Mistral)  ·  orchestré avec n8n</text>
-          </svg>
+          <img
+            src="/pipeline_demo_chat_cnil_anime_02062026.svg"
+            alt="Comment fonctionne la démo : question, anti-robot, document CNIL, Mistral, réponse"
+            loading="lazy"
+          />
         </figure>
       </div>
     </section>
@@ -237,7 +166,7 @@ const jsonLd = {
     max-width: 1040px;
     margin: 0 auto;
   }
-  .demo-pipe svg {
+  .demo-pipe img {
     width: 100%;
     height: auto;
     display: block;
