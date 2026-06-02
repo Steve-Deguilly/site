@@ -1,35 +1,28 @@
 ---
-// Bloc teaser du diagnostic — entrée secondaire, placée juste avant le CTA final.
-// Volontairement plus discret que CTAFinal (fond clair + bouton outline) pour ne pas
-// concurrencer l'action dominante « Réserver un appel ».
+// Carte teaser du diagnostic — affichée en colonne dans la grille "outils" de la home.
+// (Le <section>/.container et le rythme vertical sont portés par le wrapper .home-teasers d'index.astro.)
 ---
-<section class="section diag-teaser" aria-labelledby="diag-teaser-title">
-  <div class="container">
-    <div class="diag-teaser-inner reveal">
-      <span class="section-tag">Diagnostic gratuit</span>
-      <h2 id="diag-teaser-title">Pas sûr de votre niveau d'automatisation ?</h2>
-      <p>
-        En 2 minutes, situez votre maturité et votre douleur, et repartez avec un profil
-        et 3 leviers d'action prioritaires.
-      </p>
-      <a href="/diagnostic" class="btn-secondary" data-diag-entry="bloc">Faire le diagnostic (2 min) →</a>
-    </div>
-  </div>
-</section>
+<div class="diag-teaser-inner reveal">
+  <span class="section-tag">Diagnostic gratuit</span>
+  <h2 id="diag-teaser-title">Pas sûr de votre niveau d'automatisation ?</h2>
+  <p>
+    En 2 minutes, situez votre maturité et votre douleur, et repartez avec un profil
+    et 3 leviers d'action prioritaires.
+  </p>
+  <a href="/diagnostic" class="btn-secondary" data-diag-entry="bloc">Faire le diagnostic (2 min) →</a>
+</div>
 
 <style>
-  /* Même fond que le Hero : crème clair du thème (#F5F1EA). */
-  .diag-teaser { background: var(--color-bg-cream); }
-
   .diag-teaser-inner {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    height: 100%;
   }
   .diag-teaser-inner h2 {
     font-family: var(--font-serif);
-    font-size: 34px;
+    font-size: 32px;
     font-weight: 500;
     line-height: 1.12;
     letter-spacing: -0.015em;
@@ -43,7 +36,10 @@
     color: var(--color-text-muted-warm);
     margin: 0 0 8px;
   }
+  /* Bouton calé en bas pour aligner les deux colonnes. */
+  .diag-teaser-inner .btn-secondary { margin-top: auto; }
   @media (max-width: 767px) {
     .diag-teaser-inner h2 { font-size: 26px; }
+    .diag-teaser-inner .btn-secondary { margin-top: 0; }
   }
 </style>

@@ -25,9 +25,28 @@ import Footer from '../components/Footer.astro';
     <Approche />
     <CasConcrets />
     <APropos />
-    <DiagnosticTeaser />
-    <DemoTeaser />
+    <section class="section home-teasers" aria-label="Outils gratuits">
+      <div class="container">
+        <div class="home-teasers-grid">
+          <DiagnosticTeaser />
+          <DemoTeaser />
+        </div>
+      </div>
+    </section>
     <CTAFinal />
   </main>
   <Footer />
 </Layout>
+
+<style>
+  /* Teasers Diagnostic + Démo côte à côte (2 colonnes), empilés en mobile. */
+  .home-teasers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: stretch;
+  }
+  @media (max-width: 767px) {
+    .home-teasers-grid { grid-template-columns: 1fr; gap: 44px; }
+  }
+</style>
