@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import DemoChat from '../components/DemoChat.astro';
-import { DOC_TITLE, COPY, CALCOM_URL } from '../lib/demo/config';
+import { DOC_TITLE, COPY, CALCOM_URL, CNIL_PDF_URL } from '../lib/demo/config';
 
 const siteUrl = 'https://steve-deguilly.com';
 const pageUrl = `${siteUrl}/demo`;
@@ -77,7 +77,9 @@ const jsonLd = {
 
         <!-- Bandeau RGPD + attribution (citable, rendu serveur) -->
         <p class="demo-rgpd">
-          {COPY.rgpd} {COPY.attribution}
+          {COPY.rgpd} {COPY.attributionPrefix}{' '}
+          <a href={CNIL_PDF_URL} target="_blank" rel="noopener" class="demo-cnil-link">CNIL</a>{' '}
+          {COPY.attributionSuffix}
         </p>
       </div>
     </section>
@@ -137,6 +139,13 @@ const jsonLd = {
     margin: 20px 0 0;
     text-align: center;
   }
+  .demo-cnil-link {
+    color: var(--color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 150ms;
+  }
+  .demo-cnil-link:hover { color: var(--color-primary); }
 
   /* CTA final */
   .demo-cta { text-align: center; }

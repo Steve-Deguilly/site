@@ -26,6 +26,10 @@ export const CALCOM_URL = 'https://cal.com/steve-deguilly/30min';
 /** Titre lisible du document interrogé (affiché « Vous interrogez : … »). */
 export const DOC_TITLE = 'recommandations IA de la CNIL';
 
+/** Source du document interrogé (lien d'attribution sous la démo). */
+export const CNIL_PDF_URL =
+  'https://www.cnil.fr/sites/default/files/2025-07/ia_liste_de_verification.pdf';
+
 /** Questions d'amorce cliquables (issues de l'impl de référence, orientées doc CNIL). */
 export const SUGGESTED_QUESTIONS = [
   'Quelle base légale pour développer une IA ?',
@@ -41,7 +45,9 @@ export const COPY = {
   statusWriting: 'L’assistant rédige…',
   // Bandeau RGPD — wording défendable AVANT ZDR (spec §8). Ne pas durcir sans ZDR accordée.
   rgpd: 'Steve ne conserve rien · modèle européen (Mistral) · pas de réutilisation pour l’entraînement.',
-  attribution: 'Source du document : CNIL — Licence Ouverte.',
+  // Attribution scindée pour insérer un lien sur « CNIL » (cf. demo.astro).
+  attributionPrefix: 'Source du document :',
+  attributionSuffix: '— Licence Ouverte.',
   ctaPrimary: 'Réserver un échange',
   // Messages d'état/erreur affichés à l'utilisateur (rendu en textContent).
   quotaReached:
