@@ -2,7 +2,8 @@
 // Îlot interactif de la démo "Chat sur document" (T3 + T4).
 // UI + état + appel réseau au webhook n8n. La logique pure vit dans lib/demo/client.ts.
 //
-// ⚠ Sécurité : la réponse du modèle est NON FIABLE → rendue exclusivement en textContent (jamais innerHTML).
+// ⚠ Sécurité : la réponse du modèle est NON FIABLE. Le markdown est rendu via marked → DOMPurify.sanitize
+//   (DOMPurify retire scripts/handlers). JAMAIS d'innerHTML brut sur la sortie modèle.
 // ⚠ Le refus hors-doc est produit par n8n ; ici on n'affiche QUE `answer`.
 import { SUGGESTED_QUESTIONS, COPY, MAX_QUESTION_LEN, TURNSTILE_SITE_KEY } from '../lib/demo/config';
 ---
@@ -101,17 +102,68 @@ import { SUGGESTED_QUESTIONS, COPY, MAX_QUESTION_LEN, TURNSTILE_SITE_KEY } from 
   }
   .demo-status[hidden] { display: none; }
 
-  /* Réponse */
+  /* Réponse (markdown rendu via marked + DOMPurify) */
   .demo-answer {
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.65;
     color: var(--color-text-primary);
     margin-top: 20px;
-    white-space: pre-wrap;       /* préserve les retours de ligne du modèle, sans HTML */
     overflow-wrap: anywhere;
   }
   .demo-answer:empty { margin-top: 0; }
+  .demo-answer > :first-child { margin-top: 0; }
+  .demo-answer > :last-child { margin-bottom: 0; }
+
+  .demo-answer p { margin: 0 0 14px; }
+  .demo-answer h1,
+  .demo-answer h2,
+  .demo-answer h3,
+  .demo-answer h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    margin: 22px 0 10px;
+  }
+  .demo-answer h1 { font-size: 22px; }
+  .demo-answer h2 { font-size: 20px; }
+  .demo-answer h3,
+  .demo-answer h4 { font-size: 18px; }
+  .demo-answer strong { font-weight: 600; color: var(--color-text-primary); }
+  .demo-answer em { font-style: italic; }
+  .demo-answer a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .demo-answer ul,
+  .demo-answer ol { margin: 0 0 14px; padding-left: 22px; }
+  .demo-answer li { margin: 4px 0; }
+  .demo-answer li::marker { color: var(--color-primary); }
+  .demo-answer code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background: var(--color-surface-warm);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .demo-answer pre {
+    background: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    margin: 0 0 14px;
+  }
+  .demo-answer pre code { background: none; padding: 0; font-size: 13px; }
+  .demo-answer blockquote {
+    margin: 0 0 14px;
+    padding-left: 14px;
+    border-left: 3px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
 
   /* Accessibilité */
   .sr-only {
@@ -133,6 +185,15 @@ import { SUGGESTED_QUESTIONS, COPY, MAX_QUESTION_LEN, TURNSTILE_SITE_KEY } from 
     extractAnswer,
   } from '../lib/demo/client';
   import { WEBHOOK_URL, COPY } from '../lib/demo/config';
+  import { marked } from 'marked';
+  import DOMPurify from 'dompurify';
+
+  marked.setOptions({ gfm: true, breaks: true });
+
+  /** Markdown (marked) → HTML sanitizé (DOMPurify retire scripts/handlers). Jamais d'innerHTML brut. */
+  function renderAnswer(text: string): string {
+    return DOMPurify.sanitize(marked.parse(text, { async: false }) as string);
+  }
 
   // Turnstile s'injecte sur window via le script chargé par la page /demo.
   interface TurnstileWindow extends Window {
@@ -199,7 +260,8 @@ import { SUGGESTED_QUESTIONS, COPY, MAX_QUESTION_LEN, TURNSTILE_SITE_KEY } from 
           answer!.textContent = mapHttpError(res.status);
         } else {
           const data = await res.json();
-          answer!.textContent = extractAnswer(data); // ⚠ textContent only — sortie modèle non fiable
+          // Markdown rendu puis sanitizé (anti-XSS conservé) — voir renderAnswer().
+          answer!.innerHTML = renderAnswer(extractAnswer(data));
           count++;
         }
       } catch {
