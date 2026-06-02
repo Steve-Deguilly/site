@@ -4,6 +4,9 @@ Site personnel de Steve Deguilly — Directeur de transformation digitale freela
 
 Built with **Astro 5** + **Tailwind 4**, déployé sur **Cloudflare Pages**.
 
+**Démo interactive « chat sur document »** : [steve-deguilly.com/demo](https://steve-deguilly.com/demo)
+— front statique (îlot Astro) → webhook **n8n** → **Mistral** (EU), sans RAG, sans stockage.
+
 ---
 
 ## Structure

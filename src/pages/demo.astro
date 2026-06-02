@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import DemoChat from '../components/DemoChat.astro';
-import { DOC_TITLE, COPY, CALCOM_URL, CNIL_PDF_URL } from '../lib/demo/config';
+import { DOC_TITLE, COPY, CALCOM_URL, CNIL_PDF_URL, GITHUB_REPO_URL } from '../lib/demo/config';
 
 const siteUrl = 'https://steve-deguilly.com';
 const pageUrl = `${siteUrl}/demo`;
@@ -48,8 +48,6 @@ const jsonLd = {
   description="Démonstration interactive : interrogez un document en langage naturel. Réponses sourcées, sans stockage, modèle européen."
   canonical="/demo"
 >
-  <!-- v1 discrète : non indexable -->
-  <meta name="robots" content="noindex, nofollow" slot="head" />
   <!-- Turnstile : chargé sur cette page uniquement -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer slot="head"></script>
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
@@ -95,6 +93,10 @@ const jsonLd = {
             loading="lazy"
           />
         </figure>
+        <p class="demo-pipe-src">
+          Le code de cette démo est public —
+          <a href={GITHUB_REPO_URL} target="_blank" rel="noopener">voir le dépôt GitHub →</a>
+        </p>
       </div>
     </section>
 
@@ -180,6 +182,18 @@ const jsonLd = {
     width: 100%;
     height: auto;
     display: block;
+  }
+  .demo-pipe-src {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin: 24px 0 0;
+  }
+  .demo-pipe-src a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   /* CTA final — bandeau clair (section-alt #EBE5D9) */

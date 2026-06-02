@@ -30,6 +30,9 @@ export const DOC_TITLE = 'recommandations IA de la CNIL';
 export const CNIL_PDF_URL =
   'https://www.cnil.fr/sites/default/files/2025-07/ia_liste_de_verification.pdf';
 
+/** Dépôt public du code (lien réciproque /demo ↔ GitHub — preuve « je code »). */
+export const GITHUB_REPO_URL = 'https://github.com/Steve-Deguilly/site';
+
 /** Questions d'amorce cliquables (issues de l'impl de référence, orientées doc CNIL). */
 export const SUGGESTED_QUESTIONS = [
   'Quelle base légale pour développer une IA ?',

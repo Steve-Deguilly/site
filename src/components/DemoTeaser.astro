@@ -1,0 +1,48 @@
+---
+// Bloc teaser de la démo — entrée vers /demo depuis la home, avant le CTA final.
+// Même registre discret que DiagnosticTeaser (fond clair, bouton outline).
+---
+<section class="section demo-teaser" aria-labelledby="demo-teaser-title">
+  <div class="container">
+    <div class="demo-teaser-inner reveal">
+      <span class="section-tag">Démo interactive</span>
+      <h2 id="demo-teaser-title">Voyez l'IA répondre sur un vrai document.</h2>
+      <p>
+        Interrogez en langage naturel un document public (recommandations IA de la CNIL).
+        Réponses sourcées, sans stockage, modèle européen — une preuve, pas une slide.
+      </p>
+      <a href="/demo" class="btn-secondary">Essayer la démo →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Même fond que le Hero : crème clair du thème (#F5F1EA). */
+  .demo-teaser { background: var(--color-bg-cream); }
+
+  .demo-teaser-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .demo-teaser-inner h2 {
+    font-family: var(--font-serif);
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .demo-teaser-inner p {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-text-muted-warm);
+    margin: 0 0 8px;
+  }
+  @media (max-width: 767px) {
+    .demo-teaser-inner h2 { font-size: 26px; }
+  }
+</style>

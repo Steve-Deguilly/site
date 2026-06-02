@@ -4,6 +4,7 @@ const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const onHome = path === '/';
 const onDiagnostic = path === '/diagnostic';
 const onProjets = path === '/projets';
+const onDemo = path === '/demo';
 ---
 <nav id="navbar" aria-label="Navigation principale">
   <div class="container">
@@ -16,6 +17,7 @@ const onProjets = path === '/projets';
         <li><a href="/" aria-current={onHome ? 'page' : undefined}>Accueil</a></li>
         <li><a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a></li>
         <li><a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a></li>
+        <li><a href="/demo" aria-current={onDemo ? 'page' : undefined}>Démo</a></li>
       </ul>
       <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener" class="btn-cta nav-cta-desktop">Réserver un appel</a>
       <button
@@ -37,6 +39,7 @@ const onProjets = path === '/projets';
   <a href="/" aria-current={onHome ? 'page' : undefined}>Accueil</a>
   <a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a>
   <a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a>
+  <a href="/demo" aria-current={onDemo ? 'page' : undefined}>Démo</a>
   <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener" class="btn-cta">Réserver un appel →</a>
 </div>
 
