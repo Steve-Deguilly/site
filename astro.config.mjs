@@ -7,7 +7,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://steve-deguilly.com',
   output: 'static',
-  integrations: [sitemap()],
+  // /demo est volontairement « discrète » (noindex, hors menu) → exclue du sitemap.
+  integrations: [sitemap({ filter: (page) => !page.includes('/demo') })],
   vite: {
     plugins: [tailwindcss()],
   },
