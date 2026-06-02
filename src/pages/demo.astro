@@ -85,7 +85,7 @@ const jsonLd = {
     </section>
 
     <!-- Comment ça marche — schéma du pipeline (SVG inline, classes/ids préfixés pipe- pour éviter toute collision) -->
-    <section class="demo-how" aria-label="Comment fonctionne la démo">
+    <section class="demo-how section" aria-label="Comment fonctionne la démo">
       <div class="container">
         <figure id="demo-pipe" class="demo-pipe">
           <img
@@ -98,7 +98,7 @@ const jsonLd = {
     </section>
 
     <!-- CTA Cal.com (en plus du CTA permanent de la navbar) -->
-    <section class="demo-cta section-dark" aria-label="Prendre rendez-vous">
+    <section class="demo-cta section section-alt" aria-label="Prendre rendez-vous">
       <div class="container">
         <h2 class="demo-cta-title">Envie de ça sur vos propres process&nbsp;?</h2>
         <p class="demo-cta-text">
@@ -160,8 +160,7 @@ const jsonLd = {
   }
   .demo-cnil-link:hover { color: var(--color-primary); }
 
-  /* Comment ça marche — schéma pipeline */
-  .demo-how { padding: 8px 0 56px; }
+  /* Comment ça marche — schéma pipeline (padding-block = token .section standard) */
   .demo-pipe {
     max-width: 1040px;
     margin: 0 auto;
@@ -171,24 +170,23 @@ const jsonLd = {
     height: auto;
     display: block;
   }
-  @media (max-width: 767px) { .demo-how { padding: 0 0 40px; } }
 
-  /* CTA final */
+  /* CTA final — bandeau clair (section-alt #EBE5D9) */
   .demo-cta { text-align: center; }
   .demo-cta-title {
     font-family: var(--font-serif);
     font-size: 32px; font-weight: 500;
     letter-spacing: -0.015em;
-    color: var(--color-text-on-dark);
+    color: var(--color-primary);
     margin: 0 0 16px;
   }
   .demo-cta-text {
     font-family: var(--font-sans);
     font-size: 16px; line-height: 1.65;
-    color: var(--color-text-on-dark-muted);
+    color: var(--color-text-muted);
     margin: 0 auto 28px;
   }
-  .demo-cta-btn { font-size: 15px; padding: 13px 24px; }
+  .demo-cta-btn { color: var(--color-bg-cream); font-size: 16px; padding: 15px 28px; }
   @media (max-width: 767px) {
     .demo-cta-title { font-size: 26px; }
   }
