@@ -1,0 +1,164 @@
+---
+// Page /demo — démo "Chat sur document" (T5).
+// Contenu citable rendu côté serveur ; l'interactif vit dans l'îlot <DemoChat>.
+//
+// ⚠ v1 « discrète » : noindex, hors menu, AUCUN point d'entrée depuis le site (URL partagée à la main).
+//   Pas de lien GitHub en v1.
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import DemoChat from '../components/DemoChat.astro';
+import { DOC_TITLE, COPY, CALCOM_URL } from '../lib/demo/config';
+
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/demo`;
+
+// JSON-LD GEO — prêt pour le jour où le noindex sautera (sans effet tant que la page est noindex).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      '@id': `${pageUrl}/#webapp`,
+      name: 'Démo — Chat sur document',
+      url: pageUrl,
+      description:
+        'Démonstration interactive : posez des questions en langage naturel sur un document (recommandations IA de la CNIL). Réponses sourcées du document, sans stockage, via un modèle européen.',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'fr',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+      provider: { '@id': `${siteUrl}/#organization` },
+      creator: { '@id': `${siteUrl}/#person` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Démo — Chat sur document', item: `${pageUrl}/` },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title="Démo — Chat sur document | Steve Deguilly"
+  description="Démonstration interactive : interrogez un document en langage naturel. Réponses sourcées, sans stockage, modèle européen."
+  canonical="/demo"
+>
+  <!-- v1 discrète : non indexable -->
+  <meta name="robots" content="noindex, nofollow" slot="head" />
+  <!-- Turnstile : chargé sur cette page uniquement -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer slot="head"></script>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+
+  <main>
+    <header class="demo-header">
+      <div class="container">
+        <p class="demo-kicker">Démo interactive</p>
+        <h1>Posez vos questions à un document.</h1>
+        <p class="demo-intro">
+          Une preuve, pas une slide. L'assistant répond <strong>uniquement</strong> à partir du document
+          chargé — s'il ne sait pas, il le dit. Souverain, sans stockage, modèle européen.
+        </p>
+        <p class="demo-doc">
+          <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Vous interrogez&nbsp;: {DOC_TITLE}</span>
+        </p>
+      </div>
+    </header>
+
+    <section class="demo-section" aria-label="Démonstration">
+      <div class="container demo-container">
+        <DemoChat />
+
+        <!-- Bandeau RGPD + attribution (citable, rendu serveur) -->
+        <p class="demo-rgpd">
+          {COPY.rgpd} {COPY.attribution}
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA Cal.com (en plus du CTA permanent de la navbar) -->
+    <section class="demo-cta section-dark" aria-label="Prendre rendez-vous">
+      <div class="container">
+        <h2 class="demo-cta-title">Envie de ça sur vos propres process&nbsp;?</h2>
+        <p class="demo-cta-text">
+          Cette démo tourne sur un document public. Sur vos documents métier, le même principe industrialise
+          des process entiers. Parlons-en.
+        </p>
+        <a href={CALCOM_URL} target="_blank" rel="noopener" class="btn-cta demo-cta-btn">{COPY.ctaPrimary} →</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .demo-header { padding: 64px 0 24px; text-align: center; }
+  .demo-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .demo-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.08;
+    color: var(--color-text-primary);
+    margin: 0 auto 20px;
+    max-width: 640px;
+  }
+  .demo-intro {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto 20px;
+    max-width: 600px;
+  }
+  .demo-intro strong { color: var(--color-text-primary); font-weight: 500; }
+  .demo-doc { margin: 0; }
+  @media (max-width: 767px) {
+    .demo-header { padding: 40px 0 20px; }
+    .demo-header h1 { font-size: 30px; }
+    .demo-intro { font-size: 16px; }
+  }
+
+  .demo-section { padding: 24px 0 64px; }
+  .demo-container { max-width: 720px; }
+
+  .demo-rgpd {
+    font-family: var(--font-sans);
+    font-size: 13px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 20px 0 0;
+    text-align: center;
+  }
+
+  /* CTA final */
+  .demo-cta { text-align: center; }
+  .demo-cta-title {
+    font-family: var(--font-serif);
+    font-size: 32px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-on-dark);
+    margin: 0 0 16px;
+  }
+  .demo-cta-text {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.65;
+    color: var(--color-text-on-dark-muted);
+    margin: 0 auto 28px;
+    max-width: 540px;
+  }
+  .demo-cta-btn { font-size: 15px; padding: 13px 24px; }
+  @media (max-width: 767px) {
+    .demo-cta-title { font-size: 26px; }
+  }
+</style>

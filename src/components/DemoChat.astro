@@ -1,0 +1,219 @@
+---
+// Îlot interactif de la démo "Chat sur document" (T3 + T4).
+// UI + état + appel réseau au webhook n8n. La logique pure vit dans lib/demo/client.ts.
+//
+// ⚠ Sécurité : la réponse du modèle est NON FIABLE → rendue exclusivement en textContent (jamais innerHTML).
+// ⚠ Le refus hors-doc est produit par n8n ; ici on n'affiche QUE `answer`.
+import { SUGGESTED_QUESTIONS, COPY, MAX_QUESTION_LEN, TURNSTILE_SITE_KEY } from '../lib/demo/config';
+---
+
+<section class="demo-chat" aria-label="Démonstration : questions sur le document">
+  <!-- Questions suggérées (amorce) -->
+  <div class="demo-suggested" role="group" aria-label="Questions suggérées">
+    {SUGGESTED_QUESTIONS.map((q) => (
+      <button type="button" class="demo-suggest" data-suggest>{q}</button>
+    ))}
+  </div>
+
+  <form id="demo-form" class="demo-form">
+    <label class="demo-field">
+      <span class="sr-only">Votre question</span>
+      <input
+        id="demo-question"
+        name="question"
+        type="text"
+        maxlength={MAX_QUESTION_LEN}
+        autocomplete="off"
+        placeholder={COPY.inputPlaceholder}
+        required
+      />
+    </label>
+
+    <!-- Widget Turnstile (site key publique ; le secret reste dans n8n) -->
+    <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
+
+    <button id="demo-send" type="submit" class="btn-cta demo-send">{COPY.sendLabel}</button>
+  </form>
+
+  <p id="demo-status" class="demo-status" role="status" aria-live="polite" hidden>{COPY.statusWriting}</p>
+  <div id="demo-answer" class="demo-answer" aria-live="polite"></div>
+</section>
+
+<style>
+  .demo-chat {
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background: var(--color-bg-cream);
+    padding: 32px;
+  }
+  @media (max-width: 767px) { .demo-chat { padding: 22px; border-radius: 12px; } }
+
+  /* Questions suggérées */
+  .demo-suggested {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .demo-suggest {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-primary);
+    background: rgba(45,90,79,0.06);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: border-color 150ms, background 150ms;
+  }
+  .demo-suggest:hover { border-color: var(--color-primary); background: rgba(45,90,79,0.1); }
+
+  /* Formulaire */
+  .demo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .demo-field { display: block; }
+  .demo-field input {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--color-text-primary);
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: border-color 150ms;
+  }
+  .demo-field input:focus { outline: none; border-color: var(--color-primary); }
+  .demo-field input:disabled { background: var(--color-surface-warm); cursor: not-allowed; }
+
+  .demo-send { align-self: flex-start; padding: 12px 22px; font-size: 15px; }
+  .demo-send:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  /* Statut "en train d'écrire" */
+  .demo-status {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin: 20px 0 0;
+  }
+  .demo-status[hidden] { display: none; }
+
+  /* Réponse */
+  .demo-answer {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-text-primary);
+    margin-top: 20px;
+    white-space: pre-wrap;       /* préserve les retours de ligne du modèle, sans HTML */
+    overflow-wrap: anywhere;
+  }
+  .demo-answer:empty { margin-top: 0; }
+
+  /* Accessibilité */
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+  }
+</style>
+
+<script>
+  import {
+    validateQuestion,
+    buildPayload,
+    hasQuotaLeft,
+    mapHttpError,
+    extractAnswer,
+  } from '../lib/demo/client';
+  import { WEBHOOK_URL, COPY } from '../lib/demo/config';
+
+  // Turnstile s'injecte sur window via le script chargé par la page /demo.
+  interface TurnstileWindow extends Window {
+    turnstile?: {
+      getResponse: () => string | undefined;
+      reset: () => void;
+    };
+  }
+  const t = window as TurnstileWindow;
+
+  const form = document.getElementById('demo-form') as HTMLFormElement | null;
+  const input = document.getElementById('demo-question') as HTMLInputElement | null;
+  const sendBtn = document.getElementById('demo-send') as HTMLButtonElement | null;
+  const status = document.getElementById('demo-status');
+  const answer = document.getElementById('demo-answer');
+  const suggestBtns = document.querySelectorAll<HTMLButtonElement>('[data-suggest]');
+
+  if (form && input && sendBtn && status && answer) {
+    let count = 0;
+
+    // Questions suggérées → remplissent le champ (textContent, pas de HTML).
+    suggestBtns.forEach((b) => {
+      b.addEventListener('click', () => {
+        input.value = b.textContent ?? '';
+        input.focus();
+      });
+    });
+
+    function lockForQuota() {
+      input!.disabled = true;
+      sendBtn!.disabled = true;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!hasQuotaLeft(count)) {
+        answer!.textContent = COPY.quotaReached;
+        lockForQuota();
+        return;
+      }
+
+      const token = t.turnstile?.getResponse();
+      if (!token) {
+        answer!.textContent = COPY.needTurnstile;
+        return;
+      }
+
+      const validation = validateQuestion(input!.value);
+      if (!validation.ok) return; // champ requis + maxlength couvrent l'UX ; on n'envoie rien d'invalide.
+
+      sendBtn!.disabled = true;
+      status!.hidden = false;
+      answer!.textContent = '';
+
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(buildPayload(validation.value, token)),
+        });
+
+        if (!res.ok) {
+          answer!.textContent = mapHttpError(res.status);
+        } else {
+          const data = await res.json();
+          answer!.textContent = extractAnswer(data); // ⚠ textContent only — sortie modèle non fiable
+          count++;
+        }
+      } catch {
+        answer!.textContent = COPY.errorNetwork;
+      } finally {
+        status!.hidden = true;
+        // Token Turnstile à usage unique : reset pour préparer la question suivante.
+        t.turnstile?.reset();
+        if (hasQuotaLeft(count)) {
+          sendBtn!.disabled = false;
+        } else {
+          lockForQuota();
+        }
+      }
+    });
+  }
+</script>
