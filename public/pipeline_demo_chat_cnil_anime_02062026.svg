@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1120 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ttl dsc">
+<svg viewBox="0 100 1120 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ttl dsc">
   <title id="ttl">Pipeline animé de la démo de chat documentaire</title>
   <desc id="dsc">Cinq étapes révélées en séquence : question, vérification anti-robot, document CNIL injecté, génération Mistral (modèle européen), réponse sourcée ou refus. Une branche montre le blocage si l'anti-robot échoue.</desc>
   <style>
@@ -8,7 +8,6 @@
     .numc{fill:#2D5A4F;}
     .numc-ai{fill:#A55E2D;}
     .num{font-family:'JetBrains Mono',ui-monospace,monospace;fill:#F5F1EA;font-weight:700;font-size:14px;}
-    .ttl{font-family:Fraunces,Georgia,serif;fill:#1A2421;font-size:27px;font-weight:600;}
     .h{font-family:Inter,system-ui,sans-serif;fill:#1A2421;font-weight:600;font-size:16px;}
     .sub{font-family:Inter,system-ui,sans-serif;fill:#5A625E;font-size:12.5px;}
     .cap{font-family:Inter,system-ui,sans-serif;fill:#5A625E;font-size:13.5px;}
@@ -40,7 +39,6 @@
   </defs>
 
   <rect class="bg" x="0" y="0" width="1120" height="450"/>
-  <text class="ttl" x="40" y="56">Comment fonctionne la démo</text>
 
   <line class="flow arr a1" x1="216" y1="196" x2="246" y2="196" marker-end="url(#ah)"/>
   <line class="flow arr a2" x1="428" y1="196" x2="458" y2="196" marker-end="url(#ah)"/>

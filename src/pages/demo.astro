@@ -84,9 +84,10 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- Comment ça marche — schéma animé (SVG servi via <img> depuis /public) -->
-    <section class="demo-how section" aria-label="Comment fonctionne la démo">
+    <!-- Comment ça marche — titre HTML + schéma animé (SVG servi via <img> depuis /public) -->
+    <section class="demo-how section" aria-labelledby="demo-how-title">
       <div class="container">
+        <h2 id="demo-how-title" class="demo-how-title">Comment fonctionne la démo</h2>
         <figure id="demo-pipe" class="demo-pipe">
           <img
             src="/pipeline_demo_chat_cnil_anime_02062026.svg"
@@ -100,7 +101,7 @@ const jsonLd = {
     <!-- CTA Cal.com (en plus du CTA permanent de la navbar) -->
     <section class="demo-cta section section-alt" aria-label="Prendre rendez-vous">
       <div class="container">
-        <h2 class="demo-cta-title">Envie de ça sur vos propres process&nbsp;?</h2>
+        <h2 class="demo-cta-title">Besoin d'un assistant sur vos propres documents&nbsp;?</h2>
         <p class="demo-cta-text">
           Cette démo tourne sur un document public. Sur vos documents métier, le même principe industrialise
           des process entiers. Parlons-en.
@@ -160,7 +161,17 @@ const jsonLd = {
   }
   .demo-cnil-link:hover { color: var(--color-primary); }
 
-  /* Comment ça marche — schéma pipeline (padding-block = token .section standard) */
+  /* Comment ça marche — titre HTML + schéma pipeline (padding-block = token .section standard) */
+  .demo-how-title {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin: 0 0 32px;
+  }
+  @media (max-width: 767px) { .demo-how-title { font-size: 26px; } }
   .demo-pipe {
     max-width: 1040px;
     margin: 0 auto;
