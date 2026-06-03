@@ -73,6 +73,7 @@ export const casClients: CasClient[] = [
     ],
     livraisonNote:
       "Le webhook répond en HTTP 200 immédiatement ; tout le traitement tourne en asynchrone. Aucun opérateur ne touche le dossier entre le paiement et la réception.",
+    schemaSvg: '/pipeline_cas_mymicronutrition_03062026.svg',
     pointFort: {
       titre: 'La décision qui signe le travail : conformité avant fonctionnalité',
       corps:
@@ -128,6 +129,7 @@ export const casClients: CasClient[] = [
       'Chatbot interne propulsé par Mistral LLM : interrogation en langage naturel.',
       'Configuration, prompts et paramétrage = propriétaire, boîte noire.',
     ],
+    schemaSvg: '/pipeline_cas_xpair_formation_03062026.svg',
     pointFort: {
       titre: 'Une stack souveraine',
       corps:
@@ -191,6 +193,7 @@ export const casClients: CasClient[] = [
     ],
     livraisonNote:
       "La recommandation arrive au bon moment — la fin de l'inscription — et se matérialise par une action concrète.",
+    schemaSvg: '/pipeline_cas_enerj_reco_03062026.svg',
     chiffres: [
       { label: 'Conférences ciblées / catalogue', valeur: '5 / 100+', note: "par visiteur, dès l'inscription" },
       { label: 'Édition 2026', valeur: '4 500 visiteurs présents', note: 'sur 8 000+ inscrits' },

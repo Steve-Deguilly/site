@@ -1,0 +1,57 @@
+<svg viewBox="0 0 1120 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ttl dsc">
+  <title id="ttl">Pipeline du moteur de recommandation EnerJ-meeting</title>
+  <desc id="dsc">Cinq étapes intégrées au parcours d'inscription : saisie du profil à l'étape 4, enrichissement à partir de données publiques, matching par un moteur de scoring propriétaire, sélection de cinq conférences parmi plus de cent, puis ajout direct dans le back-office du visiteur sans ressaisie.</desc>
+  <style>
+    .bg{fill:#F5F1EA;}
+    .card{fill:#EBE5D9;stroke:#2D5A4F;stroke-width:1.5;}
+    .card-ai{fill:#EBE5D9;stroke:#A55E2D;stroke-width:2;}
+    .numc{fill:#2D5A4F;}
+    .numc-ai{fill:#A55E2D;}
+    .num{font-family:'JetBrains Mono',ui-monospace,monospace;fill:#F5F1EA;font-weight:700;font-size:14px;}
+    .h{font-family:Inter,system-ui,sans-serif;fill:#1A2421;font-weight:600;font-size:15px;}
+    .sub{font-family:Inter,system-ui,sans-serif;fill:#5A625E;font-size:12px;}
+    .flow{stroke:#2D5A4F;stroke-width:2;fill:none;}
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2D5A4F"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1120" height="200"/>
+
+  <line class="flow" x1="216" y1="92" x2="246" y2="92" marker-end="url(#ah)"/>
+  <line class="flow" x1="428" y1="92" x2="458" y2="92" marker-end="url(#ah)"/>
+  <line class="flow" x1="640" y1="92" x2="670" y2="92" marker-end="url(#ah)"/>
+  <line class="flow" x1="852" y1="92" x2="882" y2="92" marker-end="url(#ah)"/>
+
+  <rect class="card" x="36" y="40" width="180" height="104" rx="14"/>
+  <circle class="numc" cx="60" cy="64" r="14"/>
+  <text class="num" x="60" y="69" text-anchor="middle">1</text>
+  <text class="h" x="126" y="92" text-anchor="middle">Profil</text>
+  <text class="sub" x="126" y="114" text-anchor="middle">étape 4 de l'inscription</text>
+
+  <rect class="card" x="248" y="40" width="180" height="104" rx="14"/>
+  <circle class="numc" cx="272" cy="64" r="14"/>
+  <text class="num" x="272" y="69" text-anchor="middle">2</text>
+  <text class="h" x="338" y="92" text-anchor="middle">Enrichissement</text>
+  <text class="sub" x="338" y="114" text-anchor="middle">données publiques</text>
+
+  <rect class="card-ai" x="460" y="40" width="180" height="104" rx="14"/>
+  <circle class="numc-ai" cx="484" cy="64" r="14"/>
+  <text class="num" x="484" y="69" text-anchor="middle">3</text>
+  <text class="h" x="550" y="92" text-anchor="middle">Matching</text>
+  <text class="sub" x="550" y="114" text-anchor="middle">scoring propriétaire</text>
+
+  <rect class="card" x="672" y="40" width="180" height="104" rx="14"/>
+  <circle class="numc" cx="696" cy="64" r="14"/>
+  <text class="num" x="696" y="69" text-anchor="middle">4</text>
+  <text class="h" x="762" y="92" text-anchor="middle">Sélection</text>
+  <text class="sub" x="762" y="114" text-anchor="middle">5 conférences / 100+</text>
+
+  <rect class="card" x="884" y="40" width="180" height="104" rx="14"/>
+  <circle class="numc" cx="908" cy="64" r="14"/>
+  <text class="num" x="908" y="69" text-anchor="middle">5</text>
+  <text class="h" x="974" y="92" text-anchor="middle">Back-office</text>
+  <text class="sub" x="974" y="114" text-anchor="middle">ajout sans ressaisie</text>
+</svg>

@@ -251,7 +251,14 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
     padding-left: 14px;
     border-left: 2px solid var(--color-border);
   }
-  .cas-schema { margin: 24px 0 0; max-width: 1040px; }
+  /* Le schéma déborde la colonne de lecture (820px) jusqu'à ~1040px, centré viewport. */
+  .cas-schema {
+    margin: 28px auto 0;
+    width: min(1040px, calc(100vw - 48px));
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
   .cas-schema img { width: 100%; height: auto; display: block; }
 
   /* 6. Point fort */
