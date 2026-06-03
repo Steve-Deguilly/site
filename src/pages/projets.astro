@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { projets, secteursFilter, competencesFilter } from '../data/projets';
+import { casClients } from '../data/casClients';
 
 const siteUrl = 'https://steve-deguilly.com';
 const jsonLd = {
@@ -34,7 +35,33 @@ const jsonLd = {
       </div>
     </header>
 
+    <!-- Cas clients en détail — 3 cartes vers /projets/<slug> -->
+    <section class="cas-hub" aria-labelledby="cas-hub-title">
+      <div class="container">
+        <h2 id="cas-hub-title" class="cas-hub-title">Cas clients en détail</h2>
+        <p class="cas-hub-intro">Trois réalisations en profondeur — le défi, ce que j'ai livré, les chiffres, et ce que ça transpose à votre contexte.</p>
+        <div class="cas-hub-grid">
+          {casClients.map((c) => (
+            <a class="cas-card" href={`/projets/${c.slug}`}>
+              <span class="cas-card-secteur">{c.secteur}</span>
+              <span class="cas-card-client">{c.client}</span>
+              <span class="cas-card-promesse">{c.heroPromesse}</span>
+              <span class="cas-card-chiffre">
+                <span class="cas-card-valeur">{c.heroChiffre.valeur}</span>
+                <span class="cas-card-label">{c.heroChiffre.label}</span>
+              </span>
+              <span class="cas-card-cta">Lire le cas →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <div class="container">
+      <div class="parcours-head">
+        <h2 class="parcours-title">Le parcours complet</h2>
+        <p class="parcours-sub">18 ans, 4 secteurs — filtrez par secteur ou compétence.</p>
+      </div>
       <section class="filters-bar" aria-label="Filtres">
         <div class="filter-row">
           <span class="filter-label">Secteur</span>
@@ -81,7 +108,10 @@ const jsonLd = {
         <tbody>
           {projets.map((p) => (
             <tr class={`project-row period-${p.period}`} data-secteur={p.secteur} data-tags={p.tags.join(',')}>
-              <td class="td-client">{p.client}</td>
+              <td class="td-client">
+                {p.client}
+                {p.caseSlug && <a class="row-case-link" href={`/projets/${p.caseSlug}`}>→ lire le cas</a>}
+              </td>
               <td class="td-mission">{p.mission}</td>
               <td class="td-tags">
                 {p.tags.map((t) => <span class="tag-pill">{t}</span>)}
@@ -99,6 +129,7 @@ const jsonLd = {
               <span class="card-client">{p.client}</span>
             </div>
             <div class="card-mission">{p.mission}</div>
+            {p.caseSlug && <a class="row-case-link" href={`/projets/${p.caseSlug}`}>→ lire le cas</a>}
             <div class="card-bottom">
               <div>
                 {p.tags.map((t) => <span class="tag-pill">{t}</span>)}
@@ -125,6 +156,119 @@ const jsonLd = {
 </Layout>
 
 <style>
+  /* ── Cas clients en détail (hub, 3 cartes) ── */
+  .cas-hub { padding: 16px 0 8px; }
+  .cas-hub-title {
+    font-family: var(--font-serif);
+    font-size: 28px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0 0 8px;
+  }
+  .cas-hub-intro {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0 0 28px;
+    max-width: 640px;
+  }
+  .cas-hub-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .cas-hub-grid { grid-template-columns: 1fr; } }
+  .cas-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-bg-cream);
+    text-decoration: none;
+    transition: border-color 150ms, transform 150ms, box-shadow 150ms;
+  }
+  .cas-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(31,65,56,0.08);
+  }
+  .cas-card-secteur {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .cas-card-client {
+    font-family: var(--font-serif);
+    font-size: 20px; font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+  .cas-card-promesse {
+    font-family: var(--font-sans);
+    font-size: 14px; line-height: 1.5;
+    color: var(--color-text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cas-card-chiffre {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid var(--color-border);
+  }
+  .cas-card-valeur {
+    font-family: var(--font-mono);
+    font-size: 20px; font-weight: 500;
+    color: var(--color-primary-deep);
+    letter-spacing: -0.01em;
+  }
+  .cas-card-label {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+  .cas-card-cta {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 500;
+    color: var(--color-accent-cta);
+    margin-top: 6px;
+  }
+
+  /* Titre 2e étage du hub */
+  .parcours-head { padding: 48px 0 0; }
+  .parcours-title {
+    font-family: var(--font-serif);
+    font-size: 28px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0 0 6px;
+  }
+  .parcours-sub {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Lien "lire le cas" sur les lignes parcours */
+  .row-case-link {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    color: var(--color-accent-cta);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .row-case-link:hover { text-decoration: underline; }
+
   /* Header — style /diagnostic (kicker + H1 + intro, centré) */
   .page-header { padding: 64px 0 32px; text-align: center; }
   .page-kicker {

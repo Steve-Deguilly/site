@@ -7,17 +7,19 @@ export interface Projet {
   tags: string[];
   result: string;
   period: Period;
+  caseSlug?: string; // si la ligne a un cas détaillé → lien "lire le cas" vers /projets/<caseSlug>
 }
 
 export const projets: Projet[] = [
   {
-    client: 'E-santé (NDA)',
+    client: 'myMicroNutrition',
     mission:
       "Architecture from scratch d'une plateforme SaaS sécurisée HDS/RGPD — intégration LLMs + RAG, automatisation complète des flux via n8n",
     secteur: 'E-santé',
     tags: ['Architecture', 'IA', 'RGPD'],
     result: "Création d'une BU sécurisée<br>Réduction de diagnostic (45 min → 2 min)",
     period: 'creastory',
+    caseSlug: 'mymicronutrition',
   },
   {
     client: 'Batiactu Groupe',
@@ -52,7 +54,7 @@ export const projets: Projet[] = [
       'Développement de la plateforme technique complète — 3 sites (Node.js/MongoDB), 3 apps mobiles (PWA, Android, iOS), BO client avec messagerie + prise de RDV inter-participants, CMS maison de gestion événementielle',
     secteur: 'Événementiel',
     tags: ['Architecture', 'Dev', 'Produit'],
-    result: '4 000+ participants/édition',
+    result: '4 500 présents · 8 000+ inscrits',
     period: 'xpair',
   },
   {
@@ -61,8 +63,9 @@ export const projets: Projet[] = [
       "Développement de l'algorithme de matchmaking B2B (v1 → v3) — scoring d'affinités inter-participants, recommandations personnalisées en fin d'inscription",
     secteur: 'Événementiel',
     tags: ['Architecture', 'IA', 'Analytics'],
-    result: '20 000+ mises en relation/édition',
+    result: '27 000+ mises en relation',
     period: 'xpair',
+    caseSlug: 'enerj-meeting-recommandation',
   },
   {
     client: 'EnerJ-meeting',

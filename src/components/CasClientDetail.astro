@@ -1,0 +1,334 @@
+---
+// Page détail d'un cas client — template reproductible (spec §4, ordre figé).
+// Réutilise les tokens global.css. CTAFinal partagé inclus en fin de template.
+import CTAFinal from './CTAFinal.astro';
+import type { CasClient } from '../data/casClients';
+
+interface Props {
+  cas: CasClient;
+}
+const { cas } = Astro.props;
+
+const periodeLabel = cas.periode === 'creastory' ? 'Creastory Conseil' : 'XPair / EnerJ-meeting';
+const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolean);
+---
+
+<article class="cas">
+  <div class="container cas-container">
+    <!-- 1. Breadcrumb -->
+    <nav class="cas-breadcrumb" aria-label="Fil d'Ariane">
+      <a href="/">Accueil</a>
+      <span aria-hidden="true">›</span>
+      <a href="/projets">Réalisations</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">{cas.client}</span>
+    </nav>
+
+    <!-- 2. Header -->
+    <header class="cas-header">
+      <p class="cas-kicker">{cas.secteur} · {periodeLabel}</p>
+      <h1>{cas.heroPromesse}</h1>
+      <p class="cas-role">{cas.role}</p>
+      <ul class="cas-stack" aria-label="Stack technique">
+        {cas.stack.map((s) => <li class="cas-stack-pill">{s}</li>)}
+      </ul>
+    </header>
+
+    <!-- 3. Chiffre héro -->
+    <div class="cas-hero-chiffre">
+      <span class="cas-hero-valeur">{cas.heroChiffre.valeur}</span>
+      <span class="cas-hero-label">{cas.heroChiffre.label}</span>
+      {cas.heroChiffre.note && <span class="cas-hero-note">{cas.heroChiffre.note}</span>}
+    </div>
+
+    <!-- 4. Le défi -->
+    <section class="cas-block" aria-labelledby="cas-defi-title">
+      <h2 id="cas-defi-title" class="cas-h2">Le défi</h2>
+      {defiParagraphs.map((p) => <p class="cas-text">{p}</p>)}
+    </section>
+
+    <!-- 5. Ce que j'ai livré -->
+    <section class="cas-block" aria-labelledby="cas-livraison-title">
+      <h2 id="cas-livraison-title" class="cas-h2">Ce que j'ai livré</h2>
+      <ol class="cas-livraison">
+        {cas.livraison.map((etape) => <li>{etape}</li>)}
+      </ol>
+      {cas.schemaSvg && (
+        <figure class="cas-schema">
+          <img src={cas.schemaSvg} alt={`Schéma — ${cas.client}`} loading="lazy" />
+        </figure>
+      )}
+      {cas.livraisonNote && <p class="cas-note">{cas.livraisonNote}</p>}
+    </section>
+
+    <!-- 6. Bloc point fort (optionnel) -->
+    {cas.pointFort && (
+      <section class="cas-pointfort section-alt" aria-labelledby="cas-pointfort-title">
+        <h2 id="cas-pointfort-title" class="cas-pointfort-title">{cas.pointFort.titre}</h2>
+        <p class="cas-text">{cas.pointFort.corps}</p>
+      </section>
+    )}
+
+    <!-- 7. Les chiffres -->
+    <section class="cas-block" aria-labelledby="cas-chiffres-title">
+      <h2 id="cas-chiffres-title" class="cas-h2">Les chiffres</h2>
+      <table class="cas-chiffres" aria-label="Chiffres clés">
+        <tbody>
+          {cas.chiffres
+            .filter((c) => c.valeur.trim().length > 0)
+            .map((c) => (
+              <tr>
+                <th scope="row">{c.label}</th>
+                <td class="cas-chiffre-valeur">{c.valeur}</td>
+                <td class="cas-chiffre-note">{c.note ?? ''}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 8. Ce que ça transpose -->
+    <section class="cas-block" aria-labelledby="cas-transpose-title">
+      <h2 id="cas-transpose-title" class="cas-h2">Ce que ça transpose</h2>
+      <p class="cas-text">{cas.transposeIntro}</p>
+      <ul class="cas-liste">
+        {cas.transposeCibles.map((c) => <li>{c}</li>)}
+      </ul>
+    </section>
+
+    <!-- 9. Ce que ce projet démontre -->
+    <section class="cas-block" aria-labelledby="cas-demontre-title">
+      <h2 id="cas-demontre-title" class="cas-h2">Ce que ce projet démontre</h2>
+      <ul class="cas-liste cas-liste--check">
+        {cas.demontre.map((d) => <li>{d}</li>)}
+      </ul>
+    </section>
+
+    <!-- Retour parcours -->
+    <p class="cas-retour"><a href="/projets">← Retour aux réalisations</a></p>
+  </div>
+</article>
+
+<!-- 10. CTA partagé -->
+<CTAFinal />
+
+<style>
+  .cas { padding: 32px 0 0; }
+  .cas-container { max-width: 820px; }
+
+  /* 1. Breadcrumb */
+  .cas-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: 32px;
+  }
+  .cas-breadcrumb a { color: var(--color-text-muted); text-decoration: none; }
+  .cas-breadcrumb a:hover { color: var(--color-primary); text-decoration: underline; }
+  .cas-breadcrumb [aria-current="page"] { color: var(--color-text-primary); }
+
+  /* 2. Header */
+  .cas-header { margin-bottom: 32px; }
+  .cas-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .cas-header h1 {
+    font-family: var(--font-serif);
+    font-size: 36px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.12;
+    color: var(--color-text-primary);
+    margin: 0 0 16px;
+  }
+  .cas-role {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0 0 20px;
+  }
+  .cas-stack { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .cas-stack-pill {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    color: var(--color-accent-cool-text);
+    background: rgba(74,97,104,0.10);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  @media (max-width: 767px) { .cas-header h1 { font-size: 28px; } }
+
+  /* 3. Chiffre héro */
+  .cas-hero-chiffre {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    border-radius: 14px;
+    background: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+  }
+  .cas-hero-valeur {
+    font-family: var(--font-mono);
+    font-size: 40px; font-weight: 500;
+    line-height: 1.05;
+    color: var(--color-primary-deep);
+    letter-spacing: -0.01em;
+  }
+  .cas-hero-label {
+    font-family: var(--font-sans);
+    font-size: 15px; font-weight: 500;
+    color: var(--color-text-primary);
+  }
+  .cas-hero-note {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+  }
+  @media (max-width: 767px) {
+    .cas-hero-chiffre { padding: 22px 22px; }
+    .cas-hero-valeur { font-size: 32px; }
+  }
+
+  /* Blocs de contenu */
+  .cas-block { margin-bottom: 44px; }
+  .cas-h2 {
+    font-family: var(--font-serif);
+    font-size: 26px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0 0 18px;
+  }
+  .cas-text {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.7;
+    color: var(--color-text-primary);
+    margin: 0 0 14px;
+  }
+  .cas-text:last-child { margin-bottom: 0; }
+
+  /* 5. Livraison (liste ordonnée) */
+  .cas-livraison {
+    margin: 0; padding: 0;
+    list-style: none;
+    counter-reset: step;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .cas-livraison li {
+    position: relative;
+    counter-increment: step;
+    padding-left: 44px;
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.6;
+    color: var(--color-text-primary);
+    min-height: 30px;
+    display: flex; align-items: center;
+  }
+  .cas-livraison li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 700;
+    color: var(--color-bg-cream);
+    background: var(--color-primary);
+    border-radius: 50%;
+  }
+  .cas-note {
+    font-family: var(--font-sans);
+    font-size: 14px; font-style: italic;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 18px 0 0;
+    padding-left: 14px;
+    border-left: 2px solid var(--color-border);
+  }
+  .cas-schema { margin: 24px 0 0; max-width: 1040px; }
+  .cas-schema img { width: 100%; height: auto; display: block; }
+
+  /* 6. Point fort */
+  .cas-pointfort {
+    padding: 28px 32px;
+    margin-bottom: 44px;
+    border-radius: 14px;
+    border-left: 3px solid var(--color-accent-cta);
+  }
+  .cas-pointfort-title {
+    font-family: var(--font-serif);
+    font-size: 21px; font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-primary-deep);
+    margin: 0 0 12px;
+  }
+  @media (max-width: 767px) { .cas-pointfort { padding: 22px; } }
+
+  /* 7. Chiffres (tableau) */
+  .cas-chiffres { width: 100%; border-collapse: collapse; }
+  .cas-chiffres tr { border-bottom: 1px solid rgba(220,213,199,0.6); }
+  .cas-chiffres th {
+    text-align: left;
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 500;
+    color: var(--color-text-primary);
+    padding: 12px 16px 12px 0;
+    vertical-align: top;
+  }
+  .cas-chiffre-valeur {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-primary-deep);
+    padding: 12px 16px;
+    white-space: nowrap;
+    vertical-align: top;
+  }
+  .cas-chiffre-note {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    padding: 12px 0;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  @media (max-width: 600px) {
+    .cas-chiffres th, .cas-chiffre-valeur, .cas-chiffre-note {
+      display: block; padding: 2px 0;
+    }
+    .cas-chiffres tr { padding: 12px 0; display: block; }
+    .cas-chiffre-valeur { font-size: 16px; }
+  }
+
+  /* 8/9. Listes */
+  .cas-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .cas-liste li {
+    position: relative;
+    padding-left: 26px;
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.6;
+    color: var(--color-text-primary);
+  }
+  .cas-liste li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+  .cas-liste--check li::before { content: '✓'; font-weight: 600; }
+
+  /* Retour */
+  .cas-retour { margin: 8px 0 0; }
+  .cas-retour a {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .cas-retour a:hover { color: var(--color-primary); }
+</style>

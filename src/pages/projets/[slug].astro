@@ -1,0 +1,62 @@
+---
+// Page détail d'un cas client — /projets/<slug>. Pré-rendue au build (output static).
+// Template dans CasClientDetail.astro. OG : fallback og-projets.jpg en v1 (OG dédiées = suivi).
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import CasClientDetail from '../../components/CasClientDetail.astro';
+import { casClients } from '../../data/casClients';
+
+export function getStaticPaths() {
+  return casClients.map((cas) => ({ params: { slug: cas.slug }, props: { cas } }));
+}
+
+const { cas } = Astro.props;
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/projets/${cas.slug}`;
+
+// Description SEO : la promesse héro, tronquée proprement si trop longue.
+const description =
+  cas.heroPromesse.length > 155 ? `${cas.heroPromesse.slice(0, 152).trimEnd()}…` : cas.heroPromesse;
+
+// JSON-LD GEO — TechArticle + BreadcrumbList (Person/Organization référencés par @id du Layout).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      '@id': `${pageUrl}/#article`,
+      headline: cas.heroPromesse,
+      about: cas.secteur,
+      inLanguage: 'fr',
+      url: pageUrl,
+      author: { '@id': `${siteUrl}/#person` },
+      publisher: { '@id': `${siteUrl}/#organization` },
+      keywords: cas.stack.join(', '),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Réalisations', item: `${siteUrl}/projets/` },
+        { '@type': 'ListItem', position: 3, name: cas.client, item: `${pageUrl}/` },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title={`${cas.client} — ${cas.secteur} | Steve Deguilly`}
+  description={description}
+  canonical={`/projets/${cas.slug}`}
+  ogImage="/og-projets.jpg"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+  <main>
+    <CasClientDetail cas={cas} />
+  </main>
+  <Footer />
+</Layout>
