@@ -54,7 +54,7 @@ export const projets: Projet[] = [
       'Développement de la plateforme technique complète — 3 sites (Node.js/MongoDB), 3 apps mobiles (PWA, Android, iOS), BO client avec messagerie + prise de RDV inter-participants, CMS maison de gestion événementielle',
     secteur: 'Événementiel',
     tags: ['Architecture', 'Dev', 'Produit'],
-    result: '4 500 présents · 8 000+ inscrits',
+    result: '4 500 présents / 8 000+ inscrits (éd. 2026)',
     period: 'xpair',
   },
   {

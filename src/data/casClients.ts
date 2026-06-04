@@ -56,9 +56,9 @@ export const casClients: CasClient[] = [
     heroPromesse:
       "Transformer un questionnaire santé payé en bilan PDF personnalisé, livré en minutes — sans aucune intervention humaine, sous contrainte HDS/RGPD.",
     heroChiffre: {
-      label: "Analyse experte d'un bilan",
+      label: "Temps d'analyse par bilan",
       valeur: '45 min → 2 min',
-      note: 'sans intervention humaine',
+      note: 'sans intervention humaine · 0 erreur',
     },
     defi:
       "MMN vend un bilan micronutrition premium, personnalisé, validé médicalement par le fondateur. Le problème n'était pas le contenu : c'était la production. Transformer un questionnaire client payé en un PDF personnalisé, fiable, livré en quelques minutes — sans opérateur, et sous contrainte de conformité puisqu'il s'agit de données de santé.",
@@ -73,7 +73,6 @@ export const casClients: CasClient[] = [
     ],
     livraisonNote:
       "Le webhook répond en HTTP 200 immédiatement ; tout le traitement tourne en asynchrone. Aucun opérateur ne touche le dossier entre le paiement et la réception.",
-    schemaSvg: '/pipeline_cas_mymicronutrition_03062026.svg',
     pointFort: {
       titre: 'La décision qui signe le travail : conformité avant fonctionnalité',
       corps:
@@ -119,7 +118,8 @@ export const casClients: CasClient[] = [
       "Rendre 3 600+ pages de cours techniques CVC interrogeables en langage naturel par les équipes SAV et commerciales — sur une stack 100 % européenne.",
     heroChiffre: {
       label: 'Escalades vers le responsable métier',
-      valeur: '~4-5/jour → 0',
+      valeur: '≈ 0',
+      note: 'contre ~4-5/jour avant · réponses en secondes',
     },
     defi:
       "Les équipes SAV et commerciales doivent répondre vite, et juste, à des questions clients précises : combien de cours sur tel sujet, telle réglementation est-elle traitée, quel module couvre tel besoin. Sans outil dédié, ces réponses dépendaient de la mémoire des équipes, allongeaient l'onboarding et remontaient sans cesse vers le responsable métier — un goulot d'étranglement.",
@@ -129,7 +129,6 @@ export const casClients: CasClient[] = [
       'Chatbot interne propulsé par Mistral LLM : interrogation en langage naturel.',
       'Configuration, prompts et paramétrage = propriétaire, boîte noire.',
     ],
-    schemaSvg: '/pipeline_cas_xpair_formation_03062026.svg',
     pointFort: {
       titre: 'Une stack souveraine',
       corps:
@@ -182,6 +181,7 @@ export const casClients: CasClient[] = [
     heroChiffre: {
       label: 'Conférences ciblées par visiteur',
       valeur: '5 / 100+',
+      note: "poussées dans l'espace visiteur, sans ressaisie",
     },
     defi:
       "L'événement propose plus de 100 conférences. À l'inscription, un visiteur n'a ni le temps ni les moyens de trier ce qui le concerne. Résultat : un parcours générique, un engagement faible, une valeur limitée pour les exposants et l'organisateur, qui veulent des visiteurs présents sur les bonnes sessions.",
@@ -193,7 +193,6 @@ export const casClients: CasClient[] = [
     ],
     livraisonNote:
       "La recommandation arrive au bon moment — la fin de l'inscription — et se matérialise par une action concrète.",
-    schemaSvg: '/pipeline_cas_enerj_reco_03062026.svg',
     chiffres: [
       { label: 'Conférences ciblées / catalogue', valeur: '5 / 100+', note: "par visiteur, dès l'inscription" },
       { label: 'Édition 2026', valeur: '4 500 visiteurs présents', note: 'sur 8 000+ inscrits' },

@@ -47,8 +47,9 @@ const jsonLd = {
               <span class="cas-card-client">{c.client}</span>
               <span class="cas-card-promesse">{c.heroPromesse}</span>
               <span class="cas-card-chiffre">
+                <span class="cas-card-clabel">{c.heroChiffre.label}</span>
                 <span class="cas-card-valeur">{c.heroChiffre.valeur}</span>
-                <span class="cas-card-label">{c.heroChiffre.label}</span>
+                {c.heroChiffre.note && <span class="cas-card-cnote">{c.heroChiffre.note}</span>}
               </span>
               <span class="cas-card-cta">Lire le cas →</span>
             </a>
@@ -170,7 +171,6 @@ const jsonLd = {
     font-size: 16px; line-height: 1.6;
     color: var(--color-text-muted);
     margin: 0 0 28px;
-    max-width: 640px;
   }
   .cas-hub-grid {
     display: grid;
@@ -223,16 +223,23 @@ const jsonLd = {
     padding-top: 14px;
     border-top: 1px solid var(--color-border);
   }
+  .cas-card-clabel {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    color: var(--color-text-muted);
+  }
   .cas-card-valeur {
     font-family: var(--font-mono);
     font-size: 20px; font-weight: 500;
     color: var(--color-primary-deep);
     letter-spacing: -0.01em;
+    line-height: 1.1;
   }
-  .cas-card-label {
+  .cas-card-cnote {
     font-family: var(--font-sans);
     font-size: 12px;
     color: var(--color-text-muted);
+    line-height: 1.4;
   }
   .cas-card-cta {
     font-family: var(--font-sans);

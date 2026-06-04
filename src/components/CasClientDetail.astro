@@ -14,7 +14,7 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
 ---
 
 <article class="cas">
-  <div class="container cas-container">
+  <div class="container">
     <!-- 1. Breadcrumb -->
     <nav class="cas-breadcrumb" aria-label="Fil d'Ariane">
       <a href="/">Accueil</a>
@@ -34,10 +34,10 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
       </ul>
     </header>
 
-    <!-- 3. Chiffre héro -->
+    <!-- 3. Chiffre héro — 3 niveaux : label (au-dessus) · valeur (gros, mono) · note (en dessous) -->
     <div class="cas-hero-chiffre">
-      <span class="cas-hero-valeur">{cas.heroChiffre.valeur}</span>
       <span class="cas-hero-label">{cas.heroChiffre.label}</span>
+      <span class="cas-hero-valeur">{cas.heroChiffre.valeur}</span>
       {cas.heroChiffre.note && <span class="cas-hero-note">{cas.heroChiffre.note}</span>}
     </div>
 
@@ -114,7 +114,6 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
 
 <style>
   .cas { padding: 32px 0 0; }
-  .cas-container { max-width: 820px; }
 
   /* 1. Breadcrumb */
   .cas-breadcrumb {
@@ -175,17 +174,17 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
     background: var(--color-surface-warm);
     border: 1px solid var(--color-border);
   }
+  .cas-hero-label {
+    font-family: var(--font-sans);
+    font-size: 13px; font-weight: 500;
+    color: var(--color-text-muted);
+  }
   .cas-hero-valeur {
     font-family: var(--font-mono);
     font-size: 40px; font-weight: 500;
     line-height: 1.05;
     color: var(--color-primary-deep);
     letter-spacing: -0.01em;
-  }
-  .cas-hero-label {
-    font-family: var(--font-sans);
-    font-size: 15px; font-weight: 500;
-    color: var(--color-text-primary);
   }
   .cas-hero-note {
     font-family: var(--font-sans);
@@ -251,14 +250,8 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
     padding-left: 14px;
     border-left: 2px solid var(--color-border);
   }
-  /* Le schéma déborde la colonne de lecture (820px) jusqu'à ~1040px, centré viewport. */
-  .cas-schema {
-    margin: 28px auto 0;
-    width: min(1040px, calc(100vw - 48px));
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  /* Schéma (v1.1) — centré, max-width ~1040px (spec §4.5), sans dépasser la largeur du contenu. */
+  .cas-schema { margin: 28px auto 0; max-width: 1040px; }
   .cas-schema img { width: 100%; height: auto; display: block; }
 
   /* 6. Point fort */
