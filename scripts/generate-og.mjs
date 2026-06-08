@@ -1,9 +1,7 @@
-// Génère les images OG du site (1200×630) : public/og-diagnostic.jpg et public/og-projets.jpg.
+// Génère les images OG du site (1200×630).
 // Rejouable. Utilise `sharp` (déjà livré avec Astro) → zéro dépendance ajoutée.
 //   node scripts/generate-og.mjs
-//
-// Le rendu est figé dans le JPG : polices système (Georgia/Arial) suffisantes,
-// identiques pour tous les viewers une fois rasterisé. Couleurs = tokens de marque.
+// Polices système (Georgia/Arial), couleurs = tokens de marque (cf. global.css).
 
 import sharp from 'sharp';
 import { fileURLToPath } from 'node:url';
@@ -15,14 +13,12 @@ const PUBLIC = resolve(__dirname, '../public');
 const W = 1200;
 const H = 630;
 
-// Tokens de marque (cf. global.css)
 const CREAM = '#F5F1EA';
 const PRIMARY = '#2D5A4F';
 const TERRACOTTA = '#A55E2D';
 const INK = '#1A2421';
 const MUTED = '#5A625E';
 
-/** Construit le SVG d'une image OG. `lines` = 1 à 2 lignes de titre. */
 function makeSvg({ kicker, lines, subtitle, url, titleSize = 76 }) {
   const lh = Math.round(titleSize * 1.105);
   const titleTop = 332;
@@ -42,22 +38,16 @@ function makeSvg({ kicker, lines, subtitle, url, titleSize = 76 }) {
       .sans  { font-family: Arial, Helvetica, sans-serif; }
     </style>
   </defs>
-
   <rect width="${W}" height="${H}" fill="${CREAM}"/>
   <rect x="0" y="0" width="14" height="${H}" fill="${TERRACOTTA}"/>
-
   <g transform="translate(80, 84)">
     <rect width="56" height="56" rx="12" fill="${PRIMARY}"/>
     <text x="28" y="40" text-anchor="middle" class="serif" font-size="30" fill="${CREAM}">S</text>
     <text x="74" y="38" class="sans" font-size="24" font-weight="500" fill="${INK}">Steve Deguilly</text>
   </g>
-
   <text x="80" y="250" class="sans" font-size="22" font-weight="700" letter-spacing="2" fill="${PRIMARY}">${kicker}</text>
-
   ${titles}
-
   <text x="80" y="${subY}" class="sans" font-size="28" fill="${MUTED}">${subtitle}</text>
-
   <text x="80" y="566" class="sans" font-size="22" font-weight="500" fill="${PRIMARY}">${url}</text>
 </svg>`;
 }
@@ -78,6 +68,14 @@ const IMAGES = [
     subtitle: 'média B2B · formation · e-santé · événementiel',
     url: 'steve-deguilly.com/projets',
     titleSize: 64,
+  },
+  {
+    file: 'og-sdd.jpg',
+    kicker: 'MÉTHODE · SPEC-DRIVEN',
+    lines: ['Spécifier avant', 'de générer.'],
+    subtitle: 'La spec gouverne l’IA — du code à la conformité.',
+    url: 'steve-deguilly.com/sdd',
+    titleSize: 76,
   },
   {
     file: 'og-mentions-legales.jpg',
@@ -104,5 +102,5 @@ for (const img of IMAGES) {
     .jpeg({ quality: 82, mozjpeg: true })
     .toFile(out);
   const meta = await sharp(out).metadata();
-  console.log(`✓ ${img.file} — ${meta.width}×${meta.height} (${meta.format})`);
+  console.log(`done ${img.file} ${meta.width}x${meta.height} ${meta.format}`);
 }

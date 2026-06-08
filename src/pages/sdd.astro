@@ -1,7 +1,7 @@
 ---
-// Page /sdd — « Ma méthode : le spec-driven » (spec spec_page_sdd_08062026).
-// Page statique, aucun script ajouté. Contenu citable rendu côté serveur (cible GEO).
-// Hors menu (4 entrées) ; rejointe par footer + lien direct.
+// Page /sdd — « Ma méthode : le spec-driven » (spec spec_page_sdd_08062026 + DÉCISION FINALE 2026-06-08).
+// Page statique, aucun script ajouté. Contenu citable rendu côté serveur (cible GEO). Hors menu (4 entrées).
+// CSS : tokens --color-* / --font-* uniquement, classes existantes (.section, .section-tag, .section-h2, .container).
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
@@ -13,6 +13,29 @@ const repoUrl = 'https://github.com/Steve-Deguilly/site';
 
 const definition =
   "Le spec-driven development (développement piloté par la spécification) consiste à formaliser l'intention, les règles métier et les cas limites avant de produire le code. La spécification devient le contrat de référence : le code généré, les tests, la revue et la mise en conformité se vérifient tous contre elle. Plus la machine produit vite, plus ce contrat compte.";
+
+// Contenu exact de la carte « template de spec » (addendum v2). HTML injecté via set:html
+// pour maîtriser espaces/indentation et colorer chaque token. <,> échappés ; le texte reste du texte.
+const specDocHtml = `<span class="c-h1"># Spec — <span class="c-ph">&lt;fonctionnalité&gt;</span></span>
+
+<span class="c-h2">## Objectif</span>
+Une phrase. Le quoi et le pourquoi.
+
+<span class="c-h2">## Règles métier</span>
+<span class="c-mark">-</span> Règle vérifiable, pas une intention floue
+<span class="c-mark">-</span> Contrainte de conformité <span class="c-muted">(RGPD / HDS / sectorielle)</span>
+
+<span class="c-h2">## Cas limites</span>
+<span class="c-mark">-</span> Entrée hors périmètre  <span class="c-muted">→</span> comportement attendu
+<span class="c-mark">-</span> Échec, quota, timeout  <span class="c-muted">→</span> message et repli
+
+<span class="c-h2">## Contrat d'interface</span>
+Entrée <span class="c-muted">→</span> sortie attendue <span class="c-muted">(formats, codes de retour)</span>
+
+<span class="c-h2">## Critères d'acceptation</span>
+<span class="c-mark">- [ ]</span> Test automatisé sur la logique métier
+<span class="c-mark">- [ ]</span> Comportement conforme aux règles ci-dessus
+<span class="c-mark">- [ ]</span> Revue passée contre cette spec`;
 
 const faq = [
   {
@@ -82,11 +105,11 @@ const jsonLd = {
   <Navbar />
 
   <main>
-    <!-- 5.1 Header -->
+    <!-- 1. Header (§5.1) -->
     <header class="sdd-header">
       <div class="container">
-        <p class="sdd-kicker">Méthode</p>
-        <h1>Le spec-driven development.</h1>
+        <span class="section-tag">Méthode</span>
+        <h1 class="sdd-h1">Le spec-driven development.</h1>
         <p class="sdd-chapo">
           Écrire la spécification avant la première ligne de code. À l'heure où l'IA génère du code en
           quelques secondes, l'intention nette en amont devient le seul vrai garde-fou. Voici comment je
@@ -95,23 +118,52 @@ const jsonLd = {
       </div>
     </header>
 
-    <!-- 5.2 Définition (citable, GEO) -->
-    <section class="section sdd-def" aria-labelledby="sdd-def-title">
+    <!-- 2. Section 2 colonnes — « ce que c'est » : texte (gauche) + carte template (droite) -->
+    <section class="section sdd-pair" aria-labelledby="sdd-def-title">
       <div class="container">
-        <h2 id="sdd-def-title" class="sdd-h2">Qu'est-ce que le spec-driven development ?</h2>
-        <p class="sdd-lead">
-          Le spec-driven development (développement piloté par la spécification) consiste à formaliser
-          l'intention, les règles métier et les cas limites <strong>avant</strong> de produire le code.
-          La spécification devient le contrat de référence : le code généré, les tests, la revue et la
-          mise en conformité se vérifient tous contre elle. Plus la machine produit vite, plus ce contrat compte.
-        </p>
+        <div class="sdd-pair-grid">
+          <!-- Gauche : 2 blocs empilés (définition §5.2 + objection v4) -->
+          <div class="sdd-pair-text">
+            <div class="sdd-pair-block">
+              <h2 id="sdd-def-title" class="section-h2 sdd-block-h2">Qu'est-ce que le spec-driven development ?</h2>
+              <p class="sdd-block-p">
+                Le spec-driven development (développement piloté par la spécification) consiste à formaliser
+                l'intention, les règles métier et les cas limites <strong>avant</strong> de produire le code.
+                La spécification devient le contrat de référence : le code généré, les tests, la revue et la
+                mise en conformité se vérifient tous contre elle. Plus la machine produit vite, plus ce contrat compte.
+              </p>
+            </div>
+            <div class="sdd-pair-block">
+              <h3 class="sdd-block-h3">Est-ce un cahier des charges de plus ?</h3>
+              <p class="sdd-block-p">
+                Non. Un cahier des charges décrit un produit fini et fige le projet. Une spec tient sur une page :
+                elle formalise l'intention, les règles et les cas limites, puis évolue avec le projet. Elle ne
+                remplace pas le code, elle le gouverne. L'objectif n'est pas de tout documenter, mais de rendre
+                chaque décision vérifiable avant qu'elle ne coûte cher.
+              </p>
+            </div>
+          </div>
+
+          <!-- Droite : carte « document » + légende -->
+          <div class="sdd-pair-doc">
+            <figure class="spec-doc-figure">
+              <div class="spec-doc">
+                <div class="spec-doc-head">spec_fonctionnalite.md</div>
+                <pre class="spec-doc-body"><code set:html={specDocHtml}></code></pre>
+              </div>
+              <figcaption class="sdd-cap sdd-cap--left">
+                Chaque ligne est un engagement testable. C'est ce contrat que l'IA et la revue vérifient.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 5.3 Schéma -->
+    <!-- 3. Schéma — « comment ça marche » (§5.3) -->
     <section class="section sdd-schema-section" aria-labelledby="sdd-schema-title">
       <div class="container">
-        <h2 id="sdd-schema-title" class="sdd-h2">Cinq étapes, un seul contrat</h2>
+        <h2 id="sdd-schema-title" class="section-h2">Cinq étapes, un seul contrat</h2>
         <figure class="sdd-schema">
           <img
             src="/pipeline_sdd_methode_08062026.svg"
@@ -128,10 +180,10 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 5.4 Pourquoi ça compte -->
+    <!-- 4. Pourquoi ça compte (§5.4) -->
     <section class="section section-alt sdd-why" aria-labelledby="sdd-why-title">
       <div class="container">
-        <h2 id="sdd-why-title" class="sdd-h2">Pourquoi ça compte (pour vous)</h2>
+        <h2 id="sdd-why-title" class="section-h2">Pourquoi ça compte (pour vous)</h2>
         <div class="sdd-cards">
           <article class="sdd-card">
             <h3>Contrôle</h3>
@@ -158,11 +210,11 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 5.5 Contextes réglementés -->
+    <!-- 5. Contextes réglementés (§5.5) -->
     <section class="section sdd-reg" aria-labelledby="sdd-reg-title">
       <div class="container">
         <div class="sdd-reg-card">
-          <h2 id="sdd-reg-title" class="sdd-h2">Quand l'erreur n'est pas une option</h2>
+          <h2 id="sdd-reg-title" class="section-h2">Quand l'erreur n'est pas une option</h2>
           <p class="sdd-text">
             Dans la finance, la santé ou tout traitement de données sensibles, un projet IA ne se juge pas
             à sa démo, mais à sa traçabilité. Une spécification écrite rend chaque décision auditable :
@@ -173,10 +225,10 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 5.6 Preuve -->
+    <!-- 6. Preuve (§5.6) -->
     <section class="section sdd-proof" aria-labelledby="sdd-proof-title">
       <div class="container">
-        <h2 id="sdd-proof-title" class="sdd-h2 sr-only">La preuve</h2>
+        <h2 id="sdd-proof-title" class="section-h2 sr-only">La preuve</h2>
         <p class="sdd-proof-text">
           Ce site est conçu en spec-driven, de la spécification à la mise en production. Le code est public.
           <a href={repoUrl} target="_blank" rel="noopener">Voir le dépôt GitHub →</a>
@@ -184,7 +236,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 5.7 CTA -->
+    <!-- 7. CTA (§5.7) -->
     <CTAFinal />
   </main>
 
@@ -192,21 +244,15 @@ const jsonLd = {
 </Layout>
 
 <style>
-  /* Header (centré, pattern page-header) */
+  /* Header (centré) */
   .sdd-header { padding: 64px 0 8px; text-align: center; }
-  .sdd-kicker {
-    font-family: var(--font-sans);
-    font-size: 12px; font-weight: 500;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--color-primary);
-    margin: 0 0 14px;
-  }
-  .sdd-header h1 {
+  .sdd-header .section-tag { justify-content: center; }
+  .sdd-h1 {
     font-family: var(--font-serif);
     font-size: 44px; font-weight: 500;
     letter-spacing: -0.02em; line-height: 1.06;
     color: var(--color-text-primary);
-    margin: 0 0 20px;
+    margin: 14px 0 20px;
   }
   .sdd-chapo {
     font-family: var(--font-sans);
@@ -216,30 +262,11 @@ const jsonLd = {
   }
   @media (max-width: 767px) {
     .sdd-header { padding: 40px 0 4px; }
-    .sdd-header h1 { font-size: 30px; }
+    .sdd-h1 { font-size: 30px; }
     .sdd-chapo { font-size: 16px; }
   }
 
-  /* Titres de section */
-  .sdd-h2 {
-    font-family: var(--font-serif);
-    font-size: 30px; font-weight: 500;
-    letter-spacing: -0.015em; line-height: 1.15;
-    color: var(--color-text-primary);
-    margin: 0 0 20px;
-  }
-  @media (max-width: 767px) { .sdd-h2 { font-size: 24px; } }
-
-  /* 5.2 Définition — texte de lecture mis en avant */
-  .sdd-lead {
-    font-family: var(--font-sans);
-    font-size: 20px; line-height: 1.6;
-    color: var(--color-text-primary);
-    margin: 0;
-  }
-  .sdd-lead strong { font-weight: 600; }
-  @media (max-width: 767px) { .sdd-lead { font-size: 17px; } }
-
+  /* Texte courant réutilisé */
   .sdd-text {
     font-family: var(--font-sans);
     font-size: 17px; line-height: 1.7;
@@ -247,9 +274,85 @@ const jsonLd = {
     margin: 0;
   }
 
-  /* 5.3 Schéma — exception largeur (asset borné spec ~1040px), centré */
-  .sdd-schema { margin: 0 auto; max-width: 1040px; }
-  .sdd-schema img { width: 100%; height: auto; display: block; }
+  /* Rythme vertical resserré : éviter le doublement 96+96 entre sections de contenu plein.
+     (Les bandeaux section-alt « Pourquoi » et CTAFinal gardent leur respiration.) */
+  .sdd-pair,
+  .sdd-schema-section,
+  .sdd-reg,
+  .sdd-proof { padding-block: 48px; }
+  @media (max-width: 767px) {
+    .sdd-pair, .sdd-schema-section, .sdd-reg, .sdd-proof { padding-block: 36px; }
+  }
+  /* Titres de section pleine largeur : lever le max-width 560px global (« option » ne passe plus à la ligne). */
+  .sdd-schema-section .section-h2,
+  .sdd-why .section-h2,
+  .sdd-reg-card .section-h2 { max-width: none; }
+
+  /* 2. Section 2 colonnes : texte (gauche) + carte (droite) */
+  .sdd-pair-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 767px) {
+    .sdd-pair-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  .sdd-pair-block + .sdd-pair-block { margin-top: 28px; }
+  /* .section-h2 globale = titre de section 40px/marge 48px → resserrée dans la colonne */
+  .sdd-block-h2 { font-size: 30px; margin-bottom: 14px; }
+  .sdd-block-h3 {
+    font-family: var(--font-serif);
+    font-size: 22px; font-weight: 500;
+    letter-spacing: -0.01em; line-height: 1.2;
+    color: var(--color-text-primary);
+    margin: 0 0 12px;
+  }
+  .sdd-block-p {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.7;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .sdd-block-p strong { font-weight: 600; }
+
+  /* Carte « document » — tokens uniquement, aucune image */
+  .sdd-pair-doc { min-width: 0; } /* autorise le scroll horizontal du <pre> dans la grille */
+  .spec-doc-figure { margin: 0; }
+  .spec-doc {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden; /* coins nets sur l'en-tête */
+    background: var(--color-surface-warm);
+  }
+  .spec-doc-head {
+    background: var(--color-primary);
+    color: var(--color-bg-cream);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    padding: 11px 18px;
+  }
+  .spec-doc-body {
+    margin: 0;
+    padding: 22px 20px;
+    overflow-x: auto; /* mobile : scroll horizontal sans casser la page */
+    -webkit-overflow-scrolling: touch;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--color-text-primary);
+    tab-size: 2;
+  }
+  .spec-doc-body code { font-family: var(--font-mono); }
+  /* Spans injectés via set:html → pas d'attribut de scope Astro → cibler en :global. */
+  .spec-doc-body :global(.c-h1) { color: var(--color-primary-deep); font-weight: 700; }
+  .spec-doc-body :global(.c-h2) { color: var(--color-primary); font-weight: 700; }
+  .spec-doc-body :global(.c-mark) { color: var(--color-accent-cta); font-weight: 700; }
+  .spec-doc-body :global(.c-muted),
+  .spec-doc-body :global(.c-ph) { color: var(--color-text-muted); }
+
+  /* Légende partagée */
   .sdd-cap {
     font-family: var(--font-sans);
     font-size: 14px; line-height: 1.6;
@@ -258,8 +361,13 @@ const jsonLd = {
     margin: 18px auto 0;
     max-width: 760px;
   }
+  .sdd-cap--left { text-align: left; max-width: none; margin-left: 0; margin-right: 0; }
 
-  /* 5.4 Cartes */
+  /* 3. Schéma — exception largeur (asset borné spec ~1040px), centré */
+  .sdd-schema { margin: 0 auto; max-width: 1040px; }
+  .sdd-schema img { width: 100%; height: auto; display: block; }
+
+  /* 4. Cartes « pourquoi » */
   .sdd-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -285,7 +393,7 @@ const jsonLd = {
     margin: 0;
   }
 
-  /* 5.5 Contextes réglementés — bloc encadré */
+  /* 5. Contextes réglementés — bloc encadré */
   .sdd-reg-card {
     border-left: 3px solid var(--color-accent-cta);
     background: var(--color-surface-warm);
@@ -294,7 +402,8 @@ const jsonLd = {
   }
   @media (max-width: 767px) { .sdd-reg-card { padding: 24px; } }
 
-  /* 5.6 Preuve */
+  /* 6. Preuve — centrée et resserrée sous le bloc réglementé */
+  .sdd-proof { padding-top: 8px; text-align: center; }
   .sdd-proof-text {
     font-family: var(--font-sans);
     font-size: 16px; line-height: 1.7;
