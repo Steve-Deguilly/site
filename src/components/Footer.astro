@@ -27,6 +27,7 @@ const year = new Date().getFullYear();
           <li><a href="/#cas-concrets">Cas concrets</a></li>
           <li><a href="/diagnostic">Diagnostic d'automatisation</a></li>
           <li><a href="/projets">Réalisations</a></li>
+          <li><a href="/sdd">Ma méthode (spec-driven)</a></li>
           <li><a href="/#apropos">À propos</a></li>
         </ul>
       </div>
@@ -71,7 +72,7 @@ const year = new Date().getFullYear();
       </ul>
     </div>
 
-    <p class="footer-proof">Conçu en méthode spec-driven · Sans cookie ni tracking · Optimisé pour les moteurs IA</p>
+    <p class="footer-proof"><a href="/sdd">Conçu en méthode spec-driven</a> · Sans cookie ni tracking · Optimisé pour les moteurs IA</p>
 
   </div>
 </footer>
@@ -246,4 +247,11 @@ const year = new Date().getFullYear();
     color: var(--color-text-on-dark-muted);
     text-align: center;
   }
+  .footer-proof a {
+    color: var(--color-text-on-dark);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 150ms;
+  }
+  .footer-proof a:hover { color: var(--color-bg-cream); }
 </style>

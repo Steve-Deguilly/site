@@ -1,0 +1,321 @@
+---
+// Page /sdd — « Ma méthode : le spec-driven » (spec spec_page_sdd_08062026).
+// Page statique, aucun script ajouté. Contenu citable rendu côté serveur (cible GEO).
+// Hors menu (4 entrées) ; rejointe par footer + lien direct.
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import CTAFinal from '../components/CTAFinal.astro';
+
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/sdd`;
+const repoUrl = 'https://github.com/Steve-Deguilly/site';
+
+const definition =
+  "Le spec-driven development (développement piloté par la spécification) consiste à formaliser l'intention, les règles métier et les cas limites avant de produire le code. La spécification devient le contrat de référence : le code généré, les tests, la revue et la mise en conformité se vérifient tous contre elle. Plus la machine produit vite, plus ce contrat compte.";
+
+const faq = [
+  {
+    q: 'Le spec-driven ralentit-il les projets ?',
+    a: "Non. Il déplace la réflexion avant le code, là où corriger coûte une phrase au lieu d'un refacto.",
+  },
+  {
+    q: 'Est-ce compatible avec les agents de code et l’IA générative ?',
+    a: 'Oui. La spec sert de contrat aux agents : ils génèrent, testent et révisent contre elle.',
+  },
+  {
+    q: 'En quoi est-ce utile en contexte réglementé ?',
+    a: 'Les règles de conformité sont écrites dans la spec, donc vérifiables et auditables, pas contrôlées après coup.',
+  },
+];
+
+// JSON-LD GEO (§6) — entités globales référencées par @id (Layout).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'DefinedTerm',
+      '@id': `${pageUrl}/#term`,
+      name: 'Spec-driven development',
+      description: definition,
+      inDefinedTermSet: { '@id': `${siteUrl}/#website` },
+    },
+    {
+      '@type': 'TechArticle',
+      '@id': `${pageUrl}/#article`,
+      headline: 'Le spec-driven development — la méthode de Steve Deguilly',
+      about: { '@id': `${pageUrl}/#term` },
+      author: { '@id': `${siteUrl}/#person` },
+      publisher: { '@id': `${siteUrl}/#organization` },
+      image: `${siteUrl}/og-sdd.jpg`,
+      inLanguage: 'fr',
+      url: pageUrl,
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}/#faq`,
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Ma méthode', item: `${pageUrl}/` },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title="Le spec-driven development — la méthode de Steve Deguilly"
+  description="Spécifier avant de générer. La méthode qui industrialise l'IA sans perdre le contrôle : code, tests, revue et conformité vérifiés contre une spécification de référence."
+  ogImage="/og-sdd.jpg"
+  canonical="/sdd"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+
+  <main>
+    <!-- 5.1 Header -->
+    <header class="sdd-header">
+      <div class="container">
+        <p class="sdd-kicker">Méthode</p>
+        <h1>Le spec-driven development.</h1>
+        <p class="sdd-chapo">
+          Écrire la spécification avant la première ligne de code. À l'heure où l'IA génère du code en
+          quelques secondes, l'intention nette en amont devient le seul vrai garde-fou. Voici comment je
+          travaille — et pourquoi ça change le risque de vos projets.
+        </p>
+      </div>
+    </header>
+
+    <!-- 5.2 Définition (citable, GEO) -->
+    <section class="section sdd-def" aria-labelledby="sdd-def-title">
+      <div class="container">
+        <h2 id="sdd-def-title" class="sdd-h2">Qu'est-ce que le spec-driven development ?</h2>
+        <p class="sdd-lead">
+          Le spec-driven development (développement piloté par la spécification) consiste à formaliser
+          l'intention, les règles métier et les cas limites <strong>avant</strong> de produire le code.
+          La spécification devient le contrat de référence : le code généré, les tests, la revue et la
+          mise en conformité se vérifient tous contre elle. Plus la machine produit vite, plus ce contrat compte.
+        </p>
+      </div>
+    </section>
+
+    <!-- 5.3 Schéma -->
+    <section class="section sdd-schema-section" aria-labelledby="sdd-schema-title">
+      <div class="container">
+        <h2 id="sdd-schema-title" class="sdd-h2">Cinq étapes, un seul contrat</h2>
+        <figure class="sdd-schema">
+          <img
+            src="/pipeline_sdd_methode_08062026.svg"
+            alt="Pipeline spec-driven : spécifier, générer, tester, réviser, mettre en production"
+            loading="lazy"
+            width="1120"
+            height="200"
+          />
+          <figcaption class="sdd-cap">
+            La spécification est le contrat. Génération, tests, revue et mise en production se vérifient
+            contre elle. En terracotta : les étapes assistées par IA, encadrées par la spec.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 5.4 Pourquoi ça compte -->
+    <section class="section section-alt sdd-why" aria-labelledby="sdd-why-title">
+      <div class="container">
+        <h2 id="sdd-why-title" class="sdd-h2">Pourquoi ça compte (pour vous)</h2>
+        <div class="sdd-cards">
+          <article class="sdd-card">
+            <h3>Contrôle</h3>
+            <p>
+              L'IA n'amplifie pas la performance, elle amplifie ce qui existe. Une équipe cadrée accélère ;
+              une équipe floue se disperse. La spec impose le cadre avant que l'IA ne le dilue.
+            </p>
+          </article>
+          <article class="sdd-card">
+            <h3>Conformité</h3>
+            <p>
+              Les règles (RGPD, HDS, contraintes sectorielles) sont écrites dans la spec, donc vérifiables.
+              La conformité cesse d'être un contrôle a posteriori.
+            </p>
+          </article>
+          <article class="sdd-card">
+            <h3>Coût</h3>
+            <p>
+              Corriger une erreur dans une spec coûte une phrase. La corriger en production coûte un refacto.
+              Le spec-driven déplace l'effort là où il est le moins cher.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.5 Contextes réglementés -->
+    <section class="section sdd-reg" aria-labelledby="sdd-reg-title">
+      <div class="container">
+        <div class="sdd-reg-card">
+          <h2 id="sdd-reg-title" class="sdd-h2">Quand l'erreur n'est pas une option</h2>
+          <p class="sdd-text">
+            Dans la finance, la santé ou tout traitement de données sensibles, un projet IA ne se juge pas
+            à sa démo, mais à sa traçabilité. Une spécification écrite rend chaque décision auditable :
+            qui a décidé quoi, contre quelle règle, vérifié par quel test. C'est la différence entre un
+            projet qui passe en production et un projet qui n'y arrive jamais.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.6 Preuve -->
+    <section class="section sdd-proof" aria-labelledby="sdd-proof-title">
+      <div class="container">
+        <h2 id="sdd-proof-title" class="sdd-h2 sr-only">La preuve</h2>
+        <p class="sdd-proof-text">
+          Ce site est conçu en spec-driven, de la spécification à la mise en production. Le code est public.
+          <a href={repoUrl} target="_blank" rel="noopener">Voir le dépôt GitHub →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 5.7 CTA -->
+    <CTAFinal />
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Header (centré, pattern page-header) */
+  .sdd-header { padding: 64px 0 8px; text-align: center; }
+  .sdd-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .sdd-header h1 {
+    font-family: var(--font-serif);
+    font-size: 44px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.06;
+    color: var(--color-text-primary);
+    margin: 0 0 20px;
+  }
+  .sdd-chapo {
+    font-family: var(--font-sans);
+    font-size: 18px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto;
+  }
+  @media (max-width: 767px) {
+    .sdd-header { padding: 40px 0 4px; }
+    .sdd-header h1 { font-size: 30px; }
+    .sdd-chapo { font-size: 16px; }
+  }
+
+  /* Titres de section */
+  .sdd-h2 {
+    font-family: var(--font-serif);
+    font-size: 30px; font-weight: 500;
+    letter-spacing: -0.015em; line-height: 1.15;
+    color: var(--color-text-primary);
+    margin: 0 0 20px;
+  }
+  @media (max-width: 767px) { .sdd-h2 { font-size: 24px; } }
+
+  /* 5.2 Définition — texte de lecture mis en avant */
+  .sdd-lead {
+    font-family: var(--font-sans);
+    font-size: 20px; line-height: 1.6;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .sdd-lead strong { font-weight: 600; }
+  @media (max-width: 767px) { .sdd-lead { font-size: 17px; } }
+
+  .sdd-text {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.7;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  /* 5.3 Schéma — exception largeur (asset borné spec ~1040px), centré */
+  .sdd-schema { margin: 0 auto; max-width: 1040px; }
+  .sdd-schema img { width: 100%; height: auto; display: block; }
+  .sdd-cap {
+    font-family: var(--font-sans);
+    font-size: 14px; line-height: 1.6;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin: 18px auto 0;
+    max-width: 760px;
+  }
+
+  /* 5.4 Cartes */
+  .sdd-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 860px) { .sdd-cards { grid-template-columns: 1fr; } }
+  .sdd-card {
+    background: var(--color-bg-cream);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .sdd-card h3 {
+    font-family: var(--font-serif);
+    font-size: 20px; font-weight: 500;
+    color: var(--color-primary-deep);
+    margin: 0 0 10px;
+  }
+  .sdd-card p {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.6;
+    color: var(--color-text-muted-warm);
+    margin: 0;
+  }
+
+  /* 5.5 Contextes réglementés — bloc encadré */
+  .sdd-reg-card {
+    border-left: 3px solid var(--color-accent-cta);
+    background: var(--color-surface-warm);
+    border-radius: 14px;
+    padding: 32px 36px;
+  }
+  @media (max-width: 767px) { .sdd-reg-card { padding: 24px; } }
+
+  /* 5.6 Preuve */
+  .sdd-proof-text {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.7;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .sdd-proof-text a {
+    color: var(--color-primary);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+  }
+
+  /* Accessibilité */
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+  }
+</style>
