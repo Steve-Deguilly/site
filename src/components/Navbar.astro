@@ -1,10 +1,11 @@
 ---
-// Menu lean partagé (logo + Diagnostic + Réalisations + CTA appel). Rendu sur les 3 pages.
+// Menu partagé (5 entrées : Accueil · Méthode · Diagnostic · Réalisations · Démo) + CTA appel + drawer mobile.
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const onHome = path === '/';
 const onDiagnostic = path === '/diagnostic';
 const onProjets = path === '/projets';
 const onDemo = path === '/demo';
+const onMethode = path === '/sdd';
 ---
 <nav id="navbar" aria-label="Navigation principale">
   <div class="container">
@@ -15,6 +16,7 @@ const onDemo = path === '/demo';
       </a>
       <ul class="nav-links">
         <li><a href="/" aria-current={onHome ? 'page' : undefined}>Accueil</a></li>
+        <li><a href="/sdd" aria-current={onMethode ? 'page' : undefined}>Méthode</a></li>
         <li><a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a></li>
         <li><a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a></li>
         <li><a href="/demo" aria-current={onDemo ? 'page' : undefined}>Démo</a></li>
@@ -37,6 +39,7 @@ const onDemo = path === '/demo';
 <div class="nav-drawer" id="drawer" role="dialog" aria-label="Menu mobile" aria-modal="true">
   <button type="button" class="nav-drawer-close" id="drawer-close" aria-label="Fermer le menu">✕</button>
   <a href="/" aria-current={onHome ? 'page' : undefined}>Accueil</a>
+  <a href="/sdd" aria-current={onMethode ? 'page' : undefined}>Méthode</a>
   <a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a>
   <a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a>
   <a href="/demo" aria-current={onDemo ? 'page' : undefined}>Démo</a>
