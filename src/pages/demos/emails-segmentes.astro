@@ -1,0 +1,457 @@
+---
+// Page /demo-emails — démo "note de version → emails clients segmentés".
+// Asset démo ANONYMISÉ : produit fictif Wattia. Pas un cas client, pas un résultat réel.
+// Les aperçus sont des fichiers autonomes servis depuis /public (tables + SVG inline),
+// embarqués en <iframe> même origine (auto-redimensionnées) — leurs styles propres ne
+// touchent pas la charte du site. Liens fictifs neutralisés dans les fichiers source.
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const CALCOM_URL = 'https://cal.com/steve-deguilly/30min';
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/demos/emails-segmentes`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CreativeWork',
+      '@id': `${pageUrl}/#demo`,
+      name: 'Démo — notes de version transformées en emails clients segmentés',
+      url: pageUrl,
+      description:
+        "Démonstration d'automatisation : un workflow n8n transforme une note de version technique en emails clients segmentés par module, reformulés en bénéfices, dans la charte du produit. Modèle européen (Mistral), validation humaine avant envoi. Produit fictif (Wattia) à des fins de démonstration.",
+      inLanguage: 'fr',
+      isAccessibleForFree: true,
+      keywords: ['n8n', 'automatisation', 'LLM souverain', 'Mistral', 'emails', 'note de version'],
+      creator: { '@id': `${siteUrl}/#person` },
+      provider: { '@id': `${siteUrl}/#organization` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Démos & POC', item: `${siteUrl}/demos/` },
+        { '@type': 'ListItem', position: 3, name: 'Démo — Emails segmentés', item: `${pageUrl}/` },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title="Démo — vos notes de version en emails que vos clients lisent | Steve Deguilly"
+  description="Une démo d'automatisation : un workflow n8n transforme une note de version en emails clients segmentés par module, modèle européen, validation humaine. Une preuve, pas une slide."
+  canonical="/demos/emails-segmentes"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+
+  <main>
+    <header class="de-header">
+      <div class="container">
+        <p class="de-kicker">Démo · Automatisation</p>
+        <h1>Vos notes de version, en emails que vos clients lisent.</h1>
+        <p class="de-intro">
+          Une preuve, pas une slide. Un workflow <strong>n8n</strong> transforme une note de version
+          technique en emails clients : triés, <strong>segmentés par module</strong>, reformulés en
+          bénéfices, dans la charte du produit. <br>Modèle européen, validation humaine avant envoi.
+        </p>
+        <p class="de-doc">
+          <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Démo reproductible · produit fictif&nbsp;: Wattia</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- LOOM : quand la vidéo générique est tournée, l'insérer ici, en tête (vidéo > captures). -->
+
+    <!-- Avant / Après — le contraste est l'argument -->
+    <section class="de-section" aria-labelledby="de-ab-title">
+      <div class="container">
+        <h2 id="de-ab-title" class="de-h2">La même note de version. Avant, après.</h2>
+        <p class="de-lead">
+          À gauche, l'email de release tel qu'il part souvent&nbsp;: une image collée, un PDF en pièce
+          jointe, la même liste technique pour tout le monde. À droite, ce que produit le workflow
+          pour un client donné.
+        </p>
+
+        <div class="de-2col reveal">
+          <figure class="de-mock">
+            <figcaption class="de-cap">
+              <span class="de-tag de-tag-before">Avant</span>
+              <span class="de-cap-text">Générique, technique, peu lu — volontairement laissé tel quel (illisible sur mobile).</span>
+            </figcaption>
+            <div class="de-frame-wrap">
+              <iframe class="mail-frame" src="/wattia_mail_avant_17062026.html"
+                title="Aperçu — email de release Wattia générique (avant)" loading="lazy" scrolling="no"></iframe>
+            </div>
+          </figure>
+
+          <figure class="de-mock">
+            <figcaption class="de-cap">
+              <span class="de-tag de-tag-after">Après</span>
+              <span class="de-cap-text">Sarah, gestionnaire de parc — ne reçoit que les nouveautés de son abonnement, en clair.</span>
+            </figcaption>
+            <div class="de-frame-wrap">
+              <iframe class="mail-frame" src="/wattia_mail_apres_exploitation_17062026.html"
+                title="Aperçu — email Wattia segmenté pour un profil exploitation (après)" loading="lazy" scrolling="no"></iframe>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Segmentation — une note, plusieurs métiers -->
+    <section class="de-section section-alt" aria-labelledby="de-seg-title">
+      <div class="container">
+        <h2 id="de-seg-title" class="de-h2">Une note, plusieurs métiers, plusieurs emails.</h2>
+        <p class="de-lead">
+          Marc travaille en bureau d'études. Il ne reçoit pas les mêmes encarts que Sarah&nbsp;: à lui
+          la conformité et le reporting, pas la supervision de parc. Chaque client ne voit que les
+          modules de son abonnement — reformulés dans son langage métier.
+        </p>
+
+        <div class="de-2col reveal">
+          <figure class="de-mock">
+            <figcaption class="de-cap">
+              <span class="de-tag de-tag-after">Profil exploitation</span>
+              <span class="de-cap-text">Sarah · gestionnaire de parc — supervision, alertes, planning.</span>
+            </figcaption>
+            <div class="de-frame-wrap">
+              <iframe class="mail-frame" src="/wattia_mail_apres_exploitation_17062026.html"
+                title="Aperçu — email Wattia profil exploitation" loading="lazy" scrolling="no"></iframe>
+            </div>
+          </figure>
+
+          <figure class="de-mock">
+            <figcaption class="de-cap">
+              <span class="de-tag de-tag-after">Profil études</span>
+              <span class="de-cap-text">Marc · bureau d'études — conformité, reporting, performance.</span>
+            </figcaption>
+            <div class="de-frame-wrap">
+              <iframe class="mail-frame" src="/wattia_mail_apres_etudes_17062026.html"
+                title="Aperçu — email Wattia profil bureau d'études" loading="lazy" scrolling="no"></iframe>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bonus multi-canal : brouillon LinkedIn -->
+    <section class="de-section" aria-labelledby="de-li-title">
+      <div class="container">
+        <h2 id="de-li-title" class="de-h2">Et un brouillon LinkedIn, dans la foulée.</h2>
+        <p class="de-lead">
+          À partir de la même note, le workflow rédige aussi un brouillon de post pour le marketing.
+          Rien n'est publié sans relecture&nbsp;: c'est un point de départ à valider, pas un envoi
+          automatique.
+        </p>
+        <div class="de-1col reveal">
+          <figure class="de-mock de-mock-narrow">
+            <div class="de-frame-wrap">
+              <iframe class="mail-frame" src="/wattia_post_linkedin_17062026.html"
+                title="Aperçu — brouillon de post LinkedIn généré (à valider)" loading="lazy" scrolling="no"></iframe>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comment ça marche — 3 temps -->
+    <section class="de-section section-alt" aria-labelledby="de-how-title">
+      <div class="container">
+        <h2 id="de-how-title" class="de-h2 de-h2-center">Comment ça marche</h2>
+        <div class="de-steps">
+          <article class="de-step reveal">
+            <span class="de-step-num">1</span>
+            <h3>Il trie</h3>
+            <p>
+              Le workflow lit la note de version brute et traduit chaque ligne technique en bénéfice
+              client. Les correctifs internes et les ruptures d'API restent côté équipe, pas dans
+              l'email client.
+            </p>
+          </article>
+          <article class="de-step reveal">
+            <span class="de-step-num">2</span>
+            <h3>Il segmente</h3>
+            <p>
+              Les modules sont lus dans les <strong>tags de la note</strong> (SUP, REP, CONF…), pas
+              devinés. Chaque client reçoit les nouveautés de son abonnement, et elles seules.
+            </p>
+          </article>
+          <article class="de-step reveal">
+            <span class="de-step-num">3</span>
+            <h3>Il enrichit</h3>
+            <p>
+              Encart « à venir », lien traçable par fonctionnalité, et un brouillon de post LinkedIn
+              pour le marketing — tout est généré en même temps, prêt à relire.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 preuves différenciantes -->
+    <section class="de-section" aria-labelledby="de-proof-title">
+      <div class="container">
+        <h2 id="de-proof-title" class="de-h2 de-h2-center">Ce qui le rend sérieux</h2>
+        <div class="de-proofs">
+          <div class="de-proof reveal">
+            <h3>Souverain</h3>
+            <p>Le texte est rédigé par un modèle européen (Mistral). Aucune dépendance à un modèle américain.</p>
+          </div>
+          <div class="de-proof reveal">
+            <h3>Pas d'invention</h3>
+            <p>Les labels de modules sont lus dans les tags de la note de version, pas inventés par le modèle.</p>
+          </div>
+          <div class="de-proof reveal">
+            <h3>Validation humaine</h3>
+            <p>Rien ne part automatiquement. Les emails et le post sont relus et validés avant tout envoi.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Cal.com -->
+    <section class="de-cta section section-alt" aria-label="Prendre rendez-vous">
+      <div class="container">
+        <h2 class="de-cta-title">Une release par mois qui finit en PDF ignoré&nbsp;?</h2>
+        <p class="de-cta-text">
+          Ce principe s'applique à votre produit, vos modules, votre charte. Montrez-moi une de vos
+          notes de version&nbsp;: en 20 minutes, on regarde ce qu'on peut en faire.
+        </p>
+        <a href={CALCOM_URL} target="_blank" rel="noopener" class="btn-cta de-cta-btn">Réserver 20 min →</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* En-tête — calé sur /demo */
+  .de-header { padding: 64px 0 24px; text-align: center; }
+  .de-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .de-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.08;
+    color: var(--color-text-primary);
+    margin: 0 auto 20px;
+  }
+  .de-intro {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto 20px;
+  }
+  .de-intro strong { color: var(--color-text-primary); font-weight: 500; }
+  .de-doc { margin: 0; }
+  @media (max-width: 767px) {
+    .de-header { padding: 40px 0 20px; }
+    .de-header h1 { font-size: 30px; }
+    .de-intro { font-size: 16px; }
+  }
+
+  /* Sections récit */
+  .de-section { padding: 56px 0; }
+  @media (max-width: 767px) { .de-section { padding: 40px 0; } }
+
+  .de-h2 {
+    font-family: var(--font-serif);
+    font-size: 32px; font-weight: 500;
+    letter-spacing: -0.015em; line-height: 1.15;
+    color: var(--color-text-primary);
+    margin: 0 0 14px;
+  }
+  .de-h2-center { text-align: center; margin-bottom: 36px; }
+  @media (max-width: 767px) { .de-h2 { font-size: 26px; } }
+
+  .de-lead {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 0 32px;
+  }
+
+  /* Grilles d'aperçus */
+  .de-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 860px) { .de-2col { grid-template-columns: 1fr; gap: 36px; } }
+  .de-1col { display: flex; justify-content: center; }
+
+  .de-mock { margin: 0; }
+  .de-mock-narrow { max-width: 600px; width: 100%; }
+
+  .de-cap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 0 12px;
+  }
+  .de-tag {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .de-tag-before {
+    color: var(--color-text-muted);
+    background: rgba(143,165,171,0.22);
+  }
+  .de-tag-after {
+    color: var(--color-bg-cream);
+    background: var(--color-primary);
+  }
+  .de-cap-text {
+    font-family: var(--font-sans);
+    font-size: 13px; line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  /* Cadre d'aperçu : bordure douce + fond clair, l'email vit dans son iframe */
+  .de-frame-wrap {
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--color-bg-cream);
+    box-shadow: 0 8px 24px rgba(31,65,56,0.06);
+  }
+  .mail-frame {
+    width: 100%;
+    border: 0;
+    display: block;
+    min-height: 520px; /* fallback avant calcul JS de la hauteur */
+  }
+
+  /* Comment ça marche — 3 temps */
+  .de-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 860px) { .de-steps { grid-template-columns: 1fr; } }
+  .de-step {
+    background: var(--color-bg-cream);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 28px 24px;
+  }
+  .de-step-num {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: var(--color-primary);
+    color: var(--color-bg-cream);
+    font-family: var(--font-mono);
+    font-size: 16px; font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .de-step h3 {
+    font-family: var(--font-serif);
+    font-size: 21px; font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 8px;
+  }
+  .de-step p {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .de-step strong { color: var(--color-text-primary); font-weight: 500; }
+
+  /* 3 preuves */
+  .de-proofs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 860px) { .de-proofs { grid-template-columns: 1fr; } }
+  .de-proof {
+    border-left: 2px solid var(--color-primary);
+    padding: 4px 0 4px 18px;
+  }
+  .de-proof h3 {
+    font-family: var(--font-sans);
+    font-size: 15px; font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 6px;
+  }
+  .de-proof p {
+    font-family: var(--font-sans);
+    font-size: 14px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* CTA final — bandeau clair (section-alt) */
+  .de-cta { text-align: center; }
+  .de-cta-title {
+    font-family: var(--font-serif);
+    font-size: 32px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 0 0 16px;
+  }
+  .de-cta-text {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto 28px;
+    max-width: 620px;
+  }
+  .de-cta-btn { color: var(--color-bg-cream); font-size: 16px; padding: 15px 28px; }
+  @media (max-width: 767px) {
+    .de-cta-title { font-size: 26px; }
+  }
+</style>
+
+<script>
+  // Auto-redimensionne les iframes d'aperçus (même origine → lecture du document possible).
+  const frames = Array.from(document.querySelectorAll<HTMLIFrameElement>('iframe.mail-frame'));
+
+  function sizeFrame(f: HTMLIFrameElement) {
+    try {
+      const doc = f.contentDocument || f.contentWindow?.document;
+      if (!doc || !doc.body) return;
+      const h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+      if (h > 0) f.style.height = h + 'px';
+    } catch (_) { /* cross-origin improbable ici : on garde le min-height de secours */ }
+  }
+
+  function sizeAll() { frames.forEach(sizeFrame); }
+
+  frames.forEach((f) => {
+    f.addEventListener('load', () => sizeFrame(f));
+    // au cas où la frame est déjà chargée (cache)
+    try { if (f.contentDocument?.readyState === 'complete') sizeFrame(f); } catch (_) {}
+  });
+
+  let t: number | undefined;
+  window.addEventListener('resize', () => {
+    window.clearTimeout(t);
+    t = window.setTimeout(sizeAll, 150);
+  }, { passive: true });
+
+  // Recalcule une fois les polices chargées (la hauteur peut bouger).
+  if ((document as any).fonts?.ready) {
+    (document as any).fonts.ready.then(sizeAll);
+  }
+</script>

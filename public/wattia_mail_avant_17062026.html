@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aperçu AVANT — email de release Wattia (tel qu'il part aujourd'hui)</title><style>a{pointer-events:none !important;cursor:default !important}html,body{margin:0}</style></head>
+<body style="margin:0;padding:0;background:#e9e9e9;font-family:Arial,Helvetica,sans-serif;color:#222">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#e9e9e9;padding:24px 12px">
+<tr><td align="center">
+
+  <!-- étiquette AVANT -->
+  <table role="presentation" width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%;margin-bottom:10px">
+    <tr><td style="background:#fdecea;border:1px solid #f3b5ad;border-radius:6px;padding:9px 14px;font-size:12px;color:#a3271b">
+      <strong style="text-transform:uppercase;letter-spacing:.05em">Avant</strong> — l'email de release qui part aujourd'hui : générique, non personnalisé, image collée + PDF en pièce jointe.
+    </td></tr>
+  </table>
+
+  <!-- fenêtre mail -->
+  <table role="presentation" width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%;background:#ffffff;border:1px solid #cfcfcf">
+
+    <!-- en-tête expéditeur -->
+    <tr><td style="padding:12px 16px;border-bottom:1px solid #e2e2e2;font-size:12px;color:#666;background:#f7f7f7">
+      <div><b style="color:#222">De :</b> Wattia &lt;newsletter@wattia.example&gt;</div>
+      <div><b style="color:#222">À :</b> destinataires non divulgués</div>
+      <div><b style="color:#222">Objet :</b> Wattia v2.4 - Notes de version</div>
+    </td></tr>
+
+    <!-- corps -->
+    <tr><td style="padding:18px 20px">
+
+      <!-- image collée dans le corps -->
+      <div style="border:1px dashed #b9b9b9;border-radius:4px;background:linear-gradient(135deg,#2E6B4F,#173a2b);color:#fff;text-align:center;padding:22px 14px;overflow:hidden">
+        <div style="font-size:24px;font-weight:800;letter-spacing:.5px">WATTIA — Mise à jour v2.4</div>
+        <div style="font-size:12px;opacity:.9;margin-top:4px">Plus de performance et de contrôle pour vos bâtiments</div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:14px;font-size:8px;line-height:1.3;text-align:left;opacity:.85">
+          <div style="flex:1;background:rgba(255,255,255,.10);padding:7px;border-radius:3px">Tableau de bord multi-sites • Alertes de dérive • Filtres avancés • Vue mobile…</div>
+          <div style="flex:1;background:rgba(255,255,255,.10);padding:7px;border-radius:3px">Rapport décret tertiaire • Export BACS • Planification maintenance…</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#888;font-style:italic;margin-top:6px">(image — texte non sélectionnable, illisible sur mobile)</div>
+
+      <p style="font-size:14px;line-height:1.5;color:#333;margin:18px 0 10px">Bonjour à tous,</p>
+      <p style="font-size:14px;line-height:1.5;color:#333;margin:0 0 10px">
+        Nous avons le plaisir de vous annoncer la sortie de la version 2.4 de Wattia. Certaines fonctionnalités sont accessibles à tous les utilisateurs, d'autres sont spécifiques à certains modules. Vous trouverez ci-dessous l'ensemble des évolutions de cette version :
+      </p>
+
+      <ul style="font-size:13px;line-height:1.5;color:#333;margin:0 0 12px;padding-left:20px">
+        <li>[SUP] Tableau de bord multi-sites : vue consolidée de la consommation de tous les bâtiments d'un portefeuille.</li>
+        <li>[SUP] Alertes de dérive automatiques dès qu'un site dépasse le budget énergétique mensuel.</li>
+        <li>[REP] Rapport de conformité décret tertiaire généré en 1 clic (export PDF + préparation OPERAT).</li>
+        <li>[CONF] Export réglementaire BACS conforme à la norme NF EN ISO 52120-1.</li>
+        <li>[PL] Planification d'une intervention de maintenance depuis une alerte de dérive.</li>
+        <li>[REP] Graphiques de consommation environ 3x plus rapides sur les gros portefeuilles.</li>
+        <li>[SUP] Refonte des filtres : par usage, par zone climatique, par type de bâtiment.</li>
+        <li>Correction de l'affichage des unités (kWh/m²) sur la vue mobile.</li>
+        <li>Migration de la base de séries temporelles vers TimescaleDB 2.14.</li>
+        <li>Refactoring du module d'ingestion des compteurs (tickets #4412, #4419, #4421).</li>
+        <li>Mise à jour des dépendances de sécurité (CVE-2026-31180).</li>
+        <li>Correctif interne sur le cache Redis.</li>
+        <li>RUPTURE API : l'endpoint /v1/sites/consumption renvoie désormais les valeurs en Wh (et non plus kWh).</li>
+      </ul>
+
+      <p style="font-size:14px;line-height:1.5;color:#333;margin:0 0 14px">
+        Pour une présentation détaillée de ces améliorations, incluant des captures d'écran, veuillez consulter le document PDF ci-joint.
+      </p>
+
+      <!-- pièce jointe -->
+      <div style="border:1px solid #d8d8d8;border-radius:4px;padding:9px 12px;font-size:13px;color:#333;background:#fafafa;display:inline-block">
+        📎 Wattia_release_notes_v2.4.pdf &nbsp;<span style="color:#888">(1,2 Mo)</span>
+      </div>
+
+      <p style="font-size:14px;line-height:1.5;color:#333;margin:16px 0 0">
+        Si vous avez des questions ou besoin d'aide, n'hésitez pas à nous contacter.<br>L'équipe Wattia
+      </p>
+
+      <!-- pied plat -->
+      <p style="font-size:11px;color:#999;line-height:1.5;margin:20px 0 0;border-top:1px solid #eee;padding-top:12px">
+        Wattia · Cet email vous est envoyé en tant qu'utilisateur du logiciel. <a href="#" style="color:#1155cc">Se désabonner</a>
+      </p>
+
+    </td></tr>
+  </table>
+
+  <div style="max-width:640px;width:100%;font-size:11px;color:#9a9a9a;text-align:center;margin-top:10px">Aperçu « avant » — email générique simulé, à mettre en contraste avec la version segmentée produite par le workflow.</div>
+
+</td></tr></table>
+</body></html>

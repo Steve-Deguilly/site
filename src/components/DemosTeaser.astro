@@ -1,0 +1,45 @@
+---
+// Carte teaser du hub Démos & POC — colonne de la grille "outils" de la home.
+// (Le <section>/.container et le rythme vertical sont portés par le wrapper .home-teasers d'index.astro.)
+---
+<div class="demos-teaser-inner reveal">
+  <span class="section-tag">Démos &amp; POC</span>
+  <h2 id="demos-teaser-title">Voyez ce que je livre, pas ce que je promets.</h2>
+  <p>
+    Des démos à essayer en ligne et des preuves de concept livrées pour de vrais besoins&nbsp;:
+    IA souveraine, automatisation n8n, RAG. Des preuves, pas des slides.
+  </p>
+  <a href="/demos" class="btn-secondary">Explorer les démos →</a>
+</div>
+
+<style>
+  .demos-teaser-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    height: 100%;
+  }
+  .demos-teaser-inner h2 {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .demos-teaser-inner p {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-text-muted-warm);
+    margin: 0 0 8px;
+  }
+  /* Bouton calé en bas pour aligner les deux colonnes. */
+  .demos-teaser-inner .btn-secondary { margin-top: auto; }
+  @media (max-width: 767px) {
+    .demos-teaser-inner h2 { font-size: 26px; }
+    .demos-teaser-inner .btn-secondary { margin-top: 0; }
+  }
+</style>

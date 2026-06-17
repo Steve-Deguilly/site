@@ -1,0 +1,7 @@
+# Cloudflare Pages — redirections
+# Doc : https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Regroupement des démos/POC sous le hub /demos (2026-06-17).
+# Les anciennes URLs à plat sont conservées via une 301 (liens partagés, indexation).
+/demo            /demos/chat-document       301
+/demo-emails     /demos/emails-segmentes    301

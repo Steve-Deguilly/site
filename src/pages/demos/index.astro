@@ -1,0 +1,244 @@
+---
+// Hub /demos — « Démos & POC ». Liste les preuves interactives et POC anonymisés.
+// Piloté par src/data/demos.ts : ajouter une entrée + une page src/pages/demos/<slug>.astro.
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import CTAFinal from '../../components/CTAFinal.astro';
+import { demos, categories, demosOf } from '../../data/demos';
+
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/demos`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}/#collection`,
+      name: 'Démos & POC',
+      url: pageUrl,
+      description:
+        "Démos interactives et preuves de concept signées Steve Deguilly : automatisation n8n, IA souveraine, RAG. Des preuves qu'on peut essayer, pas des slides.",
+      inLanguage: 'fr',
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: { '@id': `${siteUrl}/#person` },
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${pageUrl}/#list`,
+      itemListElement: demos.map((d, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: d.title,
+        url: `${siteUrl}/demos/${d.slug}`,
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Démos & POC', item: `${pageUrl}/` },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title="Démos & POC — des preuves, pas des slides | Steve Deguilly"
+  description="Démos interactives et preuves de concept : automatisation n8n, IA souveraine, RAG. Des preuves qu'on peut essayer plutôt que des promesses."
+  canonical="/demos"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+
+  <main>
+    <header class="page-header">
+      <div class="container">
+        <p class="page-kicker">Démos &amp; POC</p>
+        <h1>Des preuves, pas des slides.</h1>
+        <p class="page-intro">
+          Je préfère montrer. Voici des démos que vous pouvez essayer en ligne et des preuves de
+          concept livrées pour de vrais besoins — anonymisées quand il le faut. Chacune illustre la
+          même approche&nbsp;: de l'IA souveraine, de l'automatisation, et des projets qui passent en
+          production.
+        </p>
+      </div>
+    </header>
+
+    <section class="demos-section" aria-label="Démos et POC par usage">
+      <div class="container">
+        <div class="demos-cats-grid">
+        {categories.map((cat) => {
+          const items = demosOf(cat.id);
+          return items.length > 0 && (
+            <div class="demos-cat">
+              <h2 class="demos-cat-title">{cat.label}</h2>
+              <p class="demos-cat-desc">{cat.blurb}</p>
+              <div class="demos-grid">
+                {items.map((d) => (
+                  <a class="demo-card" href={`/demos/${d.slug}`}>
+                    <span class="demo-card-head">
+                      <span class={`demo-card-type type-${d.type === 'POC' ? 'poc' : 'demo'}`}>{d.type}</span>
+                      <span class="demo-card-tag">{d.tag}</span>
+                    </span>
+                    <span class="demo-card-title">{d.title}</span>
+                    <span class="demo-card-pitch">{d.pitch}</span>
+                    <span class="demo-card-cta">{d.cta} →</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+        </div>
+        <p class="demos-note">D'autres démos et POC viendront s'ajouter, par usage.</p>
+      </div>
+    </section>
+
+    <CTAFinal />
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Header — même gabarit que /projets et /diagnostic */
+  .page-header { padding: 64px 0 32px; text-align: center; }
+  .page-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .page-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.08;
+    color: var(--color-text-primary);
+    margin: 0 auto 20px;
+  }
+  .page-intro {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto;
+  }
+  @media (max-width: 767px) {
+    .page-header { padding: 40px 0 24px; }
+    .page-header h1 { font-size: 30px; }
+    .page-intro { font-size: 16px; }
+  }
+
+  .demos-section { padding: 8px 0 24px; }
+
+  /* Rubriques côte à côte (2 colonnes), empilées en mobile */
+  .demos-cats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px 32px;
+    align-items: start;
+  }
+  @media (max-width: 767px) {
+    .demos-cats-grid { grid-template-columns: 1fr; gap: 44px; }
+  }
+
+  /* Blocs par catégorie métier */
+  .demos-cat { margin-bottom: 0; }
+  .demos-cat-title {
+    font-family: var(--font-serif);
+    font-size: 28px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0 0 6px;
+  }
+  .demos-cat-desc {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0 0 24px;
+    max-width: 640px;
+  }
+  @media (max-width: 767px) {
+    .demos-cat { margin-bottom: 44px; }
+    .demos-cat-title { font-size: 24px; }
+  }
+
+  /* Cartes empilées à l'intérieur de chaque rubrique (la rubrique est déjà une colonne). */
+  .demos-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .demo-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-bg-cream);
+    text-decoration: none;
+    transition: border-color 150ms, transform 150ms, box-shadow 150ms;
+  }
+  .demo-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(31,65,56,0.08);
+  }
+  .demo-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .demo-card-type {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+  .type-demo {
+    color: var(--color-bg-cream);
+    background: var(--color-primary);
+  }
+  .type-poc {
+    color: var(--color-accent-cta);
+    background: rgba(165,94,45,0.12);
+  }
+  .demo-card-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+  .demo-card-title {
+    font-family: var(--font-serif);
+    font-size: 23px; font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+  }
+  .demo-card-pitch {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .demo-card-cta {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 500;
+    color: var(--color-accent-cta);
+    margin-top: 4px;
+  }
+
+  .demos-note {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-text-muted);
+    text-align: center;
+    margin: 36px 0 0;
+  }
+</style>

@@ -1,17 +1,16 @@
 ---
-// Page /demo — démo "Chat sur document" (T5).
+// Page /demos/chat-document — démo "Chat sur document" (T5).
 // Contenu citable rendu côté serveur ; l'interactif vit dans l'îlot <DemoChat>.
 //
-// ⚠ v1 « discrète » : noindex, hors menu, AUCUN point d'entrée depuis le site (URL partagée à la main).
-//   Pas de lien GitHub en v1.
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import DemoChat from '../components/DemoChat.astro';
-import { DOC_TITLE, COPY, CALCOM_URL, CNIL_PDF_URL, GITHUB_REPO_URL } from '../lib/demo/config';
+// Fait partie du hub /demos. Ancienne URL /demo → redirigée 301 (public/_redirects).
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import DemoChat from '../../components/DemoChat.astro';
+import { DOC_TITLE, COPY, CALCOM_URL, CNIL_PDF_URL, GITHUB_REPO_URL } from '../../lib/demo/config';
 
 const siteUrl = 'https://steve-deguilly.com';
-const pageUrl = `${siteUrl}/demo`;
+const pageUrl = `${siteUrl}/demos/chat-document`;
 
 // JSON-LD GEO — prêt pour le jour où le noindex sautera (sans effet tant que la page est noindex).
 const jsonLd = {
@@ -37,7 +36,8 @@ const jsonLd = {
       '@id': `${pageUrl}/#breadcrumb`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
-        { '@type': 'ListItem', position: 2, name: 'Démo — Chat sur document', item: `${pageUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Démos & POC', item: `${siteUrl}/demos/` },
+        { '@type': 'ListItem', position: 3, name: 'Démo — Chat sur document', item: `${pageUrl}/` },
       ],
     },
   ],
@@ -46,7 +46,7 @@ const jsonLd = {
 <Layout
   title="Démo — Chat sur document | Steve Deguilly"
   description="Démonstration interactive : interrogez un document en langage naturel. Réponses sourcées, sans stockage, modèle européen."
-  canonical="/demo"
+  canonical="/demos/chat-document"
 >
   <!-- Turnstile : chargé sur cette page uniquement -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer slot="head"></script>
@@ -196,7 +196,7 @@ const jsonLd = {
     text-underline-offset: 2px;
   }
 
-  /* CTA final — bandeau clair (section-alt #EBE5D9) */
+  /* CTA final — bandeau clair (section-alt) */
   .demo-cta { text-align: center; }
   .demo-cta-title {
     font-family: var(--font-serif);

@@ -1,10 +1,11 @@
 ---
-// Menu partagé (5 entrées : Accueil · Méthode · Diagnostic · Réalisations · Démo) + CTA appel + drawer mobile.
+// Menu partagé (5 entrées : Accueil · Méthode · Diagnostic · Réalisations · Démos & POC) + CTA appel + drawer mobile.
+// « Démos & POC » = hub /demos (regroupe toutes les démos/POC) → aucune entrée à ajouter au fil du temps.
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const onHome = path === '/';
 const onDiagnostic = path === '/diagnostic';
 const onProjets = path === '/projets';
-const onDemo = path === '/demo';
+const onDemos = path === '/demos' || path.startsWith('/demos/');
 const onMethode = path === '/sdd';
 ---
 <nav id="navbar" aria-label="Navigation principale">
@@ -19,7 +20,7 @@ const onMethode = path === '/sdd';
         <li><a href="/sdd" aria-current={onMethode ? 'page' : undefined}>Méthode</a></li>
         <li><a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a></li>
         <li><a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a></li>
-        <li><a href="/demo" aria-current={onDemo ? 'page' : undefined}>Démo</a></li>
+        <li><a href="/demos" aria-current={onDemos ? 'page' : undefined}>Démos &amp; POC</a></li>
       </ul>
       <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener" class="btn-cta nav-cta-desktop">Réserver un appel</a>
       <button
@@ -42,7 +43,7 @@ const onMethode = path === '/sdd';
   <a href="/sdd" aria-current={onMethode ? 'page' : undefined}>Méthode</a>
   <a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a>
   <a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a>
-  <a href="/demo" aria-current={onDemo ? 'page' : undefined}>Démo</a>
+  <a href="/demos" aria-current={onDemos ? 'page' : undefined}>Démos &amp; POC</a>
   <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener" class="btn-cta">Réserver un appel →</a>
 </div>
 
@@ -136,7 +137,9 @@ const onMethode = path === '/sdd';
     transition: 200ms;
   }
 
-  @media (max-width: 767px) {
+  /* Bascule sur le drawer ≤900px : les liens centrés (dont « Démos & POC ») ne doivent
+     pas chevaucher le logo / le CTA sur les largeurs intermédiaires. */
+  @media (max-width: 900px) {
     .nav-links, .nav-cta-desktop { display: none; }
     .nav-hamburger { display: flex; }
   }
