@@ -9,7 +9,7 @@
 // L'ordre de `demos[]` = ordre d'affichage à l'intérieur de chaque catégorie.
 
 /** Rubriques métier du hub. Ajouter une catégorie = une entrée ici. */
-export type CategoryId = 'relation-client' | 'assistant-interne';
+export type CategoryId = 'relation-client' | 'automatisation-metier' | 'assistant-interne';
 
 export interface Category {
   id: CategoryId;
@@ -24,6 +24,11 @@ export const categories: Category[] = [
     id: 'relation-client',
     label: 'Relation client',
     blurb: "Automatiser et personnaliser la communication et le suivi de vos clients.",
+  },
+  {
+    id: 'automatisation-metier',
+    label: 'Automatisation métier',
+    blurb: "Automatiser un process métier de bout en bout : analyse, décision, génération de livrables — sans saisie ni erreur.",
   },
   {
     id: 'assistant-interne',
@@ -83,6 +88,17 @@ export const demos: DemoEntry[] = [
     pitch:
       "Interrogez un document public (recommandations IA de la CNIL) en langage naturel. Réponses sourcées du document, sans stockage, via un modèle européen.",
     cta: 'Essayer la démo',
+  },
+  {
+    slug: 'mmn-bilan',
+    category: 'automatisation-metier',
+    type: 'MVP',
+    tag: 'E-santé · n8n · HDS/RGPD',
+    title: 'Questionnaire santé → bilan personnalisé',
+    pitch:
+      "Conçu pour myMicroNutrition : un questionnaire santé devient un bilan PDF personnalisé en quelques minutes, sans intervention humaine ni erreur de saisie — sous contrainte HDS/RGPD.",
+    cta: 'Voir le cas',
+    href: '/projets/mymicronutrition',
   },
 ];
 

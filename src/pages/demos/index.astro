@@ -138,12 +138,12 @@ const jsonLd = {
   /* Rubriques côte à côte (2 colonnes), empilées en mobile */
   .demos-cats-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 48px 32px;
     align-items: start;
   }
   @media (max-width: 767px) {
-    .demos-cats-grid { grid-template-columns: 1fr; gap: 44px; }
+    .demos-cats-grid { gap: 44px; }
   }
 
   /* Blocs par catégorie métier */
