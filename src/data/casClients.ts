@@ -76,6 +76,35 @@ export const casClients: CasClient[] = [
     ],
     livraisonNote:
       "Le webhook répond en HTTP 200 immédiatement ; tout le traitement tourne en asynchrone. Aucun opérateur ne touche le dossier entre le paiement et la réception.",
+    schemaSvg: '/pipeline_mmn_bilan_n8n_17062026.svg',
+    schemaTitre: 'Le workflow, étape par étape',
+    schemaLegende:
+      "Pipeline n8n réel : du paiement et du questionnaire à la livraison du bilan PDF, en asynchrone et sous contrainte HDS/RGPD.",
+    sousLeCapot: {
+      titre: 'Sous le capot, en quatre temps',
+      etapes: [
+        {
+          titre: 'Réception & sauvegarde brut',
+          corps:
+            "le paiement (Stripe) et le questionnaire déclenchent le webhook ; la donnée brute est sauvegardée dans un stockage HDS.",
+        },
+        {
+          titre: 'Traitement algorithmique',
+          corps:
+            "un moteur déterministe croise les réponses du questionnaire avec des bases de connaissances expertes versionnées.",
+        },
+        {
+          titre: 'Génération du bilan',
+          corps:
+            "assemblage d'un document personnalisé (template) puis conversion en PDF (Gotenberg / Chromium headless).",
+        },
+        {
+          titre: 'Livraison',
+          corps:
+            "le PDF est déposé dans un bucket sécurisé, exposé par une URL signée à durée de vie limitée (7 jours), et envoyé par email (Brevo).",
+        },
+      ],
+    },
     pointFort: {
       titre: 'La décision qui signe le travail : conformité avant fonctionnalité',
       corps:
