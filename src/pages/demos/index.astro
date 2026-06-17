@@ -5,7 +5,8 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import CTAFinal from '../../components/CTAFinal.astro';
-import { demos, categories, demosOf } from '../../data/demos';
+import DemoCatBlock from '../../components/DemoCatBlock.astro';
+import { demos, categories } from '../../data/demos';
 
 const siteUrl = 'https://steve-deguilly.com';
 const pageUrl = `${siteUrl}/demos`;
@@ -70,30 +71,13 @@ const jsonLd = {
 
     <section class="demos-section" aria-label="Démos et POC par usage">
       <div class="container">
-        <div class="demos-cats-grid">
-        {categories.map((cat) => {
-          const items = demosOf(cat.id);
-          return items.length > 0 && (
-            <div class="demos-cat">
-              <h2 class="demos-cat-title">{cat.label}</h2>
-              <p class="demos-cat-desc">{cat.blurb}</p>
-              <div class="demos-grid">
-                {items.map((d) => (
-                  <a class="demo-card" href={d.href ?? `/demos/${d.slug}`}>
-                    <span class="demo-card-head">
-                      <span class={`demo-card-type type-${d.type === 'MVP' ? 'mvp' : 'poc'}`}>{d.type}</span>
-                      {d.live && <span class="demo-card-live">Testez-moi</span>}
-                      <span class="demo-card-tag">{d.tag}</span>
-                    </span>
-                    <span class="demo-card-title">{d.title}</span>
-                    <span class="demo-card-pitch">{d.pitch}</span>
-                    <span class="demo-card-cta">{d.cta} →</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          );
-        })}
+        <div class="demos-cols">
+          <div class="demos-col">
+            <DemoCatBlock cat={categories[0]} />
+          </div>
+          <div class="demos-col">
+            {categories.slice(1).map((cat) => <DemoCatBlock cat={cat} />)}
+          </div>
         </div>
         <p class="demos-note">D'autres démos et POC viendront s'ajouter, par usage.</p>
       </div>
@@ -136,114 +120,20 @@ const jsonLd = {
 
   .demos-section { padding: 8px 0 24px; }
 
-  /* Rubriques côte à côte (2 colonnes), empilées en mobile */
-  .demos-cats-grid {
+  /* 2 colonnes : gauche = 1re rubrique · droite = rubriques suivantes empilées. Mobile <900px = 1 colonne. */
+  .demos-cols {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 48px 32px;
     align-items: start;
   }
-  @media (max-width: 767px) {
-    .demos-cats-grid { gap: 44px; }
-  }
-
-  /* Blocs par catégorie métier */
-  .demos-cat { margin-bottom: 0; }
-  .demos-cat-title {
-    font-family: var(--font-serif);
-    font-size: 28px; font-weight: 500;
-    letter-spacing: -0.015em;
-    color: var(--color-text-primary);
-    margin: 0 0 6px;
-  }
-  .demos-cat-desc {
-    font-family: var(--font-sans);
-    font-size: 16px; line-height: 1.6;
-    color: var(--color-text-muted);
-    margin: 0 0 24px;
-    max-width: 640px;
-  }
-  @media (max-width: 767px) {
-    .demos-cat { margin-bottom: 44px; }
-    .demos-cat-title { font-size: 24px; }
-  }
-
-  /* Cartes empilées à l'intérieur de chaque rubrique (la rubrique est déjà une colonne). */
-  .demos-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .demo-card {
+  .demos-col {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 28px;
-    border: 1px solid var(--color-border);
-    border-radius: 14px;
-    background: var(--color-bg-cream);
-    text-decoration: none;
-    transition: border-color 150ms, transform 150ms, box-shadow 150ms;
+    gap: 48px;
   }
-  .demo-card:hover {
-    border-color: var(--color-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(31,65,56,0.08);
-  }
-  .demo-card-head {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .demo-card-type {
-    font-family: var(--font-sans);
-    font-size: 11px; font-weight: 500;
-    letter-spacing: 0.05em; text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 999px;
-  }
-  /* POC = vert · MVP = cool sobre (terracotta réservé au pill « Testez-moi ») */
-  .type-poc {
-    color: var(--color-bg-cream);
-    background: var(--color-primary);
-  }
-  .type-mvp {
-    color: var(--color-primary-deep);
-    background: var(--color-accent-cool);
-  }
-  /* « Testez-moi » — pill terracotta, cartes live uniquement */
-  .demo-card-live {
-    font-family: var(--font-sans);
-    font-size: 11px; font-weight: 500;
-    letter-spacing: 0.05em; text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 999px;
-    color: var(--color-bg-cream);
-    background: var(--color-accent-cta);
-  }
-  .demo-card-tag {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--color-text-muted);
-  }
-  .demo-card-title {
-    font-family: var(--font-serif);
-    font-size: 23px; font-weight: 500;
-    line-height: 1.2;
-    color: var(--color-text-primary);
-  }
-  .demo-card-pitch {
-    font-family: var(--font-sans);
-    font-size: 15px; line-height: 1.6;
-    color: var(--color-text-muted);
-  }
-  .demo-card-cta {
-    font-family: var(--font-sans);
-    font-size: 14px; font-weight: 500;
-    color: var(--color-accent-cta);
-    margin-top: 4px;
+  @media (max-width: 900px) {
+    .demos-cols { grid-template-columns: 1fr; }
   }
 
   .demos-note {

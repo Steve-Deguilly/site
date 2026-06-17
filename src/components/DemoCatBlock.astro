@@ -1,0 +1,124 @@
+---
+// Bloc d'une rubrique du hub /demos : titre + blurb + cartes de la rubrique.
+// Réutilisé par index.astro (colonne gauche = 1re rubrique, colonne droite = les suivantes).
+import { demosOf } from '../data/demos';
+import type { Category } from '../data/demos';
+
+interface Props { cat: Category; }
+const { cat } = Astro.props;
+const items = demosOf(cat.id);
+---
+{items.length > 0 && (
+  <div class="demos-cat">
+    <h2 class="demos-cat-title">{cat.label}</h2>
+    <p class="demos-cat-desc">{cat.blurb}</p>
+    <div class="demos-grid">
+      {items.map((d) => (
+        <a class="demo-card" href={d.href ?? `/demos/${d.slug}`}>
+          <span class="demo-card-head">
+            <span class={`demo-card-type type-${d.type === 'MVP' ? 'mvp' : 'poc'}`}>{d.type}</span>
+            {d.live && <span class="demo-card-live">Testez-moi</span>}
+            <span class="demo-card-tag">{d.tag}</span>
+          </span>
+          <span class="demo-card-title">{d.title}</span>
+          <span class="demo-card-pitch">{d.pitch}</span>
+          <span class="demo-card-cta">{d.cta} →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .demos-cat-title {
+    font-family: var(--font-serif);
+    font-size: 28px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0 0 6px;
+  }
+  .demos-cat-desc {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0 0 24px;
+    max-width: 640px;
+  }
+  @media (max-width: 767px) { .demos-cat-title { font-size: 24px; } }
+
+  .demos-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .demo-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-bg-cream);
+    text-decoration: none;
+    transition: border-color 150ms, transform 150ms, box-shadow 150ms;
+  }
+  .demo-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(31,65,56,0.08);
+  }
+  .demo-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .demo-card-type {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+  /* POC = vert · MVP = cool sobre (terracotta réservé au pill « Testez-moi ») */
+  .type-poc {
+    color: var(--color-bg-cream);
+    background: var(--color-primary);
+  }
+  .type-mvp {
+    color: var(--color-primary-deep);
+    background: var(--color-accent-cool);
+  }
+  /* « Testez-moi » — pill terracotta, cartes live uniquement */
+  .demo-card-live {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    color: var(--color-bg-cream);
+    background: var(--color-accent-cta);
+  }
+  .demo-card-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-muted);
+  }
+  .demo-card-title {
+    font-family: var(--font-serif);
+    font-size: 23px; font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-text-primary);
+  }
+  .demo-card-pitch {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .demo-card-cta {
+    font-family: var(--font-sans);
+    font-size: 14px; font-weight: 500;
+    color: var(--color-accent-cta);
+    margin-top: 4px;
+  }
+</style>
