@@ -84,14 +84,14 @@ export const casClients: CasClient[] = [
       titre: 'Sous le capot, en quatre temps',
       etapes: [
         {
-          titre: 'Réception & sauvegarde brut',
+          titre: 'Réception & sauvegarde « brut »',
           corps:
-            "le paiement (Stripe) et le questionnaire déclenchent le webhook ; la donnée brute est sauvegardée dans un stockage HDS.",
+            "le paiement (Stripe) et le questionnaire déclenchent le webhook ; la donnée brute est sauvegardée sur un stockage Cloud HDS et le webhook répond immédiatement — tout le traitement tourne ensuite en asynchrone.",
         },
         {
-          titre: 'Traitement algorithmique',
+          titre: 'Profilage algorithmique',
           corps:
-            "un moteur déterministe croise les réponses du questionnaire avec des bases de connaissances expertes versionnées.",
+            "un moteur déterministe s'appuie sur trois bases de connaissances versionnées — recettes & diététique, profils, sport — pour construire le profil à partir des réponses au questionnaire.",
         },
         {
           titre: 'Génération du bilan',
@@ -101,7 +101,7 @@ export const casClients: CasClient[] = [
         {
           titre: 'Livraison',
           corps:
-            "le PDF est déposé dans un bucket sécurisé, exposé par une URL signée à durée de vie limitée (7 jours), et envoyé par email (Brevo).",
+            "le PDF sécurisé est exposé par une URL signée à durée de vie limitée (7 jours) puis envoyé par email automatique (Brevo).",
         },
       ],
     },
