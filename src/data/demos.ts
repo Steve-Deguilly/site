@@ -37,8 +37,8 @@ export const categories: Category[] = [
   },
 ];
 
-/** Nature : démo interactive en ligne, preuve de concept anonymisée, ou MVP client réel. */
-export type DemoType = 'Démo' | 'POC' | 'MVP';
+/** Nature : preuve de concept (POC) ou MVP client réel déployé. Le côté "testable en direct" est porté par `live` (cf. pill « Testez-moi »), pas par le type. */
+export type DemoType = 'POC' | 'MVP';
 
 export interface DemoEntry {
   /** Identifiant ; route sous /demos/<slug> si pas de `href`. Doit correspondre au fichier page si pas de href. */
@@ -55,6 +55,8 @@ export interface DemoEntry {
   cta: string;
   /** Si présent, la carte pointe vers cette URL au lieu de /demos/<slug> (ex. cas réel sur /projets). */
   href?: string;
+  /** Carte réellement testable en direct → affiche le pill « Testez-moi » (terracotta). */
+  live?: boolean;
 }
 
 export const demos: DemoEntry[] = [
@@ -82,7 +84,8 @@ export const demos: DemoEntry[] = [
   {
     slug: 'chat-document',
     category: 'assistant-interne',
-    type: 'Démo',
+    type: 'POC',
+    live: true,
     tag: 'IA souveraine · sans stockage',
     title: 'Chat sur un document',
     pitch:

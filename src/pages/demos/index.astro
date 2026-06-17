@@ -81,7 +81,8 @@ const jsonLd = {
                 {items.map((d) => (
                   <a class="demo-card" href={d.href ?? `/demos/${d.slug}`}>
                     <span class="demo-card-head">
-                      <span class={`demo-card-type type-${d.type === 'POC' ? 'poc' : d.type === 'MVP' ? 'mvp' : 'demo'}`}>{d.type === 'MVP' ? 'MVP' : d.type}</span>
+                      <span class={`demo-card-type type-${d.type === 'MVP' ? 'mvp' : 'poc'}`}>{d.type}</span>
+                      {d.live && <span class="demo-card-live">Testez-moi</span>}
                       <span class="demo-card-tag">{d.tag}</span>
                     </span>
                     <span class="demo-card-title">{d.title}</span>
@@ -203,17 +204,24 @@ const jsonLd = {
     padding: 3px 10px;
     border-radius: 999px;
   }
-  .type-demo {
+  /* POC = vert · MVP = cool sobre (terracotta réservé au pill « Testez-moi ») */
+  .type-poc {
     color: var(--color-bg-cream);
     background: var(--color-primary);
-  }
-  .type-poc {
-    color: var(--color-accent-cta);
-    background: rgba(165,94,45,0.12);
   }
   .type-mvp {
     color: var(--color-primary-deep);
     background: var(--color-accent-cool);
+  }
+  /* « Testez-moi » — pill terracotta, cartes live uniquement */
+  .demo-card-live {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    color: var(--color-bg-cream);
+    background: var(--color-accent-cta);
   }
   .demo-card-tag {
     font-family: var(--font-mono);
