@@ -32,8 +32,8 @@ export const categories: Category[] = [
   },
 ];
 
-/** Nature : démo interactive en ligne, preuve de concept anonymisée, ou cas client réel. */
-export type DemoType = 'Démo' | 'POC' | 'Cas';
+/** Nature : démo interactive en ligne, preuve de concept anonymisée, ou MVP client réel. */
+export type DemoType = 'Démo' | 'POC' | 'MVP';
 
 export interface DemoEntry {
   /** Identifiant ; route sous /demos/<slug> si pas de `href`. Doit correspondre au fichier page si pas de href. */
@@ -56,7 +56,7 @@ export const demos: DemoEntry[] = [
   {
     slug: 'enerj-recommandation',
     category: 'relation-client',
-    type: 'Cas',
+    type: 'MVP',
     tag: 'Événementiel · n8n + IA',
     title: 'Moteur de recommandation de conférences',
     pitch:
