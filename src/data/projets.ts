@@ -54,7 +54,7 @@ export const projets: Projet[] = [
       'Développement de la plateforme technique complète — 3 sites (Node.js/MongoDB), 3 apps mobiles (PWA, Android, iOS), BO client avec messagerie + prise de RDV inter-participants, CMS maison de gestion événementielle',
     secteur: 'Événementiel',
     tags: ['Architecture', 'Dev', 'Produit'],
-    result: '4 500 présents / 8 000+ inscrits (éd. 2026)',
+    result: '4 100 présents (éd. 2026)',
     period: 'xpair',
   },
   {
@@ -63,7 +63,7 @@ export const projets: Projet[] = [
       "Développement de l'algorithme de matchmaking B2B (v1 → v3) — scoring d'affinités inter-participants, recommandations personnalisées en fin d'inscription",
     secteur: 'Événementiel',
     tags: ['Architecture', 'IA', 'Analytics'],
-    result: '27 000+ mises en relation',
+    result: '27 300 mises en relation',
     period: 'xpair',
     caseSlug: 'enerj-meeting-recommandation',
   },

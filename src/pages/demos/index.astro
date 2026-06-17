@@ -79,9 +79,9 @@ const jsonLd = {
               <p class="demos-cat-desc">{cat.blurb}</p>
               <div class="demos-grid">
                 {items.map((d) => (
-                  <a class="demo-card" href={`/demos/${d.slug}`}>
+                  <a class="demo-card" href={d.href ?? `/demos/${d.slug}`}>
                     <span class="demo-card-head">
-                      <span class={`demo-card-type type-${d.type === 'POC' ? 'poc' : 'demo'}`}>{d.type}</span>
+                      <span class={`demo-card-type type-${d.type === 'POC' ? 'poc' : d.type === 'Cas' ? 'cas' : 'demo'}`}>{d.type === 'Cas' ? 'Cas réel' : d.type}</span>
                       <span class="demo-card-tag">{d.tag}</span>
                     </span>
                     <span class="demo-card-title">{d.title}</span>
@@ -210,6 +210,10 @@ const jsonLd = {
   .type-poc {
     color: var(--color-accent-cta);
     background: rgba(165,94,45,0.12);
+  }
+  .type-cas {
+    color: var(--color-primary-deep);
+    background: var(--color-accent-cool);
   }
   .demo-card-tag {
     font-family: var(--font-mono);

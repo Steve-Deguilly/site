@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 900 500" width="900" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma détaillé du workflow n8n">
+        <defs>
+          <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#2D5A4F"></path>
+          </marker>
+        </defs>
+
+        <!-- ===== flux principal (vert) ===== -->
+        <!-- Row A -->
+        <line x1="164" y1="90"  x2="178" y2="90"  stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></line>
+        <line x1="330" y1="90"  x2="344" y2="90"  stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></line>
+        <line x1="496" y1="90"  x2="510" y2="90"  stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></line>
+        <line x1="662" y1="90"  x2="676" y2="90"  stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></line>
+        <!-- IF oui -> scrape (vertical) -->
+        <line x1="753" y1="116" x2="753" y2="156" stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></line>
+        <text x="762" y="140" font-family="Inter,sans-serif" font-size="11" fill="#2D5A4F" font-weight="700">oui</text>
+        <!-- scrape -> fusion (polyline) -->
+        <polyline points="753,210 753,250 89,250 89,286" fill="none" stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></polyline>
+        <!-- IF non -> fusion (polyline) -->
+        <polyline points="700,116 700,268 89,268 89,286" fill="none" stroke="#9aa79f" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ar)"></polyline>
+        <text x="650" y="132" font-family="Inter,sans-serif" font-size="11" fill="#7d8a82" font-weight="700">non</text>
+        <!-- Row B -->
+        <line x1="164" y1="314" x2="206" y2="314" stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></line>
+        <line x1="392" y1="314" x2="446" y2="314" stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></line>
+        <line x1="602" y1="314" x2="616" y2="314" stroke="#2D5A4F" stroke-width="2" marker-end="url(#ar)"></line>
+
+        <!-- ===== ressources de l'agent (gris pointillé) ===== -->
+        <line x1="290" y1="416" x2="290" y2="350" stroke="#8FA5AB" stroke-width="1.8" stroke-dasharray="4 4"></line>
+        <line x1="470" y1="416" x2="345" y2="350" stroke="#8FA5AB" stroke-width="1.8" stroke-dasharray="4 4"></line>
+        <text x="232" y="388" font-family="Inter,sans-serif" font-size="10.5" fill="#4A6168" font-style="italic">Chat Model</text>
+        <text x="430" y="388" font-family="Inter,sans-serif" font-size="10.5" fill="#4A6168" font-style="italic">Tool</text>
+
+        <!-- ===== NODES ===== -->
+        <!-- Row A -->
+        <g><rect x="14"  y="64" width="150" height="52" rx="10" fill="#fff" stroke="#2D5A4F" stroke-width="1.5"></rect>
+          <text x="89"  y="86"  text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#1F4138">On form submission</text>
+          <text x="89"  y="103" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">formulaire visiteur</text></g>
+        <g><rect x="180" y="64" width="150" height="52" rx="10" fill="#fff" stroke="#2D5A4F" stroke-width="1.5"></rect>
+          <text x="255" y="86"  text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#1F4138">Set</text>
+          <text x="255" y="103" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">préparation des champs</text></g>
+        <g><rect x="346" y="64" width="150" height="52" rx="10" fill="#fff" stroke="#2D5A4F" stroke-width="1.5"></rect>
+          <text x="421" y="86"  text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#1F4138">SerpAPI</text>
+          <text x="421" y="103" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">recherche Google</text></g>
+        <g><rect x="512" y="64" width="150" height="52" rx="10" fill="#fff" stroke="#2D5A4F" stroke-width="1.5"></rect>
+          <text x="587" y="86"  text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#1F4138">Extract LinkedIn</text>
+          <text x="587" y="103" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">Code · URL du profil</text></g>
+        <g><rect x="678" y="64" width="150" height="52" rx="10" fill="#fff" stroke="#2D5A4F" stroke-width="1.5"></rect>
+          <text x="753" y="86"  text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#1F4138">URL trouvée ?</text>
+          <text x="753" y="103" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">IF · test conditionnel</text></g>
+        <!-- Scrape -->
+        <g><rect x="678" y="158" width="150" height="52" rx="10" fill="#fff" stroke="#2D5A4F" stroke-width="1.5"></rect>
+          <text x="753" y="180" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#1F4138">HTTP Request</text>
+          <text x="753" y="197" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">scrape profil public</text></g>
+
+        <!-- Row B -->
+        <g><rect x="14"  y="288" width="150" height="52" rx="10" fill="#fff" stroke="#2D5A4F" stroke-width="1.5"></rect>
+          <text x="89"  y="310" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#1F4138">Fusion avant IA</text>
+          <text x="89"  y="327" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">Merge des données</text></g>
+        <g><rect x="206" y="282" width="186" height="66" rx="11" fill="#FBF1E9" stroke="#A55E2D" stroke-width="2.2"></rect>
+          <text x="299" y="307" text-anchor="middle" font-family="Inter,sans-serif" font-size="13.5" font-weight="700" fill="#8B4D24">AI Agent</text>
+          <text x="299" y="324" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">corrèle le profil</text>
+          <text x="299" y="338" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">aux 120+ conférences</text></g>
+        <g><rect x="446" y="288" width="156" height="52" rx="10" fill="#fff" stroke="#2D5A4F" stroke-width="1.5"></rect>
+          <text x="524" y="310" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#1F4138">Parse AI Response</text>
+          <text x="524" y="327" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#5A625E">structuration</text></g>
+        <g><rect x="616" y="288" width="170" height="52" rx="10" fill="#2D5A4F" stroke="#1F4138" stroke-width="1.5"></rect>
+          <text x="701" y="310" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#fff">Restitution visiteur</text>
+          <text x="701" y="327" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" fill="#E8E1D0">Form · espace perso</text></g>
+
+        <!-- Sub-nodes -->
+        <g><rect x="210" y="416" width="160" height="48" rx="10" fill="#EEF3F1" stroke="#8FA5AB" stroke-width="1.5"></rect>
+          <text x="290" y="437" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#3a4a44">DeepSeek</text>
+          <text x="290" y="453" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="#5A625E">le cerveau (LLM)</text></g>
+        <g><rect x="390" y="416" width="160" height="48" rx="10" fill="#EEF3F1" stroke="#8FA5AB" stroke-width="1.5"></rect>
+          <text x="470" y="437" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#3a4a44">Notion</text>
+          <text x="470" y="453" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" fill="#5A625E">base des 120+ conférences</text></g>
+      </svg>

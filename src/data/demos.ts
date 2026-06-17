@@ -32,11 +32,11 @@ export const categories: Category[] = [
   },
 ];
 
-/** Nature : démo interactive en ligne, ou preuve de concept (souvent anonymisée). */
-export type DemoType = 'Démo' | 'POC';
+/** Nature : démo interactive en ligne, preuve de concept anonymisée, ou cas client réel. */
+export type DemoType = 'Démo' | 'POC' | 'Cas';
 
 export interface DemoEntry {
-  /** Route sous /demos/ — doit correspondre au fichier src/pages/demos/<slug>.astro */
+  /** Identifiant ; route sous /demos/<slug> si pas de `href`. Doit correspondre au fichier page si pas de href. */
   slug: string;
   /** Rubrique métier (cf. categories[]). */
   category: CategoryId;
@@ -48,9 +48,22 @@ export interface DemoEntry {
   pitch: string;
   /** Libellé du bouton de la carte. */
   cta: string;
+  /** Si présent, la carte pointe vers cette URL au lieu de /demos/<slug> (ex. cas réel sur /projets). */
+  href?: string;
 }
 
 export const demos: DemoEntry[] = [
+  {
+    slug: 'enerj-recommandation',
+    category: 'relation-client',
+    type: 'Cas',
+    tag: 'Événementiel · n8n + IA',
+    title: 'Moteur de recommandation de conférences',
+    pitch:
+      "Conçu et déployé pour EnerJ-meeting : à l'inscription, chaque visiteur reçoit les conférences faites pour lui — profil enrichi automatiquement, agent IA, sans ressaisie.",
+    cta: 'Voir le cas',
+    href: '/projets/enerj-meeting-recommandation',
+  },
   {
     slug: 'emails-segmentes',
     category: 'relation-client',

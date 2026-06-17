@@ -35,6 +35,9 @@ export interface CasClient {
   demontre: string[]; // "ce que ce projet démontre"
 
   schemaSvg?: string; // chemin public/, optionnel (v1.1 si absent)
+  schemaTitre?: string; // titre HTML du schéma (jamais dans le SVG — cf. svg-titles-as-html)
+  schemaLegende?: string; // légende HTML sous le schéma
+  sousLeCapot?: { titre: string; etapes: { titre: string; corps: string }[] }; // détail "builder" sous le schéma
   parcoursNote?: string; // libellé du lien retour vers la ligne parcours
 }
 
@@ -193,12 +196,36 @@ export const casClients: CasClient[] = [
     ],
     livraisonNote:
       "La recommandation arrive au bon moment — la fin de l'inscription — et se matérialise par une action concrète.",
+    schemaSvg: '/pipeline_enerj_reco_n8n_17062026.svg',
+    schemaTitre: 'Le workflow, étape par étape',
+    schemaLegende:
+      "Workflow n8n réel : de la soumission du formulaire d'inscription à la restitution des conférences recommandées dans l'espace du visiteur.",
+    sousLeCapot: {
+      titre: 'Sous le capot, en trois temps',
+      etapes: [
+        {
+          titre: 'Enrichir',
+          corps:
+            "à partir du profil saisi, une recherche web (SerpAPI) retrouve la page LinkedIn publique, dont les informations métier sont extraites. Repli propre si le profil reste introuvable.",
+        },
+        {
+          titre: 'Corréler',
+          corps:
+            "un agent IA (cerveau DeepSeek) croise le profil enrichi avec le catalogue des conférences (base Notion) pour sélectionner les sessions pertinentes.",
+        },
+        {
+          titre: 'Restituer',
+          corps:
+            "le résultat est mis en forme et renvoyé directement dans le parcours d'inscription du visiteur, sans ressaisie.",
+        },
+      ],
+    },
     chiffres: [
       { label: 'Conférences ciblées / catalogue', valeur: '5 / 100+', note: "par visiteur, dès l'inscription" },
-      { label: 'Édition 2026', valeur: '4 500 visiteurs présents', note: 'sur 8 000+ inscrits' },
+      { label: 'Édition 2026', valeur: '4 100 visiteurs présents', note: 'le jour J' },
       {
         label: 'Mises en relation post-événement',
-        valeur: '27 000+',
+        valeur: '27 300',
         note: "via la plateforme de matchmaking que j'ai conçue (2016)",
       },
     ],

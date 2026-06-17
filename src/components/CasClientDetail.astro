@@ -55,8 +55,20 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
       </ol>
       {cas.schemaSvg && (
         <figure class="cas-schema">
-          <img src={cas.schemaSvg} alt={`Schéma — ${cas.client}`} loading="lazy" />
+          {cas.schemaTitre && <p class="cas-schema-title">{cas.schemaTitre}</p>}
+          <img src={cas.schemaSvg} alt={cas.schemaTitre ?? `Schéma — ${cas.client}`} loading="lazy" />
+          {cas.schemaLegende && <figcaption class="cas-schema-legend">{cas.schemaLegende}</figcaption>}
         </figure>
+      )}
+      {cas.sousLeCapot && (
+        <div class="cas-capot">
+          <h3 class="cas-capot-title">{cas.sousLeCapot.titre}</h3>
+          <ol class="cas-capot-steps">
+            {cas.sousLeCapot.etapes.map((e) => (
+              <li><span class="cas-capot-step-t">{e.titre}</span> — {e.corps}</li>
+            ))}
+          </ol>
+        </div>
       )}
       {cas.livraisonNote && <p class="cas-note">{cas.livraisonNote}</p>}
     </section>
@@ -250,9 +262,58 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
     padding-left: 14px;
     border-left: 2px solid var(--color-border);
   }
-  /* Schéma (v1.1) — centré, max-width ~1040px (spec §4.5), sans dépasser la largeur du contenu. */
+  /* Schéma — centré, max-width ~1040px, titre + légende en HTML (jamais dans le SVG). */
   .cas-schema { margin: 28px auto 0; max-width: 1040px; }
   .cas-schema img { width: 100%; height: auto; display: block; }
+  .cas-schema-title {
+    font-family: var(--font-sans);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 12px;
+  }
+  .cas-schema-legend {
+    font-family: var(--font-sans);
+    font-size: 14px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 14px 0 0;
+  }
+
+  /* « Sous le capot » — détail builder sous le schéma */
+  .cas-capot { margin: 28px 0 0; }
+  .cas-capot-title {
+    font-family: var(--font-serif);
+    font-size: 19px; font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    margin: 0 0 14px;
+  }
+  .cas-capot-steps {
+    margin: 0; padding: 0;
+    list-style: none;
+    counter-reset: capot;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .cas-capot-steps li {
+    position: relative;
+    counter-increment: capot;
+    padding-left: 44px;
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.6;
+    color: var(--color-text-primary);
+  }
+  .cas-capot-steps li::before {
+    content: counter(capot);
+    position: absolute; left: 0; top: 0;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 700;
+    color: var(--color-bg-cream);
+    background: var(--color-accent-cta);
+    border-radius: 50%;
+  }
+  .cas-capot-step-t { font-weight: 600; color: var(--color-primary-deep); }
 
   /* 6. Point fort */
   .cas-pointfort {
