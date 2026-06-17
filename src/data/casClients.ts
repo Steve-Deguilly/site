@@ -183,15 +183,15 @@ export const casClients: CasClient[] = [
       "Recommander les 5 bonnes conférences à chaque visiteur dès l'inscription — et les pousser dans son espace, sans ressaisie.",
     heroChiffre: {
       label: 'Conférences ciblées par visiteur',
-      valeur: '5 / 100+',
+      valeur: '5 / 120+',
       note: "poussées dans l'espace visiteur, sans ressaisie",
     },
     defi:
-      "L'événement propose plus de 100 conférences. À l'inscription, un visiteur n'a ni le temps ni les moyens de trier ce qui le concerne. Résultat : un parcours générique, un engagement faible, une valeur limitée pour les exposants et l'organisateur, qui veulent des visiteurs présents sur les bonnes sessions.",
+      "L'événement propose plus de 120 conférences. À l'inscription, un visiteur n'a ni le temps ni les moyens de trier ce qui le concerne. Résultat : un parcours générique, un engagement faible, une valeur limitée pour les exposants et l'organisateur, qui veulent des visiteurs présents sur les bonnes sessions.",
     livraison: [
       'Le visiteur renseigne son profil professionnel.',
       'Enrichissement du profil à partir de données professionnelles publiques.',
-      'Moteur de matching (scoring propriétaire — boîte noire) : 5 conférences pertinentes parmi 100+.',
+      'Moteur de matching (scoring propriétaire — boîte noire) : 5 conférences pertinentes parmi 120+.',
       "Les conférences retenues sont ajoutées directement à l'espace personnel (back-office) du visiteur, sans ressaisie.",
     ],
     livraisonNote:
@@ -221,7 +221,7 @@ export const casClients: CasClient[] = [
       ],
     },
     chiffres: [
-      { label: 'Conférences ciblées / catalogue', valeur: '5 / 100+', note: "par visiteur, dès l'inscription" },
+      { label: 'Conférences ciblées / catalogue', valeur: '5 / 120+', note: "par visiteur, dès l'inscription" },
       { label: 'Édition 2026', valeur: '4 100 visiteurs présents', note: 'le jour J' },
       {
         label: 'Mises en relation post-événement',
