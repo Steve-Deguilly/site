@@ -20,6 +20,13 @@ const siteUrl = 'https://steve-deguilly.com';
 const canonicalPath = canonical === '/' ? '/' : `${canonical.replace(/\/+$/, '')}/`;
 const fullCanonical = `${siteUrl}${canonicalPath}`;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+// Umami (analytics d'events, cookieless). Website ID public par défaut (visible dans le HTML servi,
+// il n'ouvre aucun accès au dashboard). Surchargeable au build via env vars (Cloudflare Pages).
+// data-domains limite la collecte à la prod → rien depuis localhost ni les previews *.pages.dev.
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID ?? '848f130f-4678-4f57-bc92-bc4ed917d655';
+const umamiSrc = import.meta.env.PUBLIC_UMAMI_SRC ?? 'https://cloud.umami.is/script.js';
+const umamiDomains = 'steve-deguilly.com';
 ---
 <!DOCTYPE html>
 <html lang="fr">
@@ -185,6 +192,11 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
       }
     });
   </script>
+
+  <!-- Umami — analytics d'events, cookieless (chargé seulement si PUBLIC_UMAMI_WEBSITE_ID est défini) -->
+  {umamiWebsiteId && (
+    <script defer src={umamiSrc} data-website-id={umamiWebsiteId} data-domains={umamiDomains}></script>
+  )}
 
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9e52449fe86c4b11b3f721fc64e9ec1f"}'></script>
   <!-- End Cloudflare Web Analytics -->

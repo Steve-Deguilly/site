@@ -42,10 +42,13 @@ import Footer from '../components/Footer.astro';
       <section>
         <h2>Statistiques de fréquentation</h2>
         <p>
-          Le site utilise <strong>Cloudflare Web Analytics</strong>, un service de mesure
-          d'audience anonymisé qui n'utilise pas de cookies, ne suit pas les visiteurs
-          entre les sites et ne collecte aucune donnée personnelle (pas d'adresse IP, pas
-          d'empreinte navigateur).
+          Le site utilise <strong>Cloudflare Web Analytics</strong> et <strong>Umami</strong>,
+          deux services de mesure d'audience <strong>sans cookie</strong> qui ne suivent pas
+          les visiteurs entre les sites et ne collectent aucune donnée personnelle identifiante
+          (pas d'adresse IP stockée, pas d'empreinte navigateur). Umami me permet de connaître
+          de façon agrégée et anonyme les pages les plus consultées et l'usage du diagnostic
+          en ligne, afin d'améliorer le site. Aucun consentement n'est requis pour cette mesure
+          anonyme, conformément aux recommandations de la CNIL.
         </p>
       </section>
 
@@ -80,7 +83,7 @@ import Footer from '../components/Footer.astro';
           en bas de page.
         </p>
         <p style="color:var(--color-text-muted);font-size:14px;margin-top:24px;">
-          Dernière mise à jour : mai 2026.
+          Dernière mise à jour : juin 2026.
         </p>
       </section>
     </div>

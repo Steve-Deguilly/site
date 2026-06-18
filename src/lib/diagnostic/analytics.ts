@@ -1,8 +1,9 @@
 // Mini-diagnostic d'automatisation — couche analytics (A6).
 //
 // ⚠ Cloudflare Web Analytics (branché dans Layout.astro) NE GÈRE PAS les événements personnalisés.
-//    Ce wrapper émet les events vers un provider compatible (Plausible) S'IL est présent, sinon no-op.
-//    Brancher réellement Plausible reste une décision séparée (cf. plan / spec A4 §analytics).
+//    Ce wrapper émet les events vers Umami (cookieless) s'il est chargé, avec fallback Plausible.
+//    Si aucun provider n'est présent (ex. build local sans env var), le wrapper est un no-op.
+//    Umami est piloté par les env vars PUBLIC_UMAMI_WEBSITE_ID / PUBLIC_UMAMI_SRC (cf. Layout.astro).
 //
 // Events spec A4 :
 //   - diagnostic_started                          (au démarrage)
@@ -11,16 +12,19 @@
 
 type Props = Record<string, string>;
 
-interface PlausibleWindow extends Window {
+interface AnalyticsWindow extends Window {
+  umami?: { track: (event: string, data?: Props) => void };
   plausible?: (event: string, options?: { props?: Props }) => void;
 }
 
-/** Émet un événement analytics si un provider d'events est disponible ; sinon, ne fait rien. */
+/** Émet un événement analytics vers Umami (ou Plausible en fallback) si disponible ; sinon, no-op. */
 export function track(event: string, props?: Props): void {
   if (typeof window === 'undefined') return;
-  const fn = (window as PlausibleWindow).plausible;
-  if (typeof fn === 'function') {
-    fn(event, props ? { props } : undefined);
+  const w = window as AnalyticsWindow;
+  if (typeof w.umami?.track === 'function') {
+    w.umami.track(event, props);
+  } else if (typeof w.plausible === 'function') {
+    w.plausible(event, props ? { props } : undefined);
   }
 }
 
