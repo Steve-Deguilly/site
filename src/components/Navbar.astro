@@ -1,12 +1,12 @@
 ---
-// Menu partagé (5 entrées : Accueil · Méthode · Diagnostic · Réalisations · Démos & POC) + CTA appel + drawer mobile.
+// Menu partagé (5 entrées : Accueil · Méthode · Maturité · Réalisations · Démos & POC) + CTA appel + drawer mobile.
 // « Démos & POC » = hub /demos (regroupe toutes les démos/POC) → aucune entrée à ajouter au fil du temps.
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const onHome = path === '/';
-const onDiagnostic = path === '/diagnostic';
+const onMaturite = path === '/maturite';
 const onProjets = path === '/projets';
 const onDemos = path === '/demos' || path.startsWith('/demos/');
-const onMethode = path === '/sdd';
+const onMethode = path === '/methode';
 ---
 <nav id="navbar" aria-label="Navigation principale">
   <div class="container">
@@ -17,8 +17,8 @@ const onMethode = path === '/sdd';
       </a>
       <ul class="nav-links">
         <li><a href="/" aria-current={onHome ? 'page' : undefined}>Accueil</a></li>
-        <li><a href="/sdd" aria-current={onMethode ? 'page' : undefined}>Méthode</a></li>
-        <li><a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a></li>
+        <li><a href="/methode" aria-current={onMethode ? 'page' : undefined}>Méthode</a></li>
+        <li><a href="/maturite" data-diag-entry="navbar" aria-current={onMaturite ? 'page' : undefined}>Maturité</a></li>
         <li><a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a></li>
         <li><a href="/demos" aria-current={onDemos ? 'page' : undefined}>Démos &amp; POC</a></li>
       </ul>
@@ -40,8 +40,8 @@ const onMethode = path === '/sdd';
 <div class="nav-drawer" id="drawer" role="dialog" aria-label="Menu mobile" aria-modal="true">
   <button type="button" class="nav-drawer-close" id="drawer-close" aria-label="Fermer le menu">✕</button>
   <a href="/" aria-current={onHome ? 'page' : undefined}>Accueil</a>
-  <a href="/sdd" aria-current={onMethode ? 'page' : undefined}>Méthode</a>
-  <a href="/diagnostic" data-diag-entry="navbar" aria-current={onDiagnostic ? 'page' : undefined}>Diagnostic</a>
+  <a href="/methode" aria-current={onMethode ? 'page' : undefined}>Méthode</a>
+  <a href="/maturite" data-diag-entry="navbar" aria-current={onMaturite ? 'page' : undefined}>Maturité</a>
   <a href="/projets" aria-current={onProjets ? 'page' : undefined}>Réalisations</a>
   <a href="/demos" aria-current={onDemos ? 'page' : undefined}>Démos &amp; POC</a>
   <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener" class="btn-cta">Réserver un appel →</a>

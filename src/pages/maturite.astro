@@ -1,7 +1,8 @@
 ---
-// Page /diagnostic — Partie B : wrapper éditorial + SEO + GEO + FAQ + bloc preuve.
+// Page /maturite (« Test de maturité ») — Partie B : wrapper éditorial + SEO + GEO + FAQ + bloc preuve.
 // ⚠ Contenu citable (intro, "comment ça marche", FAQ) = rendu côté serveur, HORS de l'îlot JS.
 //    Le quiz (DiagnosticQuiz) est un îlot interactif hydraté par-dessus.
+//    Interne (module lib/diagnostic/ + events analytics diagnostic_*) volontairement inchangé.
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
@@ -9,7 +10,7 @@ import DiagnosticQuiz from '../components/DiagnosticQuiz.astro';
 import { INTRO, HOW_IT_WORKS, FAQ } from '../lib/diagnostic/content';
 
 const siteUrl = 'https://steve-deguilly.com';
-const pageUrl = `${siteUrl}/diagnostic`;
+const pageUrl = `${siteUrl}/maturite`;
 
 // ── JSON-LD @graph (GEO) — rendu statique dans le <head> via slot="head" ──
 const jsonLd = {
@@ -18,10 +19,10 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       '@id': `${pageUrl}/#webapp`,
-      name: 'Diagnostic d’automatisation',
+      name: 'Test de maturité',
       url: pageUrl,
       description:
-        'Diagnostic gratuit en 6 questions qui situe une entreprise sur deux axes (maturité et douleur) et renvoie un profil et des leviers d’action pour automatiser ses processus.',
+        'Test de maturité gratuit en 6 questions qui situe une entreprise sur deux axes (maturité et douleur) et renvoie un profil et des leviers d’action pour automatiser ses processus.',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
       inLanguage: 'fr',
@@ -44,16 +45,16 @@ const jsonLd = {
       '@id': `${pageUrl}/#breadcrumb`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
-        { '@type': 'ListItem', position: 2, name: 'Diagnostic d’automatisation', item: `${pageUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Test de maturité', item: `${pageUrl}/` },
       ],
     },
   ],
 };
 ---
 <Layout
-  title="Diagnostic d'automatisation gratuit — Steve Deguilly"
+  title="Test de maturité (automatisation) gratuit — Steve Deguilly"
   description="Évaluez en 6 questions la maturité et la douleur de votre organisation face à l'automatisation. Profil et leviers d'action concrets. Gratuit, sans email."
-  canonical="/diagnostic"
+  canonical="/maturite"
   ogImage="/og-diagnostic.jpg"
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
@@ -65,7 +66,7 @@ const jsonLd = {
     <header class="diag-header">
       <div class="container">
         <p class="diag-kicker">Outil gratuit · 2 minutes</p>
-        <h1>Diagnostic d'automatisation<br />où en est votre entreprise ?</h1>
+        <h1>Test de maturité<br />où en est votre entreprise ?</h1>
         <p class="diag-intro">{INTRO}</p>
       </div>
     </header>

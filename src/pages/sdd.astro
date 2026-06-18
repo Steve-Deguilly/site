@@ -88,7 +88,8 @@ const jsonLd = {
       '@id': `${pageUrl}/#breadcrumb`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
-        { '@type': 'ListItem', position: 2, name: 'Ma méthode', item: `${pageUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Méthode', item: `${siteUrl}/methode/` },
+        { '@type': 'ListItem', position: 3, name: 'Le spec-driven', item: `${pageUrl}/` },
       ],
     },
   ],
@@ -108,7 +109,14 @@ const jsonLd = {
     <!-- 1. Header (§5.1) -->
     <header class="sdd-header">
       <div class="container">
-        <span class="section-tag">Méthode</span>
+        <nav class="sdd-breadcrumb" aria-label="Fil d'Ariane">
+          <a href="/">Accueil</a>
+          <span aria-hidden="true">›</span>
+          <a href="/methode">Méthode</a>
+          <span aria-hidden="true">›</span>
+          <span aria-current="page">Le spec-driven</span>
+        </nav>
+        <span class="section-tag">Spec-driven</span>
         <h1 class="sdd-h1">Le spec-driven development.</h1>
         <p class="sdd-chapo">
           Écrire la spécification avant la première ligne de code. À l'heure où l'IA génère du code en
@@ -427,4 +435,15 @@ const jsonLd = {
     clip: rect(0 0 0 0);
     white-space: nowrap; border: 0;
   }
+
+  /* Fil d'Ariane (même style que les pages projet) */
+  .sdd-breadcrumb {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    font-family: var(--font-sans); font-size: 13px;
+    color: var(--color-text-muted);
+    margin: 0 0 24px;
+  }
+  .sdd-breadcrumb a { color: var(--color-text-muted); text-decoration: none; }
+  .sdd-breadcrumb a:hover { color: var(--color-primary); text-decoration: underline; }
+  .sdd-breadcrumb [aria-current="page"] { color: var(--color-text-primary); }
 </style>

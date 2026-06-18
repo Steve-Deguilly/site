@@ -37,6 +37,9 @@ const steps = [
         </div>
       ))}
     </div>
+    <p class="approche-more">
+      <a href="/methode">Voir la méthode en détail →</a>
+    </p>
   </div>
 </section>
 
@@ -124,6 +127,18 @@ const steps = [
     line-height: 1.65;
     margin: 0;
   }
+  .approche-more {
+    margin: 40px 0 0;
+  }
+  .approche-more a {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-accent-cta);
+    text-decoration: none;
+    transition: color 150ms;
+  }
+  .approche-more a:hover { color: var(--color-accent-cta-hover); }
   @media (max-width: 767px) {
     .approche-title { grid-column: 2; grid-row: 1; align-self: center; margin-bottom: 4px; }
     .approche-body  { grid-column: 2; grid-row: 2; }

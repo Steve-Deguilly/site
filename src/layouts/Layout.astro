@@ -174,7 +174,7 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
       revealEls.forEach(el => el.classList.add('visible'));
     }
   </script>
-  <!-- Suivi des points d'entrée vers /diagnostic (délégué, toutes pages) -->
+  <!-- Suivi des points d'entrée vers /maturite (délégué, toutes pages) -->
   <script>
     import { track, ANALYTICS_EVENTS } from '../lib/diagnostic/analytics';
     document.addEventListener('click', (e) => {

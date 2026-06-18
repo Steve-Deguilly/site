@@ -1,0 +1,325 @@
+---
+// Page /methode — méthode d'intervention (du diagnostic à l'autonomie).
+// Gabarit : projets.astro (page-header pleine largeur). Charte : tokens uniquement.
+// « Méthode » du menu pointe ici ; /sdd reste hors menu, lié depuis l'encart « Comment je construis ».
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import CTAFinal from '../components/CTAFinal.astro';
+
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/methode`;
+
+// Étapes — `*Html` quand le texte porte un lien interne (rendu via set:html).
+const steps = [
+  {
+    n: '1',
+    title: 'Diagnostic',
+    duree: 'quelques jours · point d’entrée',
+    fais:
+      "État des lieux — process, outils, données, conformité. Je repère les opportunités et je les classe par impact et effort : les quick wins d’abord.",
+    obtenez:
+      "Un diagnostic clair et un plan d’action priorisé. Un livrable autonome, utile même si on s’arrête là.",
+    note: "Je vous dis par où commencer — et ce qui peut attendre.",
+    textLd:
+      "État des lieux (process, outils, données, conformité), puis opportunités classées par impact et effort. Vous obtenez un diagnostic clair et un plan d’action priorisé, livrable autonome.",
+  },
+  {
+    n: '2',
+    title: 'POC / Pilote',
+    duree: null,
+    fais:
+      "On prouve un cas prioritaire en conditions réelles, pour lever le risque avant de généraliser.",
+    obtenezHtml:
+      'Une preuve concrète — comme celles de mes <a href="/demos">démos</a> — pas une promesse.',
+    note: "Si on enchaîne, le diagnostic s’impute sur le POC.",
+    textLd:
+      "On prouve un cas prioritaire en conditions réelles pour lever le risque avant de généraliser. Vous obtenez une preuve concrète plutôt qu’une promesse.",
+  },
+  {
+    n: '3',
+    title: 'Industrialisation',
+    duree: null,
+    faisHtml:
+      'Je pilote équipes internes et prestataires, je code quand il faut, je construis avec rigueur — la méthode <a href="/sdd">spec-driven</a>. Livrables ≈ toutes les deux semaines, reporting hebdomadaire en COPIL.',
+    obtenez: "Ça avance en continu, sans tunnel.",
+    textLd:
+      "Pilotage des équipes internes et prestataires, build spec-driven, livrables toutes les deux semaines et reporting hebdomadaire en COPIL. Ça avance en continu, sans tunnel.",
+  },
+  {
+    n: '4',
+    title: 'Autonomisation',
+    duree: null,
+    fais: "Documentation, formation, passation.",
+    obtenez: "Vos équipes reprennent la main. Pas de dépendance.",
+    textLd:
+      "Documentation, formation, passation. Vos équipes reprennent la main, sans créer de dépendance.",
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'HowTo',
+      '@id': `${pageUrl}/#howto`,
+      name: "Ma méthode d’intervention",
+      description:
+        "Comment j’interviens : un diagnostic actionnable en quelques jours, un POC pour dé-risquer, l’industrialisation, puis l’autonomisation — sans créer de dépendance.",
+      url: pageUrl,
+      inLanguage: 'fr',
+      author: { '@id': `${siteUrl}/#person` },
+      step: steps.map((s, i) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        name: s.title,
+        text: s.textLd,
+        url: `${pageUrl}/#etape-${s.n}`,
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Méthode', item: `${pageUrl}/` },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title="Ma méthode d'intervention — du diagnostic à l'autonomie | Steve Deguilly"
+  description="Comment j'interviens : diagnostic actionnable en quelques jours, POC pour dé-risquer, industrialisation, autonomisation. Sans créer de dépendance."
+  canonical="/methode"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+
+  <main>
+    <header class="page-header">
+      <div class="container">
+        <p class="page-kicker">Méthode d’intervention</p>
+        <h1>Du diagnostic à l’autonomie de vos équipes.</h1>
+        <p class="page-intro" set:html={"Une approche <b>rapide</b>, tournée vers vos <b>résultats</b>. Je transforme votre diagnostic en plan d’action en quelques jours. Pas de livrables théoriques : <b>chaque étape produit de la valeur concrète</b>. Et parce que je crois en la transmission, je forme vos équipes — 100 % autonomes dès mon départ."} />
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Pointeur d'entrée (light) vers le test de maturité -->
+      <p class="methode-entry">
+        Pas encore sûr de votre niveau ?
+        <a href="/maturite" data-diag-entry="methode">Commencez par le test de maturité (2 min, gratuit) →</a>
+      </p>
+
+      <!-- Les étapes -->
+      <section class="methode-steps" aria-label="Les étapes de la méthode">
+        {steps.map((step) => (
+          <article class="m-step" id={`etape-${step.n}`}>
+            <div class="m-step-head">
+              <span class="m-step-num">{step.n}</span>
+              <h2 class="m-step-title">{step.title}</h2>
+              {step.duree && <span class="m-step-duree">{step.duree}</span>}
+            </div>
+            <div class="m-step-body">
+              <div class="m-step-block">
+                <p class="m-step-label">Ce que je fais</p>
+                {step.faisHtml
+                  ? <p class="m-step-text" set:html={step.faisHtml} />
+                  : <p class="m-step-text">{step.fais}</p>}
+              </div>
+              <div class="m-step-block">
+                <p class="m-step-label">Ce que vous obtenez</p>
+                {step.obtenezHtml
+                  ? <p class="m-step-text" set:html={step.obtenezHtml} />
+                  : <p class="m-step-text">{step.obtenez}</p>}
+              </div>
+            </div>
+            {step.note && <p class="m-step-note">{step.note}</p>}
+          </article>
+        ))}
+      </section>
+
+      <!-- Encart « Comment je construis » → /sdd -->
+      <aside class="methode-build">
+        <div class="methode-build-text">
+          <p class="methode-build-kicker">Comment je construis</p>
+          <p class="methode-build-body">
+            Pendant l’exécution, je construis en formalisant l’intention avant le code : la méthode
+            spec-driven.
+          </p>
+        </div>
+        <a href="/sdd" class="btn-secondary methode-build-cta">Voir la méthode spec-driven →</a>
+      </aside>
+    </div>
+
+    <CTAFinal />
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* Header — gabarit page (kicker + H1 + intro, centré, pleine largeur) */
+  .page-header { padding: 64px 0 32px; text-align: center; }
+  .page-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .page-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.08;
+    color: var(--color-text-primary);
+    margin: 0 auto 20px;
+  }
+  .page-intro {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto;
+  }
+  @media (max-width: 767px) {
+    .page-header { padding: 40px 0 24px; }
+    .page-header h1 { font-size: 30px; }
+    .page-intro { font-size: 16px; }
+  }
+
+  /* Pointeur d'entrée léger */
+  .methode-entry {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 8px 0 40px;
+    padding: 16px 20px;
+    background: var(--color-surface-warm);
+    border-radius: 10px;
+  }
+  .methode-entry a {
+    color: var(--color-accent-cta);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .methode-entry a:hover { color: var(--color-accent-cta-hover); }
+
+  /* Étapes */
+  .methode-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .m-step {
+    padding: 28px 32px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-bg-cream);
+  }
+  .m-step-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .m-step-num {
+    flex-shrink: 0;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-bg-cream);
+    font-family: var(--font-mono);
+    font-size: 15px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+  }
+  .m-step-title {
+    font-family: var(--font-serif);
+    font-size: 26px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .m-step-duree {
+    font-family: var(--font-mono);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--color-primary-deep);
+    background: var(--color-surface-warm);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .m-step-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 32px;
+  }
+  @media (max-width: 767px) {
+    .m-step { padding: 24px; }
+    .m-step-title { font-size: 22px; }
+    .m-step-body { grid-template-columns: 1fr; gap: 18px; }
+  }
+  .m-step-label {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin: 0 0 6px;
+  }
+  .m-step-text {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.6;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .m-step-text :global(a) {
+    color: var(--color-accent-cta);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .m-step-text :global(a:hover) { color: var(--color-accent-cta-hover); }
+  .m-step-note {
+    font-family: var(--font-sans);
+    font-size: 14px; font-style: italic;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+    margin: 18px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Encart « Comment je construis » → /sdd */
+  .methode-build {
+    margin: 40px 0 72px;
+    padding: 28px 32px;
+    background: var(--color-surface-warm);
+    border-radius: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .methode-build-kicker {
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 8px;
+  }
+  .methode-build-body {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.6;
+    color: var(--color-text-primary);
+    margin: 0;
+    max-width: 520px;
+  }
+  .methode-build-cta { flex-shrink: 0; white-space: nowrap; }
+  @media (max-width: 767px) {
+    .methode-build { padding: 24px; }
+  }
+</style>

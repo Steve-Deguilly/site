@@ -5,3 +5,6 @@
 # Les anciennes URLs à plat sont conservées via une 301 (liens partagés, indexation).
 /demo            /demos/chat-document       301
 /demo-emails     /demos/emails-segmentes    301
+
+# Renommage du quiz « Diagnostic » → « Test de maturité » (2026-06-18).
+/diagnostic      /maturite                  301
