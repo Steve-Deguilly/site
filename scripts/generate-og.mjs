@@ -54,12 +54,12 @@ function makeSvg({ kicker, lines, subtitle, url, titleSize = 76 }) {
 
 const IMAGES = [
   {
-    file: 'og-diagnostic.jpg',
+    file: 'og-maturite.jpg',
     kicker: 'OUTIL GRATUIT · 2 MINUTES',
-    lines: ['Diagnostic', 'd’automatisation'],
+    lines: ['Test de maturité', 'en automatisation'],
     subtitle: '6 questions · un profil · des leviers d’action concrets',
-    url: 'steve-deguilly.com/diagnostic',
-    titleSize: 76,
+    url: 'steve-deguilly.com/maturite',
+    titleSize: 64,
   },
   {
     file: 'og-projets.jpg',
@@ -75,6 +75,14 @@ const IMAGES = [
     lines: ['Spécifier avant', 'de générer.'],
     subtitle: 'La spec gouverne l’IA — du code à la conformité.',
     url: 'steve-deguilly.com/sdd',
+    titleSize: 76,
+  },
+  {
+    file: 'og-methode.jpg',
+    kicker: 'MÉTHODE D’INTERVENTION',
+    lines: ['Du diagnostic', 'à l’autonomie.'],
+    subtitle: 'diagnostic · POC · industrialisation · autonomisation',
+    url: 'steve-deguilly.com/methode',
     titleSize: 76,
   },
   {
