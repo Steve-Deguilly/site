@@ -29,6 +29,22 @@ const jsonLd = {
       provider: { '@id': `${siteUrl}/#organization` },
     },
     {
+      '@type': 'VideoObject',
+      '@id': `${pageUrl}/#video`,
+      name: 'Démo — une note de version transformée en emails clients segmentés',
+      description:
+        "Démonstration filmée (2 min) : un workflow n8n transforme une note de version technique en trois emails clients segmentés par profil et un brouillon de post LinkedIn. Modèle européen (Mistral), validation humaine avant envoi. Produit fictif (Wattia) à des fins de démonstration.",
+      thumbnailUrl: [`${siteUrl}/wattia_demo_emails_segmentes_poster_23062026.png`],
+      uploadDate: '2026-06-23',
+      duration: 'PT2M24S',
+      contentUrl: `${siteUrl}/wattia_demo_emails_segmentes_23062026.mp4`,
+      inLanguage: 'fr',
+      isFamilyFriendly: true,
+      creator: { '@id': `${siteUrl}/#person` },
+      publisher: { '@id': `${siteUrl}/#organization` },
+      about: { '@id': `${pageUrl}/#demo` },
+    },
+    {
       '@type': 'BreadcrumbList',
       '@id': `${pageUrl}/#breadcrumb`,
       itemListElement: [
@@ -65,7 +81,26 @@ const jsonLd = {
       </div>
     </header>
 
-    <!-- LOOM : quand la vidéo générique est tournée, l'insérer ici, en tête (vidéo > captures). -->
+    <!-- Vidéo de démo — en tête (vidéo > captures) -->
+    <section class="de-video" aria-label="Vidéo de démonstration">
+      <div class="container">
+        <figure class="de-video-figure reveal">
+          <div class="de-video-frame">
+            <video class="de-video-player" controls preload="none"
+              poster="/wattia_demo_emails_segmentes_poster_23062026.png"
+              width="1720" height="720"
+              aria-label="Démonstration : une note de version transformée en emails clients segmentés">
+              <source src="/wattia_demo_emails_segmentes_23062026.mp4" type="video/mp4" />
+              Votre navigateur ne lit pas la vidéo —
+              <a href="/wattia_demo_emails_segmentes_23062026.mp4">télécharger le MP4</a>.
+            </video>
+          </div>
+          <figcaption class="de-video-cap">
+            2 min, sans montage&nbsp;: une note de version → trois emails segmentés + un brouillon LinkedIn. Workflow n8n, modèle européen (Mistral).
+          </figcaption>
+        </figure>
+      </div>
+    </section>
 
     <!-- Avant / Après — le contraste est l'argument -->
     <section class="de-section" aria-labelledby="de-ab-title">
@@ -261,6 +296,30 @@ const jsonLd = {
     .de-header h1 { font-size: 30px; }
     .de-intro { font-size: 16px; }
   }
+
+  /* Vidéo de démo — en tête (vidéo > captures) */
+  .de-video { padding: 28px 0 8px; }
+  .de-video-figure { margin: 0; }
+  .de-video-frame {
+    max-width: 1040px;
+    margin: 0 auto;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-primary-deep);
+    box-shadow: 0 12px 32px rgba(31,65,56,0.12);
+    line-height: 0;
+  }
+  .de-video-player { display: block; width: 100%; height: auto; }
+  .de-video-cap {
+    font-family: var(--font-sans);
+    font-size: 13px; line-height: 1.55;
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 760px;
+    margin: 14px auto 0;
+  }
+  @media (max-width: 767px) { .de-video { padding: 16px 0 4px; } }
 
   /* Sections récit */
   .de-section { padding: 56px 0; }
