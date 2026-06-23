@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 560" role="img" aria-label="Matrice de maturité : positionnement sur deux axes">
+  <rect width="1600" height="560" fill="#EBE5D9"/>
+  <rect x="830" y="90" width="470" height="190" fill="#2D5A4F" opacity="0.08"/>
+  <line x1="830" y1="90" x2="830" y2="470" stroke="#DCD5C7" stroke-width="2" stroke-dasharray="2 12" stroke-linecap="round"/>
+  <line x1="360" y1="280" x2="1300" y2="280" stroke="#DCD5C7" stroke-width="2" stroke-dasharray="2 12" stroke-linecap="round"/>
+  <line x1="360" y1="470" x2="1300" y2="470" stroke="#5A625E" stroke-width="4" stroke-linecap="round"/>
+  <line x1="360" y1="470" x2="360" y2="90" stroke="#5A625E" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="348,108 360,78 372,108" fill="#5A625E"/>
+  <polygon points="1282,458 1312,470 1282,482" fill="#5A625E"/>
+  <circle cx="520" cy="372" r="14" fill="#8FA5AB" opacity="0.55"/>
+  <circle cx="690" cy="250" r="14" fill="#8FA5AB" opacity="0.55"/>
+  <circle cx="940" cy="338" r="14" fill="#8FA5AB" opacity="0.55"/>
+  <circle cx="1130" cy="392" r="14" fill="#8FA5AB" opacity="0.55"/>
+  <circle cx="600" cy="180" r="14" fill="#8FA5AB" opacity="0.4"/>
+  <circle cx="1070" cy="186" r="46" fill="#A55E2D" opacity="0.16"/>
+  <circle cx="1070" cy="186" r="22" fill="#A55E2D"/>
+</svg>

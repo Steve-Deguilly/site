@@ -3,6 +3,7 @@
 // (Le <section>/.container et le rythme vertical sont portés par le wrapper .home-teasers d'index.astro.)
 ---
 <div class="demos-teaser-inner reveal">
+  <img class="teaser-thumb" src="/teaser_demos_23062026.svg" alt="" width="1600" height="560" loading="lazy" decoding="async" />
   <span class="section-tag">Démos &amp; POC</span>
   <h2 id="demos-teaser-title">Voyez ce que je livre, pas ce que je promets.</h2>
   <p>
@@ -38,6 +39,13 @@
   }
   /* Bouton calé en bas pour aligner les deux colonnes. */
   .demos-teaser-inner .btn-secondary { margin-top: auto; }
+  .teaser-thumb {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    border: 1px solid var(--color-border);
+  }
   @media (max-width: 767px) {
     .demos-teaser-inner h2 { font-size: 26px; }
     .demos-teaser-inner .btn-secondary { margin-top: 0; }

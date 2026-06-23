@@ -86,6 +86,14 @@ const IMAGES = [
     titleSize: 76,
   },
   {
+    file: 'og-emails-segmentes.jpg',
+    kicker: 'DÉMO · AUTOMATISATION',
+    lines: ['De la note de version', 'aux emails que vos clients lisent.'],
+    subtitle: 'n8n · modèle européen (Mistral) · validation humaine',
+    url: 'steve-deguilly.com/demos/emails-segmentes',
+    titleSize: 56,
+  },
+  {
     file: 'og-mentions-legales.jpg',
     kicker: 'INFORMATIONS LÉGALES',
     lines: ['Mentions légales'],

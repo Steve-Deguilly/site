@@ -3,6 +3,7 @@
 // (Le <section>/.container et le rythme vertical sont portés par le wrapper .home-teasers d'index.astro.)
 ---
 <div class="diag-teaser-inner reveal">
+  <img class="teaser-thumb" src="/teaser_maturite_23062026.svg" alt="" width="1600" height="560" loading="lazy" decoding="async" />
   <span class="section-tag">Test de maturité gratuit</span>
   <h2 id="diag-teaser-title">Pas sûr de votre niveau d'automatisation ?</h2>
   <p>
@@ -38,8 +39,14 @@
   }
   /* Bouton calé en bas pour aligner les deux colonnes. */
   .diag-teaser-inner .btn-secondary { margin-top: auto; }
+  .teaser-thumb {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    border: 1px solid var(--color-border);
+  }
   @media (max-width: 767px) {
     .diag-teaser-inner h2 { font-size: 26px; }
     .diag-teaser-inner .btn-secondary { margin-top: 0; }
-  }
-</style>
+ 
