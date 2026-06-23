@@ -57,6 +57,8 @@ export interface DemoEntry {
   href?: string;
   /** Carte réellement testable en direct → affiche le pill « Testez-moi » (terracotta). */
   live?: boolean;
+  /** La page de la démo contient une vidéo → badge « Vidéo » sur la carte. */
+  video?: boolean;
 }
 
 export const demos: DemoEntry[] = [
@@ -75,6 +77,7 @@ export const demos: DemoEntry[] = [
     slug: 'emails-segmentes',
     category: 'relation-client',
     type: 'POC',
+    video: true,
     tag: 'Automatisation · n8n',
     title: 'Notes de version → emails clients segmentés',
     pitch:

@@ -18,6 +18,9 @@ const items = demosOf(cat.id);
           <span class="demo-card-head">
             <span class={`demo-card-type type-${d.type === 'MVP' ? 'mvp' : 'poc'}`}>{d.type}</span>
             {d.live && <span class="demo-card-live">Testez-moi</span>}
+            {d.video && (
+              <span class="demo-card-video"><svg viewBox="0 0 12 12" width="9" height="9" aria-hidden="true"><path d="M2 1.5 10 6 2 10.5 Z" fill="currentColor"/></svg>Vidéo</span>
+            )}
             <span class="demo-card-tag">{d.tag}</span>
           </span>
           <span class="demo-card-title">{d.title}</span>
@@ -99,6 +102,17 @@ const items = demosOf(cat.id);
     color: var(--color-bg-cream);
     background: var(--color-accent-cta);
   }
+  /* « Vidéo » — pill outline eucalyptus, page de démo avec vidéo */
+  .demo-card-video {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: var(--font-sans);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 999px;
+    color: var(--color-primary); border: 1px solid var(--color-primary); background: transparent;
+  }
+  .demo-card-video svg { display: block; }
+
   .demo-card-tag {
     font-family: var(--font-mono);
     font-size: 12px;
