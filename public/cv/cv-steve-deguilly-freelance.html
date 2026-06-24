@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<title>CV — Steve Deguilly — Automatisation &amp; Intelligence artificielle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5F1EA; --warm:#EBE5D9; --primary:#2D5A4F; --deep:#1F4138;
+    --cta:#A55E2D; --cool-tx:#4A6168; --ink:#1A2421; --muted:#5A625E; --border:#DCD5C7;
+    --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  @page{ size:A4; margin:12mm 0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#e7e1d4;font-family:var(--sans);color:var(--ink);font-size:10.2pt;line-height:1.42;
+            -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;background:#fff;margin:18px auto;padding:14mm 15mm}
+
+  /* header */
+  .head{display:flex;gap:9mm;align-items:center;border-bottom:2px solid var(--cta);padding-bottom:6mm}
+  .photo{width:36mm;height:36mm;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--warm)}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .hi{flex:1;min-width:0}
+  .hi h1{font-family:var(--serif);font-weight:600;font-size:25pt;color:var(--deep);line-height:1.05}
+  .hi .role{font-size:12.5pt;color:var(--cta);font-weight:600;margin-top:1mm}
+  .hi .tag{font-size:10pt;color:var(--muted);margin-top:1.5mm;max-width:135mm}
+  .hi .contact{font-family:var(--mono);font-size:8.4pt;color:var(--cool-tx);margin-top:3mm;letter-spacing:.01em}
+  .hi .contact span{white-space:nowrap;margin-right:5mm}
+  .hi .contact a{color:inherit;text-decoration:none}
+
+  h2{font-family:var(--serif);font-weight:600;font-size:13pt;color:var(--primary);margin:6mm 0 2.5mm;
+     padding-bottom:1mm;border-bottom:1px solid var(--border)}
+  p{margin-bottom:2mm}
+
+  /* value box */
+  .value{background:var(--warm);border-radius:8px;padding:5mm 6mm;margin-top:5mm}
+  .value h2{margin:0 0 3mm;border:0;color:var(--deep)}
+  .value ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 7mm}
+  .value li{font-size:9.6pt;padding-left:6mm;position:relative;color:#2c3a35}
+  .value li::before{content:'▸';position:absolute;left:0;color:var(--cta);font-weight:700}
+  .value li b{color:var(--deep)}
+
+  /* experience */
+  .xp{margin-bottom:4mm;break-inside:avoid}
+  .xp .row{display:flex;justify-content:space-between;align-items:baseline;gap:6mm}
+  .xp .ti{font-weight:700;font-size:11pt;color:var(--deep)}
+  .xp .dt{font-family:var(--mono);font-size:8.4pt;color:var(--muted);white-space:nowrap}
+  .xp .co{font-family:var(--mono);font-size:8.6pt;color:var(--cta);margin:.5mm 0 1.5mm;letter-spacing:.02em}
+  .xp ul{list-style:none;margin-top:1mm}
+  .xp li{font-size:9.7pt;padding-left:5mm;position:relative;margin-bottom:1mm;color:#2c3a35}
+  .xp li::before{content:'–';position:absolute;left:0;color:var(--primary)}
+  .res{background:#f3f6f4;border-left:3px solid var(--primary);border-radius:4px;padding:1.5mm 4mm;margin-top:1.5mm;font-size:9.7pt}
+  .res b{color:var(--primary)}
+  .note{font-size:8.6pt;color:var(--muted);font-style:italic;margin-top:1mm}
+
+  /* two col bottom */
+  .cols{display:flex;gap:9mm;margin-top:2mm}
+  .cols>div{flex:1}
+  .skill{margin-bottom:2.5mm}
+  .skill .sl{font-weight:700;color:var(--deep);font-size:9.8pt}
+  .skill .sv{font-size:9.4pt;color:#3a463f}
+  .mini{font-family:var(--mono);font-size:8.6pt;color:var(--cool-tx);margin-top:1mm}
+  .foot{margin-top:7mm;padding-top:3mm;border-top:1px solid var(--border);font-family:var(--mono);
+        font-size:8pt;color:var(--muted);text-align:center}
+  .foot a{color:inherit;text-decoration:none}
+
+  @media print{
+    html,body{background:#fff}
+    .page{margin:0;box-shadow:none;width:auto;min-height:0;padding:0 15mm}
+    *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+    .xp,.value,.res{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="head">
+    <div class="photo"><img src="https://steve-deguilly.com/profil-steve-deguilly-360.jpg" alt="Steve Deguilly"></div>
+    <div class="hi">
+      <h1>Steve Deguilly</h1>
+      <div class="role">Automatisation &amp; Intelligence artificielle</div>
+      <div class="tag">Je fais gagner du temps à vos équipes en automatisant les tâches répétitives et en mettant l'intelligence artificielle au service de votre quotidien, concrètement et avec des résultats mesurables.</div>
+      <div class="contact">
+        <span>✉ <a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a></span>
+        <span>☎ <a href="tel:+33676223585">06.76.22.35.85</a></span>
+        <span>in <a href="https://www.linkedin.com/in/steve-deguilly">LinkedIn</a></span>
+        <span>▸ <a href="https://steve-deguilly.com">Site Pro</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="value">
+    <h2>Ce que je fais pour votre entreprise</h2>
+    <ul>
+      <li><b>Automatiser les tâches</b> : devis, factures, relances, saisies, tri d'emails — vos logiciels (CRM, compta, facturation) reliés, des heures gagnées chaque semaine.</li>
+      <li><b>Un assistant IA interne</b> : un « ChatGPT maison » branché sur vos documents — il répond aux clients, retrouve l'info et rédige (devis, comptes-rendus, fiches).</li>
+      <li><b>Créer des outils sur mesure</b> : tableau de bord, formulaire intelligent, mini-logiciel métier ou site — conçu pour votre façon de travailler.</li>
+      <li><b>Sécurisé, souverain et conforme</b> : RGPD, données en Europe ou en local — vos informations ne partent pas dans la nature.</li>
+    </ul>
+  </div>
+
+  <h2>Profil</h2>
+  <p><b>18 ans d'expérience</b> dans le pilotage de projets numériques, dont 6 ans à la direction d'un groupe à Monaco, aujourd'hui indépendant. Mon point fort : <b>je conçois les solutions et je les livre</b>, du cadrage jusqu'à la mise en service. Je parle aussi bien à une direction qu'à une équipe technique.</p>
+
+  <h2>Expériences</h2>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Consultant — Automatisation &amp; Intelligence artificielle</span><span class="dt">Depuis sept. 2024</span></div>
+    <div class="co">Creastory Conseil · Nice</div>
+    <p style="font-size:9.5pt;color:#3a463f;margin-bottom:1.5mm">Missions de conseil indépendantes (automatisation &amp; IA appliquée), du cadrage jusqu'à la mise en service — plusieurs clients, plusieurs secteurs.</p>
+    <ul>
+      <li><b>E-santé (myMicroNutrition) :</b> conception « de zéro » d'une plateforme sécurisée (données de santé, conforme RGPD) avec automatisation du traitement des dossiers ; protection des données patients, coordination des développeurs et des professionnels de santé.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> un dossier traité en 2 minutes au lieu de 45, sans erreur de saisie, et des soignants soulagés.</div>
+    <ul>
+      <li><b>Industrie (génie climatique) :</b> assistant intelligent qui répond aux questions techniques à partir de la documentation de l'entreprise, via une simple conversation. Réponses fiables citant leur source (pas d'invention), la bonne info en quelques secondes pour les commerciaux et le service après-vente. Installable chez chaque client de façon isolée, données confidentielles hébergées en Europe (livré en mai 2026).</li>
+      <li><b>E-formation (GRETA France / Éducation nationale) :</b> refonte du système de formation en ligne (150 000 utilisateurs) ; alignement avec les contraintes administratives et le calendrier institutionnel, connexion avec l'outil de formation existant, mise en conformité des données et tableaux de bord de suivi.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> ouverture à de nouveaux publics, +34 % de chiffre d'affaires la première année.</div>
+    <ul>
+      <li><b>Média (groupe Batiactu) :</b> transformation d'un site vitrine en portail d'actualités — cadrage, conception, déploiement, instances de pilotage et gestion des risques, livraison progressive par étapes et accompagnement des équipes.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> +22 % de visites et +14 % de fidélisation en 6 mois.</div>
+  </div>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Directeur du numérique — membre du comité de direction</span><span class="dt">2018 — 2024</span></div>
+    <div class="co">XPair – EnerJ-meeting · Monaco</div>
+    <ul>
+      <li><b>Création et pilotage d'EnerJ-meeting</b>, salon professionnel devenu une référence : conception « de zéro » de l'ensemble — sites internet, applications mobiles, espace client, système intelligent de mise en relation entre participants, messagerie interne, billetterie et gestion du parc informatique.</li>
+      <li><b>Fédération des acteurs</b> du secteur (institutionnels, industriels, ministériels) autour des enjeux du bâtiment durable, et gestion technique sur le terrain les jours de l'événement.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> 4 500+ professionnels accueillis et 27 000 mises en relation générées par édition.</div>
+    <ul>
+      <li><b>Management</b> d'une équipe de 8 personnes (développement, marketing, design, commercial) et coordination d'une vingtaine de collaborateurs et prestataires.</li>
+      <li><b>Pilotage</b> des feuilles de route, des budgets et des comités de direction pour les deux sites du groupe ; suivi des délais, de la qualité et des contrats prestataires.</li>
+    </ul>
+    <div class="note">Départ suite au rachat du groupe en 2024.</div>
+  </div>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Chef de projet &amp; responsable formation en ligne</span><span class="dt">2011 — 2017</span></div>
+    <div class="co">XPair · Monaco</div>
+    <ul>
+      <li>Pilotage de projets numériques stratégiques : refonte des plateformes d'emploi et de formation en ligne, conception de nouveaux services, tableaux de bord.</li>
+      <li>Responsable de la formation en ligne d'XPair (partenariat GEFEn) : refonte des parcours, modules, tests et certificats, gestion des partenaires.</li>
+      <li>Conception d'outils métier internes (interfaces d'administration, CRM sur mesure) ; méthodes Agile / Scrum et formation des équipes aux outils de pilotage.</li>
+    </ul>
+  </div>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Designer &amp; responsable d'un service en ligne</span><span class="dt">2006 — 2010</span></div>
+    <div class="co">XPair · Monaco</div>
+    <ul>
+      <li>Pilotage du service d'offres d'emploi en ligne : cycle de vie du produit, relation avec les partenaires et les clients, évolutions fonctionnelles.</li>
+      <li>Conception de l'expérience utilisateur sur l'ensemble des sites (librairie, offres d'emploi, formation) et les outils d'administration internes.</li>
+      <li>Marketing : campagnes d'emailing, administration et qualification des bases de contacts.</li>
+    </ul>
+  </div>
+
+  <h2>Compétences techniques</h2>
+  <div class="cols">
+    <div>
+      <div class="skill"><div class="sl">IA générative &amp; LLMs</div><div class="sv">OpenAI, Claude, Mistral, Gemini — et <b>LLMs locaux auto-hébergés</b> (Ollama, vLLM : Llama, Qwen) quand la confidentialité l'exige.</div></div>
+      <div class="skill"><div class="sl">RAG souverain</div><div class="sv">Pipelines sur vos propres documents (Qdrant, embeddings, reranking), <b>citations forcées anti-hallucination</b> et évaluation — le tout hébergé en Europe ou en local.</div></div>
+      <div class="skill"><div class="sl">Automatisation &amp; agents</div><div class="sv">n8n (expert, auto-hébergé), Make, agents IA, intégrations API (CRM, ERP, facturation).</div></div>
+    </div>
+    <div>
+      <div class="skill"><div class="sl">Développement</div><div class="sv">Python, HTML / CSS / JS, PHP, SQL — applications, tableaux de bord, sites (Laravel, Astro, Node).</div></div>
+      <div class="skill"><div class="sl">Infrastructure &amp; conformité</div><div class="sv">Hébergement <b>HDS</b> &amp; RGPD, Docker, OVH / Scaleway, déploiements souverains (self-hosted).</div></div>
+      <div class="skill"><div class="sl">Data &amp; pilotage</div><div class="sv">GA4, Looker, BigQuery, KPIs / OKR — conduite du changement &amp; formation des équipes.</div></div>
+    </div>
+  </div>
+
+  <div class="foot">Steve Deguilly · Creastory Conseil (SASU) · Nice · SIRET 93182223300017 · <a href="https://steve-deguilly.com">steve-deguilly.com</a></div>
+
+</div>
+</body>
+</html>

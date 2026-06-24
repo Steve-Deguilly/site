@@ -6,6 +6,7 @@ export interface Props {
   description?: string;
   ogImage?: string;
   canonical?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   description = "RAG souverain, n8n, LLMs sécurisés. 18 ans à automatiser les processus métier qui freinent vos équipes. Freelance — Nice, Monaco, Sophia Antipolis.",
   ogImage = '/og-image.jpg',
   canonical = Astro.url.pathname,
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = 'https://steve-deguilly.com';
@@ -37,6 +39,7 @@ const umamiDomains = 'steve-deguilly.com';
 
   <title>{title}</title>
   <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
   <link rel="canonical" href={fullCanonical} />
 
   <!-- Favicon -->

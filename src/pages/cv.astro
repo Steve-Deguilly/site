@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const cvs = [
+  {
+    kicker: 'Direction · CODIR',
+    titre: 'Directeur IA & Transformation numérique',
+    desc: "Profil de direction : 18 ans de numérique en production, dont 6 ans au comité de direction. Stratégie IA & data, management d'équipes, delivery jusqu'à la mise en service.",
+    points: ['Pour un poste de direction (CDI / CODIR)', 'Stratégie, management, gouvernance', 'Creastory en preuve de delivery'],
+    href: '/cv/cv-steve-deguilly-direction-ia.html',
+  },
+  {
+    kicker: 'Freelance · TPE-PME',
+    titre: 'Automatisation & Intelligence artificielle',
+    desc: "Profil freelance orienté résultats : automatisation des tâches, assistant IA interne, outils sur mesure — sécurisé, souverain et conforme. Ce que je livre concrètement pour une entreprise.",
+    points: ['Pour une mission freelance', 'Automatisation, IA appliquée, RAG souverain', 'Cadrage → mise en service'],
+    href: '/cv/cv-steve-deguilly-freelance.html',
+  },
+];
+---
+<Layout
+  title="CV — Steve Deguilly"
+  description="Les CV de Steve Deguilly : version direction (Directeur IA & Transformation numérique) et version freelance (Automatisation & IA)."
+  canonical="/cv"
+  noindex={true}
+>
+  <Navbar />
+
+  <main class="cv-page">
+    <div class="container">
+      <p class="section-tag">Curriculum vitæ</p>
+      <h1>Mes CV</h1>
+      <p class="cv-intro">
+        Deux versions selon le contexte. Chacune s'ouvre dans un nouvel onglet ;
+        au format A4, elle s'imprime ou s'enregistre en PDF (<span class="cv-kbd">Ctrl/Cmd + P</span>).
+      </p>
+
+      <div class="cv-grid">
+        {cvs.map((cv) => (
+          <article class="cv-card">
+            <p class="cv-card-kicker">{cv.kicker}</p>
+            <h2>{cv.titre}</h2>
+            <p class="cv-card-desc">{cv.desc}</p>
+            <ul class="cv-card-points">
+              {cv.points.map((pt) => <li>{pt}</li>)}
+            </ul>
+            <a class="btn-cta" href={cv.href} target="_blank" rel="noopener">
+              Ouvrir le CV →
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .cv-page { padding: 64px 0 96px; }
+  .cv-page h1 {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--color-text-primary);
+    margin: 8px 0 16px;
+  }
+  .cv-intro {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin: 0 0 48px;
+  }
+  .cv-kbd {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-text-primary);
+    background: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    padding: 1px 6px;
+    white-space: nowrap;
+  }
+
+  .cv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  @media (max-width: 767px) {
+    .cv-grid { grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  .cv-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface-warm);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 32px;
+    transition: border-color 150ms, transform 150ms;
+  }
+  .cv-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+  .cv-card-kicker {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent-cool-text);
+    margin: 0 0 12px;
+  }
+  .cv-card h2 {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--color-primary-deep);
+    margin: 0 0 12px;
+  }
+  .cv-card-desc {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-text-muted-warm);
+    margin: 0 0 18px;
+  }
+  .cv-card-points {
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cv-card-points li {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color-text-primary);
+    padding-left: 20px;
+    position: relative;
+  }
+  .cv-card-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-cta);
+    font-weight: 700;
+  }
+  .cv-card .btn-cta {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+
+  @media (max-width: 767px) {
+    .cv-page { padding: 40px 0 64px; }
+    .cv-page h1 { font-size: 32px; }
+    .cv-intro { font-size: 16px; margin-bottom: 32px; }
+    .cv-card { padding: 24px; }
+  }
+</style>

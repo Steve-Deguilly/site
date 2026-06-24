@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<title>CV — Steve Deguilly — Directeur IA &amp; Transformation numérique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5F1EA; --warm:#EBE5D9; --primary:#2D5A4F; --deep:#1F4138;
+    --cta:#A55E2D; --cool-tx:#4A6168; --ink:#1A2421; --muted:#5A625E; --border:#DCD5C7;
+    --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  @page{ size:A4; margin:12mm 0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#e7e1d4;font-family:var(--sans);color:var(--ink);font-size:10.4pt;line-height:1.5;
+            -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;background:#fff;margin:18px auto;padding:14mm 16mm}
+
+  /* header */
+  .head{display:flex;gap:9mm;align-items:center;border-bottom:2px solid var(--cta);padding-bottom:6.5mm}
+  .photo{width:37mm;height:37mm;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--warm)}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .hi{flex:1;min-width:0}
+  .hi h1{font-family:var(--serif);font-weight:600;font-size:25.5pt;color:var(--deep);line-height:1.05}
+  .hi .role{font-size:12.5pt;color:var(--cta);font-weight:600;margin-top:1.4mm}
+  .hi .tag{font-size:10pt;color:var(--muted);margin-top:2mm;max-width:140mm}
+  .hi .contact{font-family:var(--mono);font-size:8.5pt;color:var(--cool-tx);margin-top:3.2mm;letter-spacing:.01em}
+  .hi .contact span{white-space:nowrap;margin-right:3mm}
+  .hi .contact a{color:inherit;text-decoration:none}
+
+  h2{font-family:var(--serif);font-weight:600;font-size:13pt;color:var(--primary);margin:8mm 0 3.5mm;
+     padding-bottom:1.4mm;border-bottom:1px solid var(--border)}
+  p{margin-bottom:2mm}
+
+  /* key figures strip */
+  .figs{display:flex;gap:0;margin-top:6mm;border:1px solid var(--border);border-bottom:0;overflow:hidden}
+  .figs .f{flex:1;text-align:center;padding:5mm 2mm;border-right:1px solid var(--border)}
+  .figs .f:last-child{border-right:0}
+  .figs .n{font-family:var(--mono);font-weight:600;font-size:14.5pt;color:var(--deep);line-height:1}
+  .figs .l{font-size:8pt;color:var(--muted);margin-top:1.6mm;line-height:1.3}
+
+  /* value box */
+  .value{background:var(--warm);border:1px solid var(--border);padding:6.5mm 7mm;margin-top:0}
+  .value h2{margin:0 0 4mm;border:0;color:var(--deep)}
+  .value ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4mm 7mm}
+  .value li{font-size:9.9pt;padding-left:6mm;position:relative;color:#2c3a35;line-height:1.5}
+  .value li::before{content:'▸';position:absolute;left:0;color:var(--cta);font-weight:700}
+  .value li b{color:var(--deep)}
+
+  /* experience */
+  .xp{margin-bottom:6.5mm;break-inside:avoid}
+  .xp .row{display:flex;justify-content:space-between;align-items:baseline;gap:6mm}
+  .xp .ti{font-weight:700;font-size:11pt;color:var(--deep)}
+  .xp .dt{font-family:var(--mono);font-size:8.5pt;color:var(--muted);white-space:nowrap}
+  .xp .co{font-family:var(--mono);font-size:8.7pt;color:var(--cta);margin:.8mm 0 2mm;letter-spacing:.02em}
+  .xp ul{list-style:none;margin-top:1.6mm}
+  .xp li{font-size:9.9pt;padding-left:5mm;position:relative;margin-bottom:1.8mm;color:#2c3a35;line-height:1.52}
+  .xp li::before{content:'–';position:absolute;left:0;color:var(--primary)}
+  .res{background:#f3f6f4;border-left:3px solid var(--primary);border-radius:4px;padding:2.2mm 4.2mm;margin-top:2mm;font-size:9.9pt}
+  .res b{color:var(--primary)}
+  .note{font-size:8.7pt;color:var(--muted);font-style:italic;margin-top:1.4mm}
+
+  /* two col bottom */
+  .cols{display:flex;gap:9mm;margin-top:3.5mm}
+  .cols>div{flex:1}
+  .skill{margin-bottom:4.5mm}
+  .skill .sl{font-weight:700;color:var(--deep);font-size:10pt}
+  .skill .sv{font-size:9.7pt;color:#3a463f;line-height:1.5}
+  .sectors{margin-top:4mm;padding-top:3.5mm;border-top:1px solid var(--border);font-size:9.6pt;color:#3a463f}
+  .sectors b{color:var(--deep);font-weight:700}
+  .foot{margin-top:8.5mm;padding-top:4mm;border-top:1px solid var(--border);font-family:var(--mono);
+        font-size:8.1pt;color:var(--muted);text-align:center}
+  .foot a{color:inherit;text-decoration:none}
+
+  @media print{
+    html,body{background:#fff}
+    .page{margin:0;box-shadow:none;width:auto;min-height:0;padding:0 16mm}
+    *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+    .xp,.value,.res,.figs{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="head">
+    <div class="photo"><img src="https://steve-deguilly.com/profil-steve-deguilly-360.jpg" alt="Steve Deguilly"></div>
+    <div class="hi">
+      <h1>Steve Deguilly</h1>
+      <div class="role">Directeur IA &amp; Transformation numérique</div>
+      <div class="tag">18 ans à piloter le numérique en production, dont 6 ans au comité de direction. Je structure une stratégie IA &amp; data, je mène les équipes, et je livre — du cadrage avec le COMEX jusqu'à la mise en service.</div>
+      <div class="contact">
+        <span>✉ <a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a></span>
+        <span>☎ <a href="tel:+33676223585">06.76.22.35.85</a></span>
+        <span>in <a href="https://www.linkedin.com/in/steve-deguilly">LinkedIn</a></span>
+        <span>▸ <a href="https://steve-deguilly.com">Site Pro</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="figs">
+    <div class="f"><div class="n">18 ans</div><div class="l">d'expérience numérique</div></div>
+    <div class="f"><div class="n">6 ans</div><div class="l">en comité de direction</div></div>
+    <div class="f"><div class="n">8 + 20</div><div class="l">équipe &amp; prestataires pilotés</div></div>
+    <div class="f"><div class="n">300K+</div><div class="l">utilisateurs actifs gérés</div></div>
+  </div>
+
+  <div class="value">
+    <h2>Ce que j'apporte à une direction</h2>
+    <ul>
+      <li><b>Structurer une direction numérique / IA</b> : gouvernance, CODIR, roadmap, budgets, pilotage des prestataires.</li>
+      <li><b>Exécuter une stratégie IA souveraine</b> : RAG, LLMs sécurisés, automatisation — jusqu'à la production, pas que la slide.</li>
+      <li><b>Manager des équipes pluridisciplinaires</b> : dev, produit, design, commercial ; fédérer autour d'un cap commun.</li>
+      <li><b>Tenir les environnements régulés</b> : santé (HDS), RGPD ; conduite du changement.</li>
+    </ul>
+  </div>
+
+  <h2>Profil</h2>
+  <p><b>Dirigeant numérique opérationnel.</b> 18 ans à concevoir et passer en production des plateformes digitales, dont 6 ans à la direction du numérique d'un groupe monégasque (comité de direction). Ma différence : <b>je tiens le COMEX et je mets les mains dans le moteur côté IA &amp; automatisation</b> — je relie stratégie de direction et architecture technique jusqu'à la mise en production.</p>
+
+  <h2>Expériences</h2>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Fondateur &amp; Architecte IA — direction et delivery</span><span class="dt">Depuis sept. 2024</span></div>
+    <div class="co">Creastory Conseil · Nice</div>
+    <p style="font-size:9.7pt;color:#3a463f;margin-bottom:1.8mm">Conseil et exécution sur la transformation IA &amp; data, du cadrage en direction jusqu'à la mise en production.</p>
+    <ul>
+      <li><b>E-santé (myMicroNutrition) :</b> conception « de zéro » d'une plateforme santé sécurisée (HDS, RGPD), automatisation du traitement des dossiers ; coordination des développeurs et des soignants.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> un dossier traité en 2 minutes au lieu de 45, sans erreur de saisie.</div>
+    <ul>
+      <li><b>Industrie (génie climatique) :</b> assistant IA sur la documentation technique (RAG souverain) — réponses sourcées sans invention, déployable isolément chez chaque client, données en Europe (livré mai 2026).</li>
+      <li><b>E-formation (GRETA / Éducation nationale) :</b> direction de la refonte du SI de formation en ligne (150 000 utilisateurs), interopérabilité Moodle/LTI, conformité et tableaux de bord. <b>+34 % de CA</b> la 1re année.</li>
+      <li><b>Média (groupe Batiactu) :</b> pilotage du pivot d'un site vitrine vers un portail d'actualités — cadrage, COPIL, gestion des risques, livraison par étapes. <b>+22 % de visites, +14 % de fidélisation</b> en 6 mois.</li>
+    </ul>
+  </div>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Directeur du numérique — membre du comité de direction</span><span class="dt">2018 — 2024</span></div>
+    <div class="co">XPair – EnerJ-meeting · Monaco</div>
+    <ul>
+      <li><b>Direction de tout le numérique du groupe</b> — les deux marques <b>XPair</b> et <b>EnerJ-meeting</b> (plusieurs sites chacune) : stratégie produit, roadmap, budgets, comités de direction ; délais, qualité, contrats prestataires.</li>
+      <li><b>Management</b> de 8 personnes (dev, marketing, design, commercial) et coordination d'une vingtaine de collaborateurs et prestataires.</li>
+      <li><b>Création et pilotage d'EnerJ-meeting</b>, salon devenu une référence : conception « de zéro » de tout l'écosystème (sites, apps mobiles, espace client, mise en relation intelligente, messagerie, billetterie, parc informatique).</li>
+      <li><b>Fédération de l'écosystème</b> (institutionnels, industriels, ministériels) autour du bâtiment durable ; direction technique de l'événement sur le terrain.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> 4 500+ professionnels accueillis et 27 000 mises en relation générées par édition.</div>
+    <div class="note">Départ suite au rachat du groupe en 2024.</div>
+  </div>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Chef de projet numérique &amp; responsable formation en ligne</span><span class="dt">2006 — 2017</span></div>
+    <div class="co">XPair · Monaco</div>
+    <ul>
+      <li>Pilotage de projets numériques stratégiques : refonte des plateformes d'emploi et de formation en ligne, nouveaux services, tableaux de bord.</li>
+      <li>Responsable de la formation en ligne d'XPair (partenariat GEFEn) : parcours, modules, tests, certificats, gestion des partenaires.</li>
+      <li>Conception UX (sites, espaces clients) et outils métier internes (interfaces d'administration, CRM sur mesure) ; méthodes Agile / Scrum ; marketing digital (emailing, qualification des bases).</li>
+    </ul>
+  </div>
+
+  <h2>Compétences clés</h2>
+  <div class="cols">
+    <div>
+      <div class="skill"><div class="sl">Direction &amp; stratégie</div><div class="sv">Gouvernance numérique, CODIR, roadmap, budgets, pilotage de prestataires, conduite du changement.</div></div>
+      <div class="skill"><div class="sl">IA générative &amp; LLMs</div><div class="sv">OpenAI, Claude, Mistral, Gemini — et <b>LLMs locaux auto-hébergés</b> (Ollama, vLLM) pour la confidentialité.</div></div>
+      <div class="skill"><div class="sl">RAG souverain &amp; automatisation</div><div class="sv">Pipelines sur vos documents (Qdrant, embeddings), <b>citations anti-hallucination</b> ; n8n (expert), Make, agents, API.</div></div>
+    </div>
+    <div>
+      <div class="skill"><div class="sl">Management &amp; delivery</div><div class="sv">Équipes pluridisciplinaires (dev, produit, design, commercial), Agile / Scrum, du cadrage à la mise en production.</div></div>
+      <div class="skill"><div class="sl">Infrastructure &amp; conformité</div><div class="sv">Hébergement <b>HDS</b> &amp; RGPD, Docker, OVH / Scaleway, déploiements souverains ; dev (Python, JS, PHP, SQL, Laravel, Astro, Node).</div></div>
+      <div class="skill"><div class="sl">Data &amp; pilotage</div><div class="sv">GA4, Looker, BigQuery, KPIs / OKR — décisions pilotées par la donnée.</div></div>
+    </div>
+  </div>
+  <p class="sectors"><b>Secteurs :</b> médias B2B · e-santé (HDS) · formation / EdTech · événementiel professionnel · génie climatique &amp; industrie.</p>
+
+  <div class="foot">Steve Deguilly · Creastory Conseil (SASU) · Nice · SIRET 93182223300017 · <a href="https://steve-deguilly.com">steve-deguilly.com</a></div>
+
+</div>
+</body>
+</html>

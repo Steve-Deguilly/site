@@ -7,7 +7,12 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://steve-deguilly.com',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // /cv est non indexée (accès via lien footer uniquement) → hors sitemap.
+      filter: (page) => !/\/cv\/?$/.test(page),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

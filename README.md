@@ -1,182 +1,134 @@
 # steve-deguilly.com
 
-Site personnel de Steve Deguilly — Directeur de transformation digitale freelance.
+Site personnel de **Steve Deguilly — Architecte IA & Automatisation** (freelance, Creastory Conseil).
+Objectif unique : convertir les visiteurs en appels découverte de 30 min via **Cal.com**. Pas de blog, pas de formulaire de contact.
 
-Built with **Astro 5** + **Tailwind 4**, déployé sur **Cloudflare Pages**.
+Built with **Astro 5** (`output: 'static'`) + **Tailwind 4** + CSS custom à variables, déployé sur **Cloudflare Pages** (push sur `main` = déploiement).
+Repo public : https://github.com/Steve-Deguilly/site
 
-**Démo interactive « chat sur document »** : [steve-deguilly.com/demos/chat-document](https://steve-deguilly.com/demos/chat-document)
-— front statique (îlot Astro) → webhook **n8n** → **Mistral** (EU), sans RAG, sans stockage.
-
----
-
-## Structure
-
-```
-site/
-├── public/                  # assets servis tels quels (favicon, OG, photo)
-│   ├── apple-touch-icon.png
-│   ├── favicon.svg
-│   ├── og-image.jpg         # 1200×630, OG / Twitter card
-│   ├── profil-steve-deguilly.jpg
-│   └── robots.txt
-├── src/
-│   ├── components/          # 9 composants Astro (Hero, PourQui, etc.)
-│   ├── data/projets.ts      # 13 projets — source unique pour /projets
-│   ├── layouts/Layout.astro # head + meta + OG + JSON-LD
-│   ├── pages/
-│   │   ├── index.astro      # one-page principal
-│   │   ├── projets.astro    # table filtrable des 13 missions
-│   │   ├── mentions-legales.astro
-│   │   └── confidentialite.astro
-│   └── styles/global.css    # design tokens (Tailwind 4 @theme) + base
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
+> **Contexte projet, charte et décisions = `../CLAUDE.md` (master).** Ce README ne couvre que l'aspect technique/dev. En cas de divergence, CLAUDE.md fait foi.
 
 ---
 
-## Commandes locales
+## Pages (13 générées au build)
+
+| Route | Rôle |
+| --- | --- |
+| `/` | Home one-page (conversion) |
+| `/methode` | Méthode d'intervention — 4 temps (JSON-LD HowTo) |
+| `/maturite` | Test de maturité interactif (ex-`/diagnostic` → 301) |
+| `/projets` | Hub Réalisations + portfolio filtrable (14 missions) |
+| `/projets/[slug]` | 3 cas clients détaillés (`mymicronutrition`, `xpair-assistant-formation`, `enerj-meeting-recommandation`) |
+| `/demos` | Hub « Démos & POC » (cartes regroupées par catégorie) |
+| `/demos/chat-document` | Démo interactive « chat sur document » — live (ex-`/demo` → 301) |
+| `/demos/emails-segmentes` | POC « notes de version → emails segmentés » (Wattia) + vidéo MP4 |
+| `/sdd` | Spec-driven development (hors menu, lié depuis /methode) |
+| `/mentions-legales`, `/confidentialite` | Pages légales |
+
+**Menu (5 entrées)** : Accueil · Méthode · Maturité · Réalisations · Démos & POC + CTA « Réserver un appel ».
+Ajouter une démo = 1 entrée dans `data/demos.ts` + 1 page `src/pages/demos/<slug>.astro` ; le menu ne bouge pas (cf. `docs/PLAYBOOK_DEMOS.md`).
+
+---
+
+## Structure `src/`
+
+```
+src/
+├── components/      # 15 composants Astro (Navbar, Hero, CTAFinal, DemoChat, DemoCatBlock, CasClientDetail…)
+├── data/
+│   ├── projets.ts     # portfolio 14 missions (filtrable sur /projets)
+│   ├── casClients.ts  # 3 cas clients détaillés (spec-locked) — testé
+│   └── demos.ts       # démos/POC + catégories du hub
+├── lib/
+│   ├── diagnostic/    # moteur du test de maturité (questions, scoring, profiles, analytics) — URL = /maturite
+│   └── demo/          # logique pure de la démo chat (config, client) — testée
+├── layouts/Layout.astro   # head, OG par page, JSON-LD @graph, beacons analytics
+├── pages/                 # cf. tableau ci-dessus
+└── styles/global.css      # design tokens (couleurs/typo) + styles globaux
+```
+
+---
+
+## Commandes
 
 ```bash
-# 1. Installer les dépendances
 npm install
-
-# 2. Lancer le serveur de dev (http://localhost:4321)
-npm run dev
-
-# 3. Build de production (génère dist/)
-npm run build
-
-# 4. Prévisualiser le build local
+npm run dev       # http://localhost:4321
+npm run build     # génère dist/
 npm run preview
+npm test          # Vitest — 38 tests (scoring maturité, client démo, intégrité cas clients)
 ```
 
-Pré-requis : **Node.js 20.x ou 22.x**, **npm 10+**.
+Pré-requis : Node 20.x ou 22.x, npm 10+.
+> ⚠ Le build et les tests **doivent tourner en local** : le sandbox Cowork échoue sur l'archi du `node_modules`.
 
 ---
 
-## Stack & dépendances
+## Démo « chat sur document » (`/demos/chat-document`)
 
-| Couche       | Outil                     | Version |
-| ------------ | ------------------------- | ------- |
-| Framework    | astro                     | ^5.0    |
-| Styling      | tailwindcss + @tailwindcss/vite | ^4.0    |
-| Sitemap      | @astrojs/sitemap          | ^3.2    |
-| Hébergement  | Cloudflare Pages          | —       |
-| RDV          | Cal.com (`/steve-deguilly/30min`) | —       |
-| Analytics    | Cloudflare Web Analytics  | —       |
+Front statique (îlot Astro) → `fetch` webhook **n8n** (`n8n.creastory.fr`) → **Mistral** (EU).
+**Sans RAG** (doc CNIL injectée en entier), **sans stockage**, **Turnstile** anti-abus, rendu markdown **marked + DOMPurify** (jamais d'`innerHTML` brut).
+Clé Mistral + secret Turnstile = credentials n8n, **jamais dans le repo**. Quota = client only (10 questions/session).
 
-Aucun cookie tiers, aucun tracker. RGPD-compliant out-of-the-box.
+---
+
+## Stack
+
+| Couche | Outil |
+| --- | --- |
+| Framework | Astro 5 (static, `inlineStylesheets: 'always'`, `compressHTML`) |
+| Styling | CSS à variables (`global.css`) + Tailwind 4 (dispo, peu utilisé) |
+| SEO/GEO | `@astrojs/sitemap` + JSON-LD `@graph` + balises OG par page |
+| Tests | Vitest (38 tests, 3 fichiers) |
+| Hébergement | Cloudflare Pages (CDN mondial, déploiement auto via Git) |
+| Analytics | Cloudflare Web Analytics (trafic, sans cookie) + Umami (events, cookieless) |
+| RDV | Cal.com `steve-deguilly/30min` (seul canal de conversion) |
+
+> Pas de formulaire de contact, pas de Resend, pas d'endpoint serveur. Toute la conversion passe par Cal.com.
+
+---
+
+## Analytics
+
+- **Cloudflare Web Analytics** — trafic + Core Web Vitals, sans cookie ni bandeau (beacon dans `Layout.astro`). Ne gère pas les events personnalisés.
+- **Events** — `lib/diagnostic/analytics.ts` émet vers **Umami** (cookieless, fallback Plausible), piloté par les env vars `PUBLIC_UMAMI_WEBSITE_ID` / `PUBLIC_UMAMI_SRC`. Events : `diagnostic_started`, `diagnostic_completed`, `diagnostic_cta_click`, `diagnostic_entry_click`. Si aucun provider chargé → no-op.
+- **À valider** : confirmer en prod que les events remontent (cf. `../TASKS.md`).
+
+---
+
+## Cal.com
+
+URL : `https://cal.com/steve-deguilly/30min`. Si le slug change, mettre à jour toutes les occurrences sous `src/` :
+
+```bash
+grep -rl 'cal.com/steve-deguilly' src/
+# Hero, CTAFinal, Navbar, projets.astro, demos/emails-segmentes.astro, lib/demo/config.ts, lib/diagnostic/profiles.ts
+```
 
 ---
 
 ## Déploiement — Cloudflare Pages
 
-### 1. Pousser sur GitHub
-
-```bash
-cd site
-git init
-git add .
-git commit -m "Initial commit — site v1"
-git branch -M main
-git remote add origin git@github.com:steve-deguilly/steve-deguilly-site.git
-git push -u origin main
-```
-
-### 2. Connecter Cloudflare Pages
-
-1. Aller sur https://dash.cloudflare.com → **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**
-2. Sélectionner le repo `steve-deguilly-site`
-3. Configuration de build :
-   - **Framework preset** : Astro
-   - **Build command** : `npm run build`
-   - **Build output directory** : `dist`
-   - **Root directory** : `/` (ou `/site` si le projet n'est pas à la racine du repo)
-   - **Node version** (Environment variable) : `NODE_VERSION = 22`
-4. **Save and deploy**
-
-### 3. Brancher le domaine `steve-deguilly.com`
-
-Le domaine est chez **Hostinger**. Deux options :
-
-**Option A — Transférer la zone DNS chez Cloudflare (recommandé)** :
-1. Dans Cloudflare Pages → **Custom domains** → **Set up a custom domain** → entrer `steve-deguilly.com`
-2. Cloudflare donne 2 nameservers (ex: `xxx.ns.cloudflare.com`)
-3. Sur Hostinger, dans la gestion du domaine → **Nameservers** → remplacer par ceux de Cloudflare
-4. Propagation DNS : 5 min à 24 h. Le HTTPS est auto.
-
-**Option B — Garder Hostinger comme registrar DNS** :
-1. Dans Cloudflare Pages → **Custom domains** → ajouter `steve-deguilly.com` (et `www.steve-deguilly.com`)
-2. Cloudflare donne des CNAME / A à pointer
-3. Sur Hostinger DNS :
-   - `A` pour `@` → IP fournie par Cloudflare (ou `CNAME` si supporté à l'apex)
-   - `CNAME` pour `www` → `steve-deguilly-site.pages.dev`
-
-### 4. Redirection `creastory-conseil.fr` → `steve-deguilly.com`
-
-Sur Cloudflare (si la zone est gérée par Cloudflare) → **Rules** → **Redirect Rules** :
-
-```
-When incoming requests match: hostname equals "creastory-conseil.fr"
-Then: Static redirect → https://steve-deguilly.com/$1 (301)
-```
+Repo GitHub `Steve-Deguilly/site` connecté à Cloudflare Pages. **Push sur `main` = déploiement.**
+Build command `npm run build`, output directory `dist`, variable `NODE_VERSION = 22`.
+Domaine `steve-deguilly.com` (+ redirection depuis `creastory-conseil.fr`). Redirects 301 dans `public/_redirects` (`/diagnostic` → `/maturite`, `/demo` → `/demos/chat-document`, `/demo-emails` → `/demos/emails-segmentes`). En-têtes dans `public/_headers`.
 
 ---
 
-## Cloudflare Web Analytics
+## Brand kit (valeurs réelles dans `src/styles/global.css`)
 
-1. Cloudflare dashboard → **Analytics & Logs** → **Web Analytics** → **Add a site**
-2. Entrer `steve-deguilly.com`
-3. Cloudflare fournit un snippet `<script>` à ajouter avant `</body>` dans `src/layouts/Layout.astro`
+| Token | Valeur | Usage |
+| --- | --- | --- |
+| `--color-bg-cream` | `#F5F1EA` | Fond principal (crème) |
+| `--color-primary` | `#2D5A4F` | Titres, accents (eucalyptus) |
+| `--color-primary-deep` | `#1F4138` | Section sombre, footer |
+| `--color-accent-cta` | `#A55E2D` | Boutons primaires (terracotta, AA — hover `#8B4D24`) |
+| `--color-text-primary` | `#1A2421` | Texte courant |
+| `--color-text-muted` | `#5A625E` | Légendes |
+| Typo | Fraunces (titres) · Inter (corps) · JetBrains Mono (chiffres/preuves) | |
 
-(Pas implémenté pour l'instant — à ajouter quand le compte est créé.)
-
----
-
-## Cal.com — page de réservation
-
-URL utilisée : `https://cal.com/steve-deguilly/30min`
-
-Si le slug change, mettre à jour les 4 occurrences dans :
-- `src/components/Hero.astro`
-- `src/components/CTAFinal.astro`
-- `src/pages/projets.astro` (×2)
+Couleurs uniquement via tokens `--color-*`, polices via `--font-*`. **Aucun hex ni police en dur** dans une page/composant (seule exception : les SVG de `public/`). Cf. règle CSS systémique dans `../CLAUDE.md`.
 
 ---
 
-## Checklist pré-mise-en-ligne
-
-- [ ] `npm install && npm run build` passe sans erreur en local
-- [ ] `npm run preview` ouvre le site sans bug visible
-- [ ] Test mobile (Chrome DevTools → iPhone) : hamburger fonctionne, drawer ferme avec ESC
-- [ ] Test des 4 ancres `#approche`, `#cas-concrets`, `#apropos`, `#contact`
-- [ ] Test du filtre sur `/projets`
-- [ ] Test du lien Cal.com (réservation factice)
-- [ ] Lighthouse sur le build de prod : 95+ sur les 4 métriques
-- [ ] Vérifier le rendu OG sur https://www.opengraph.xyz/url/https%3A%2F%2Fsteve-deguilly.com
-- [ ] Vérifier la console : aucune erreur, aucun 404
-- [ ] Vérifier `view-source:` : title, description, canonical, OG bien présents
-
----
-
-## Brand kit (rappel)
-
-| Token             | Valeur     | Usage                          |
-| ----------------- | ---------- | ------------------------------ |
-| `--color-bg-cream`        | `#F5F1EA` | Fond principal                 |
-| `--color-primary`         | `#2D5A4F` | Titres, accents                |
-| `--color-primary-deep`    | `#1F4138` | Section sombre, footer         |
-| `--color-accent-cta`      | `#C97A4B` | Boutons primaires              |
-| `--color-text-primary`    | `#1A2421` | Texte courant                  |
-| `--color-text-muted`      | `#6B7570` | Légendes                       |
-| Typo serif        | Fraunces   | Titres (H1, H2)                |
-| Typo sans         | Inter      | Corps de texte                 |
-| Typo mono         | JetBrains Mono | Chiffres, code             |
-
----
-
-## Contact
-
-Steve Deguilly — sdeguilly@gmail.com — [LinkedIn](https://linkedin.com/in/steve-deguilly)
+Steve Deguilly — steve@creastory.fr — [LinkedIn](https://linkedin.com/in/steve-deguilly)
