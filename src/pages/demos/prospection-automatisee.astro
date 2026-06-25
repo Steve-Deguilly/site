@@ -1,0 +1,486 @@
+---
+// Page /demos/prospection-automatisee — dogfooding : « j'automatise ma propre prospection ».
+// POC / preuve de méthode (pas un cas client). Données 100 % FICTIVES (Wattia / Caloria / Foncière Helios) :
+// le mockup « brief du matin » est un fichier autonome servi depuis /public, embarqué en <iframe>
+// même origine (auto-redimensionnée), liens neutralisés. Aucune donnée réelle, aucune capture du vrai CRM.
+// Garde-fou positionnement : assistant de prospection avec validation humaine — JAMAIS « automatisation LinkedIn » de masse.
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const CALCOM_URL = 'https://cal.com/steve-deguilly/30min';
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/demos/prospection-automatisee`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CreativeWork',
+      '@id': `${pageUrl}/#demo`,
+      name: "J'automatise la prospection, la mienne comme la vôtre",
+      url: pageUrl,
+      description:
+        "Le concept que Steve Deguilly applique à sa propre prospection, adapté aux outils du client : une source de vérité, de l'orchestration et un LLM souverain pour préparer briefs et relances, avec l'humain dans la boucle. Une preuve de méthode, pas un robot qui spamme. Données 100 % fictives à des fins de démonstration.",
+      inLanguage: 'fr',
+      isAccessibleForFree: true,
+      keywords: ['automatisation', 'prospection', 'n8n', 'Notion', 'LLM souverain', 'human-in-the-loop'],
+      creator: { '@id': `${siteUrl}/#person` },
+      provider: { '@id': `${siteUrl}/#organization` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Démos & POC', item: `${siteUrl}/demos/` },
+        { '@type': 'ListItem', position: 3, name: "J'automatise la prospection, la mienne comme la vôtre", item: `${pageUrl}/` },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title="J'automatise la prospection, la mienne comme la vôtre | Steve Deguilly"
+  description="Le concept que j'applique à ma propre prospection, adapté à vos outils : une source de vérité, de l'orchestration et un LLM souverain, avec l'humain dans la boucle. Une preuve de méthode, pas un robot qui spamme."
+  ogImage="/og-prospection-automatisee.jpg"
+  canonical="/demos/prospection-automatisee"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+
+  <main>
+    <!-- A. Header (pleine largeur) -->
+    <header class="pa-header">
+      <div class="container">
+        <p class="pa-kicker">Démo · Automatisation métier</p>
+        <h1>J'automatise la prospection, la mienne comme la vôtre.</h1>
+        <p class="pa-intro">
+          Avant de vendre l'automatisation, je me l'applique à moi-même. Le système qui prépare ma
+          prospection chaque jour repose sur un concept que j'adapte à <strong>vos outils et vos
+          process</strong> : une logique métier qui relie vos applications habituelles, et un modèle
+          européen qui prépare le travail. Vous — comme moi — gardez la main :
+          <strong>le système propose, vous décidez d'appuyer sur envoyer.</strong>
+        </p>
+        <p class="pa-doc">
+          <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Preuve de méthode · données 100&nbsp;% fictives</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- B. Le problème -->
+    <section class="pa-section" aria-labelledby="pa-pb-title">
+      <div class="container">
+        <h2 id="pa-pb-title" class="pa-h2">Le suivi commercial qui fuit</h2>
+        <p class="pa-lead pa-lead-last">
+          Un CRM jamais à jour. Des relances oubliées ou envoyées deux fois. Des heures perdues à
+          recopier les mêmes informations d'un outil à l'autre. La prospection ne souffre pas du manque
+          d'outils — elle souffre du fait qu'ils ne se parlent pas.
+        </p>
+      </div>
+    </section>
+
+    <!-- C. Ce que j'ai construit (le flux) -->
+    <section class="pa-section section-alt" aria-labelledby="pa-flux-title">
+      <div class="container">
+        <h2 id="pa-flux-title" class="pa-h2">Une chaîne, pas un gadget</h2>
+        <p class="pa-lead">
+          Cinq maillons, une seule logique : la donnée part d'un endroit unique, l'IA prépare, l'humain
+          valide. La même mécanique, quels que soient vos outils.
+        </p>
+        <figure class="pa-schema reveal">
+          <img src="/flux_prospection_25062026.svg" alt="Chaîne par fonction : source de vérité (Notion, Airtable, Excel…) → orchestration (n8n, Make, Zapier…) → LLM souverain (modèle européen) → livrables (brief, relances) → action humaine validée." loading="lazy" decoding="async" />
+          <figcaption class="pa-schema-cap">
+            Chez moi, c'est Notion + n8n. Chez vous, ce sera vos outils — la logique ne change pas.
+          </figcaption>
+        </figure>
+        <aside class="pa-note-card">
+          <p class="pa-note-kicker">Rigueur d'architecte</p>
+          <p class="pa-note-body">
+            Un principe que je tiens : on ne stocke pas ce qu'on peut recalculer. Les dates de relance,
+            les priorités du jour ne sont pas saisies à la main — elles se déduisent. Moins de saisie,
+            donc moins d'erreurs, et une seule source de vérité.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- D. La stack -->
+    <section class="pa-section" aria-labelledby="pa-stack-title">
+      <div class="container">
+        <h2 id="pa-stack-title" class="pa-h2 pa-h2-center">Vos outils suffisent. Je les fais parler ensemble.</h2>
+        <div class="pa-stack">
+          <article class="pa-tool reveal">
+            <span class="pa-tool-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg>
+            </span>
+            <h3>Source de vérité</h3>
+            <p class="pa-tool-ex">Notion · Airtable · Google Sheets · Excel · MySQL…</p>
+            <p>Le CRM, source unique.</p>
+          </article>
+          <article class="pa-tool reveal">
+            <span class="pa-tool-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="19" cy="18" r="2.4"/><path d="M7.2 11l9.6-4.4M7.2 13l9.6 4.4"/></svg>
+            </span>
+            <h3>Orchestration</h3>
+            <p class="pa-tool-ex">n8n · Make · Zapier…</p>
+            <p>Le chef d'orchestre qui relie tout.</p>
+          </article>
+          <article class="pa-tool reveal">
+            <span class="pa-tool-mark pa-tool-mark-ai" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.3L12 15l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"/></svg>
+            </span>
+            <h3>Intelligence souveraine</h3>
+            <p class="pa-tool-ex">Claude · Mistral…</p>
+            <p>Un modèle européen, vos données restent chez vous.</p>
+          </article>
+          <article class="pa-tool reveal">
+            <span class="pa-tool-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg>
+            </span>
+            <h3>Canaux</h3>
+            <p class="pa-tool-ex">Gmail · LinkedIn…</p>
+            <p>Déclenchés par l'humain, jamais en automatique.</p>
+          </article>
+        </div>
+        <p class="pa-stack-note">
+          Rien d'exotique. Des briques que vous avez peut-être déjà — assemblées avec une intention
+          métier. Chez moi c'est Notion + n8n ; chez vous, ce sera les vôtres.
+        </p>
+      </div>
+    </section>
+
+    <!-- E. Le différenciateur : human-in-the-loop -->
+    <section class="pa-hil section-dark" aria-labelledby="pa-hil-title">
+      <div class="container">
+        <h2 id="pa-hil-title" class="pa-hil-h2">Je n'ai pas construit un robot qui spamme.</h2>
+        <p class="pa-hil-body">
+          J'ai construit un copilote. Chaque matin, il me prépare un brief : qui relancer, qui contacter,
+          avec quel angle. Je lis, je corrige, je décide. <strong>La connexion LinkedIn, l'envoi des emails, c'est moi qui le fais, à la main.</strong> Pas d'automatisation sauvage, pas d'envoi de masse, les règles des
+          plateformes respectées.
+        </p>
+        <p class="pa-pivot">Le système prépare et propose. L'humain valide et agit.</p>
+      </div>
+    </section>
+
+    <!-- F. Résultat concret -->
+    <section class="pa-section" aria-labelledby="pa-res-title">
+      <div class="container">
+        <h2 id="pa-res-title" class="pa-h2">Ce que ça me rend</h2>
+        <p class="pa-lead">
+          Voici le « brief du matin » que le système me prépare. Données entièrement fictives — sociétés
+          et personas inventés.
+        </p>
+        <div class="pa-1col reveal">
+          <figure class="pa-mock">
+            <div class="pa-frame-wrap">
+              <iframe class="pa-frame" src="/brief_matin_mockup_25062026.html"
+                title="Aperçu — le brief du matin préparé automatiquement (données fictives)" loading="lazy" scrolling="no"></iframe>
+            </div>
+          </figure>
+        </div>
+        <p class="pa-result-line">
+          Le suivi commercial — briefs, relances, mises en forme — me coûtait près de
+          <strong>5 heures par semaine</strong>. Il tient aujourd'hui en quelques minutes de validation
+          par jour. Et plus aucune relance oubliée ni doublon.
+        </p>
+      </div>
+    </section>
+
+    <!-- G. Le pont vers l'offre -->
+    <section class="pa-section section-alt" aria-labelledby="pa-pont-title">
+      <div class="container">
+        <h2 id="pa-pont-title" class="pa-h2">La même méthode, sur vos enjeux</h2>
+        <p class="pa-lead pa-lead-last">
+          Cette mécanique — source de vérité, orchestration, IA souveraine, validation humaine — je
+          l'adapte à d'autres process qui vous coûtent du temps : suivi commercial, réponse aux appels
+          d'offres, production de documents techniques. Le cas change, la méthode tient.
+        </p>
+        <a href="/demos" class="pa-microcta">Voir mes autres démos &amp; POC →</a>
+      </div>
+    </section>
+
+    <!-- H. CTA final -->
+    <section class="pa-cta section" aria-label="Prendre rendez-vous">
+      <div class="container">
+        <h2 class="pa-cta-title">Un process manuel qui vous coûte du temps&nbsp;?</h2>
+        <p class="pa-cta-text">
+          Montrez-le moi — en 20 minutes, je vous dis honnêtement ce qui est automatisable, et ce qui
+          ne vaut pas le coup de l'être.
+        </p>
+        <a href={CALCOM_URL} target="_blank" rel="noopener" class="btn-cta pa-cta-btn">Réserver 20 min →</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* En-tête — pleine largeur (pas de max-width sur h1/intro), calé sur les pages /demos */
+  .pa-header { padding: 64px 0 24px; text-align: center; }
+  .pa-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .pa-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.08;
+    color: var(--color-text-primary);
+    margin: 0 auto 20px;
+  }
+  .pa-intro {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto 20px;
+  }
+  .pa-intro strong { color: var(--color-text-primary); font-weight: 500; }
+  .pa-doc { margin: 0; }
+  @media (max-width: 767px) {
+    .pa-header { padding: 40px 0 20px; }
+    .pa-header h1 { font-size: 30px; }
+    .pa-intro { font-size: 16px; }
+  }
+
+  /* Sections récit */
+  .pa-section { padding: 56px 0; }
+  @media (max-width: 767px) { .pa-section { padding: 40px 0; } }
+
+  .pa-h2 {
+    font-family: var(--font-serif);
+    font-size: 32px; font-weight: 500;
+    letter-spacing: -0.015em; line-height: 1.15;
+    color: var(--color-text-primary);
+    margin: 0 0 14px;
+  }
+  .pa-h2-center { text-align: center; margin-bottom: 36px; }
+  @media (max-width: 767px) { .pa-h2 { font-size: 26px; } }
+
+  .pa-lead {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 0 32px;
+  }
+  .pa-lead-last { margin-bottom: 0; }
+  .pa-lead strong, .pa-result-line strong { color: var(--color-text-primary); font-weight: 600; }
+
+  /* C. Schéma de flux */
+  .pa-schema {
+    max-width: 1000px;
+    margin: 0 auto 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-bg-cream);
+    box-shadow: 0 8px 24px rgba(31,65,56,0.06);
+  }
+  .pa-schema img { display: block; width: 100%; height: auto; }
+  .pa-schema-cap {
+    font-family: var(--font-sans);
+    font-size: 13.5px; line-height: 1.55;
+    color: var(--color-text-muted);
+    text-align: center;
+    background: var(--color-bg-cream);
+    border-top: 1px solid var(--color-border);
+    margin: 0;
+    padding: 12px 18px;
+  }
+
+  .pa-note-card {
+    border-left: 3px solid var(--color-primary);
+    background: var(--color-bg-cream);
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+  }
+  .pa-note-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 8px;
+  }
+  .pa-note-body {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* D. Stack */
+  .pa-stack {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 860px) { .pa-stack { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .pa-stack { grid-template-columns: 1fr; } }
+  .pa-tool {
+    background: var(--color-bg-cream);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 24px 22px;
+    text-align: center;
+  }
+  .pa-tool-mark {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    border-radius: 11px;
+    background: var(--color-primary);
+    color: var(--color-bg-cream);
+    font-family: var(--font-mono);
+    font-size: 16px; font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .pa-tool-mark-ai { background: var(--color-accent-cta); }
+  .pa-tool h3 {
+    font-family: var(--font-serif);
+    font-size: 19px; font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 6px;
+  }
+  .pa-tool-ex {
+    font-family: var(--font-mono);
+    font-size: 11.5px; line-height: 1.5;
+    color: var(--color-accent-cool-text);
+    margin: 0 0 8px !important;
+  }
+  .pa-tool p {
+    font-family: var(--font-sans);
+    font-size: 14px; line-height: 1.55;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .pa-stack-note {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.6;
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 620px;
+    margin: 28px auto 0;
+  }
+
+  /* E. Human-in-the-loop — bloc à fort contraste (section-dark) */
+  .pa-hil { padding: 72px 0; text-align: center; }
+  @media (max-width: 767px) { .pa-hil { padding: 52px 0; } }
+  .pa-hil-h2 {
+    font-family: var(--font-serif);
+    font-size: 34px; font-weight: 500;
+    letter-spacing: -0.015em; line-height: 1.12;
+    color: var(--color-text-on-dark);
+    margin: 0 auto 20px;
+  }
+  @media (max-width: 767px) { .pa-hil-h2 { font-size: 26px; } }
+  .pa-hil-body {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.7;
+    color: var(--color-text-on-dark-muted);
+    margin: 0 auto 28px;
+  }
+  .pa-hil-body strong { color: var(--color-text-on-dark); font-weight: 600; }
+  .pa-pivot {
+    font-family: var(--font-serif);
+    font-size: 22px; font-weight: 500;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--color-accent-cta-on-dark);
+    margin: 0 auto;
+    max-width: 600px;
+  }
+  @media (max-width: 767px) { .pa-pivot { font-size: 19px; } }
+
+  /* F. Résultat — mockup en iframe */
+  .pa-1col { display: flex; justify-content: center; }
+  .pa-mock { margin: 0; max-width: 700px; width: 100%; }
+  .pa-frame-wrap {
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-bg-cream);
+    box-shadow: 0 8px 24px rgba(31,65,56,0.06);
+  }
+  .pa-frame {
+    width: 100%;
+    border: 0;
+    display: block;
+    min-height: 720px; /* fallback avant calcul JS de la hauteur */
+  }
+  .pa-result-line {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.7;
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 720px;
+    margin: 32px auto 0;
+  }
+
+  /* G. Pont — micro-CTA */
+  .pa-microcta {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 15px; font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+    margin-top: 24px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms;
+  }
+  .pa-microcta:hover { border-bottom-color: var(--color-primary); }
+
+  /* H. CTA final — bandeau clair (section-alt) */
+  .pa-cta { text-align: center; }
+  .pa-cta-title {
+    font-family: var(--font-serif);
+    font-size: 32px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 0 0 16px;
+  }
+  .pa-cta-text {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto 28px;
+    max-width: 620px;
+  }
+  .pa-cta-btn { color: var(--color-bg-cream); font-size: 16px; padding: 15px 28px; }
+  @media (max-width: 767px) { .pa-cta-title { font-size: 26px; } }
+</style>
+
+<script>
+  // Auto-redimensionne l'iframe du mockup (même origine → lecture du document possible).
+  const frames = Array.from(document.querySelectorAll<HTMLIFrameElement>('iframe.pa-frame'));
+
+  function sizeFrame(f: HTMLIFrameElement) {
+    try {
+      const doc = f.contentDocument || f.contentWindow?.document;
+      if (!doc || !doc.body) return;
+      const h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+      if (h > 0) f.style.height = h + 'px';
+    } catch (_) { /* cross-origin improbable ici : on garde le min-height de secours */ }
+  }
+
+  function sizeAll() { frames.forEach(sizeFrame); }
+
+  frames.forEach((f) => {
+    f.addEventListener('load', () => sizeFrame(f));
+    try { if (f.contentDocument?.readyState === 'complete') sizeFrame(f); } catch (_) {}
+  });
+
+  let t: number | undefined;
+  window.addEventListener('resize', () => {
+    window.clearTimeout(t);
+    t = window.setTimeout(sizeAll, 150);
+  }, { passive: true });
+
+  if ((document as any).fonts?.ready) {
+    (document as any).fonts.ready.then(sizeAll);
+  }
+</script>

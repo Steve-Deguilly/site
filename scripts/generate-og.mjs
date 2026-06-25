@@ -94,6 +94,14 @@ const IMAGES = [
     titleSize: 56,
   },
   {
+    file: 'og-prospection-automatisee.jpg',
+    kicker: 'DÉMO · AUTOMATISATION MÉTIER',
+    lines: ['J’automatise la prospection,', 'la mienne comme la vôtre.'],
+    subtitle: 'source de vérité · orchestration · LLM souverain · validation humaine',
+    url: 'steve-deguilly.com/demos/prospection-automatisee',
+    titleSize: 52,
+  },
+  {
     file: 'og-mentions-legales.jpg',
     kicker: 'INFORMATIONS LÉGALES',
     lines: ['Mentions légales'],

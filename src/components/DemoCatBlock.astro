@@ -1,6 +1,6 @@
 ---
 // Bloc d'une rubrique du hub /demos : titre + blurb + cartes de la rubrique.
-// Réutilisé par index.astro (colonne gauche = 1re rubrique, colonne droite = les suivantes).
+// Rubriques empilées en pleine largeur par index.astro ; les cartes d'une rubrique sont sur une ligne (2/ligne, 1 sous 767px).
 import { demosOf } from '../data/demos';
 import type { Category } from '../data/demos';
 
@@ -49,11 +49,13 @@ const items = demosOf(cat.id);
   }
   @media (max-width: 767px) { .demos-cat-title { font-size: 24px; } }
 
+  /* Cartes d'une même rubrique sur une ligne (2 par ligne) ; 1 colonne sous 767px. */
   .demos-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
   }
+  @media (max-width: 767px) { .demos-grid { grid-template-columns: 1fr; } }
   .demo-card {
     display: flex;
     flex-direction: column;

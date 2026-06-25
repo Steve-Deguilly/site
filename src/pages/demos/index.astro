@@ -71,13 +71,8 @@ const jsonLd = {
 
     <section class="demos-section" aria-label="Démos et POC par usage">
       <div class="container">
-        <div class="demos-cols">
-          <div class="demos-col">
-            <DemoCatBlock cat={categories[0]} />
-          </div>
-          <div class="demos-col">
-            {categories.slice(1).map((cat) => <DemoCatBlock cat={cat} />)}
-          </div>
+        <div class="demos-stack">
+          {categories.map((cat) => <DemoCatBlock cat={cat} />)}
         </div>
         <p class="demos-note">D'autres démos et POC viendront s'ajouter, par usage.</p>
       </div>
@@ -120,20 +115,11 @@ const jsonLd = {
 
   .demos-section { padding: 8px 0 24px; }
 
-  /* 2 colonnes : gauche = 1re rubrique · droite = rubriques suivantes empilées. Mobile <900px = 1 colonne. */
-  .demos-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px 32px;
-    align-items: start;
-  }
-  .demos-col {
+  /* Rubriques empilées en pleine largeur ; les cartes d'une même rubrique tiennent sur une ligne (cf. DemoCatBlock). */
+  .demos-stack {
     display: flex;
     flex-direction: column;
-    gap: 48px;
-  }
-  @media (max-width: 900px) {
-    .demos-cols { grid-template-columns: 1fr; }
+    gap: 56px;
   }
 
   .demos-note {

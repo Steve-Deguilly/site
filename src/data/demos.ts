@@ -96,6 +96,16 @@ export const demos: DemoEntry[] = [
     cta: 'Essayer la démo',
   },
   {
+    slug: 'prospection-automatisee',
+    category: 'automatisation-metier',
+    type: 'POC',
+    tag: 'Orchestration · source de vérité + LLM souverain',
+    title: "J'automatise la prospection, la mienne comme la vôtre",
+    pitch:
+      "Le concept que j'applique à ma propre prospection, adaptable à vos outils : une source de vérité (Notion, Airtable, Excel…), de l'orchestration (n8n, Make…) et un LLM souverain pour préparer briefs et relances. Vous validez, vous agissez. Pas de spam, plateformes respectées.",
+    cta: 'Voir comment',
+  },
+  {
     slug: 'mmn-bilan',
     category: 'automatisation-metier',
     type: 'MVP',

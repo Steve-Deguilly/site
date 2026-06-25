@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<style>a{pointer-events:none !important;cursor:default !important}html,body{margin:0}</style>
+<style>
+  :root{
+    --ink:#1A2421;--muted:#5A625E;--line:#DCD5C7;--cream:#F5F1EA;--warm:#EBE5D9;
+    --green:#2D5A4F;--green-deep:#1F4138;--terra:#A55E2D;--cool:#4A6168;
+  }
+  body{margin:0;background:#F5F1EA;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);padding:22px 14px}
+  .brief{max-width:680px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(31,65,56,.06)}
+  .top{background:var(--green-deep);color:#E8E1D0;padding:22px 26px}
+  .top .eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#BBC5BD;margin:0}
+  .top h1{font-family:'Fraunces',Georgia,serif;font-size:24px;font-weight:500;margin:6px 0 0;letter-spacing:-.01em}
+  .top .meta{font-size:13px;color:#BBC5BD;margin:8px 0 0}
+  .badge{display:inline-block;background:rgba(232,155,112,.16);color:#E89B70;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 11px;border-radius:20px;margin-top:12px}
+  .group{padding:22px 26px 4px}
+  .group + .group{border-top:1px solid #eef0ec}
+  .group-h{display:flex;align-items:center;gap:9px;margin:0 0 14px}
+  .group-h .n{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;border-radius:7px;background:var(--green);color:var(--cream);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:700;padding:0 6px}
+  .group-h .t{font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--ink)}
+  .row{border:1px solid #E7E1D4;border-radius:13px;padding:14px 16px;margin:0 0 12px;background:#FBF9F4}
+  .row .l1{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .row .name{font-size:15px;font-weight:600;color:var(--green-deep)}
+  .row .org{font-size:13px;color:var(--muted)}
+  .row .when{font-size:11px;color:var(--muted);white-space:nowrap}
+  .row .angle{font-size:13.5px;line-height:1.55;color:#44504b;margin:8px 0 0}
+  .row .angle b{color:var(--green);font-weight:600}
+  .pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+  .pill-rel{background:#EAF3EE;color:#1E4A37}
+  .pill-li{background:#E7F0FA;color:#2A4A7A}
+  .pill-val{background:#FBF0E5;color:#8A5A1E}
+  .li-note{font-size:13px;line-height:1.5;color:#44504b;background:#fff;border:1px dashed var(--line);border-radius:9px;padding:9px 12px;margin:9px 0 0;font-style:italic}
+  .foot{padding:16px 26px 22px;color:var(--muted);font-size:12.5px;line-height:1.6;border-top:1px solid #eef0ec;display:flex;align-items:center;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:0 0 auto}
+</style></head>
+<body>
+<div class="brief">
+  <div class="top">
+    <p class="eyebrow">Assistant de prospection · Creastory</p>
+    <h1>Votre brief du matin</h1>
+    <p class="meta">Lundi · 5 actions préparées pour vous</p>
+    <span class="badge">Préparé automatiquement — à valider</span>
+  </div>
+
+  <div class="group">
+    <div class="group-h"><span class="n">3</span><span class="t">Relances dues aujourd'hui</span></div>
+
+    <div class="row">
+      <div class="l1">
+        <div><span class="name">Camille Royer</span> <span class="org">· Dir. technique, Caloria</span></div>
+        <span class="when">échange il y a 6 j</span>
+      </div>
+      <p class="angle"><span class="pill pill-rel">Relance</span> &nbsp;Elle revient de congés cette semaine. <b>Reproposer le créneau de 20 min</b> sur le POC de segmentation évoqué début juin.</p>
+    </div>
+
+    <div class="row">
+      <div class="l1">
+        <div><span class="name">Thomas Berger</span> <span class="org">· Resp. exploitation, Foncière Helios</span></div>
+        <span class="when">devis il y a 9 j</span>
+      </div>
+      <p class="angle"><span class="pill pill-rel">Relance</span> &nbsp;Chiffrage envoyé, sans réponse. <b>Relancer en court</b> : proposer un point de 15 min pour lever les questions plutôt qu'un énième email.</p>
+    </div>
+
+    <div class="row">
+      <div class="l1">
+        <div><span class="name">Léa Fontaine</span> <span class="org">· DSI, Wattia</span></div>
+        <span class="when">a ouvert la doc 2×</span>
+      </div>
+      <p class="angle"><span class="pill pill-rel">Relance</span> &nbsp;Signal d'intérêt : la doc technique a été consultée deux fois. <b>Proposer un échange de cadrage</b>, angle souveraineté des données.</p>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-h"><span class="n">2</span><span class="t">Connexions LinkedIn à valider</span></div>
+
+    <div class="row">
+      <div class="l1">
+        <div><span class="name">Marc Aubry</span> <span class="org">· Dir. des opérations, Caloria</span></div>
+        <span class="pill pill-val">À valider</span>
+      </div>
+      <p class="li-note">« Bonjour Marc, j'ai noté votre intervention sur l'efficacité énergétique des sites multi-tertiaires — sujet que je croise souvent. Au plaisir d'échanger. »</p>
+    </div>
+
+    <div class="row">
+      <div class="l1">
+        <div><span class="name">Sophie Marin</span> <span class="org">· Resp. SI, Wattia</span></div>
+        <span class="pill pill-val">À valider</span>
+      </div>
+      <p class="li-note">« Bonjour Sophie, on partage visiblement le même intérêt pour la souveraineté des données et l'IA auto-hébergée. Ravi de suivre votre actualité. »</p>
+    </div>
+  </div>
+
+  <div class="foot"><span class="dot"></span>Rien n'est envoyé. La connexion LinkedIn, c'est vous qui la faites — à la main. Le système prépare, vous décidez.</div>
+</div>
+</body></html>
