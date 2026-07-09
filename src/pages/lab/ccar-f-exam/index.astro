@@ -1,130 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="robots" content="noindex, nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claude Certified Architect – Foundations · Exam trainer</title>
-<style>
-  :root { color-scheme: light; }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    background: #f7f7f5;
-    color: #1a1a18;
-    line-height: 1.5;
-  }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 60px; }
-  h1 { font-size: 19px; font-weight: 600; margin: 0 0 2px; }
-  .subtitle { font-size: 13px; color: #6b6b66; margin: 0 0 20px; }
-  .tabs { display: flex; gap: 4px; border-bottom: 1px solid #e2e2df; margin-bottom: 24px; }
-  .tab-btn {
-    appearance: none; border: none; background: none; cursor: pointer;
-    padding: 10px 16px; font-size: 14px; font-weight: 500; color: #6b6b66;
-    border-bottom: 2px solid transparent; margin-bottom: -1px;
-  }
-  .tab-btn.active { color: #3d63dd; border-bottom-color: #3d63dd; }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-  .card {
-    background: #ffffff; border: 1px solid #e2e2df; border-radius: 12px; padding: 20px;
-  }
-  .stat-row { display: flex; gap: 16px; margin-bottom: 16px; }
-  .stat {
-    flex: 1; background: #f7f7f5; border-radius: 8px; padding: 14px 16px;
-  }
-  .stat-label { font-size: 12px; color: #9a9a94; margin: 0 0 4px; }
-  .stat-value { font-size: 22px; font-weight: 600; margin: 0; }
-  .domain-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 0; border-top: 1px solid #efefec; font-size: 14px;
-  }
-  .domain-row:first-of-type { border-top: none; }
-  .domain-name { color: #3a3a36; }
-  .domain-meta { color: #9a9a94; font-size: 12px; }
-  button.primary {
-    width: 100%; margin-top: 18px; padding: 11px 16px; border: none; border-radius: 8px;
-    background: #3d63dd; color: #ffffff; font-size: 14px; font-weight: 600; cursor: pointer;
-  }
-  button.primary:hover { background: #2f4fc0; }
-  button.secondary {
-    padding: 9px 14px; border: 1px solid #d8d8d3; border-radius: 8px; background: #ffffff;
-    color: #1a1a18; font-size: 13px; font-weight: 500; cursor: pointer;
-  }
-  button.secondary:hover { background: #f7f7f5; }
-  button:disabled { opacity: 0.4; cursor: default; }
-  .progress-track { height: 4px; background: #eeeeeb; border-radius: 4px; margin-bottom: 16px; overflow: hidden; }
-  .progress-fill { height: 4px; background: #3d63dd; border-radius: 4px; transition: width 0.2s; }
-  .meta-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; color: #6b6b66; }
-  .domain-tag { font-size: 11px; color: #9a9a94; margin: 0 0 8px; text-transform: none; }
-  .q-text { font-size: 15px; line-height: 1.6; margin: 0 0 16px; color: #1a1a18; }
-  .option {
-    cursor: pointer; padding: 12px 14px; margin-bottom: 8px; border-radius: 8px;
-    border: 1px solid #e2e2df; background: #ffffff; display: flex; gap: 10px; align-items: flex-start;
-    font-size: 14px;
-  }
-  .option:hover { border-color: #b9c8f7; }
-  .option-dot {
-    flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #c7c7c1;
-    margin-top: 2px;
-  }
-  .option.selected { border-color: #3d63dd; background: #eef2fd; }
-  .option.selected .option-dot { border-color: #3d63dd; background: #3d63dd; }
-  .option.correct-answer { border-color: #1a7f4b; background: #e9f7ef; }
-  .option.correct-answer .option-dot { border-color: #1a7f4b; background: #1a7f4b; }
-  .option.wrong-answer { border-color: #c0392b; background: #fdecea; }
-  .option.wrong-answer .option-dot { border-color: #c0392b; background: #c0392b; }
-  .option.disabled { cursor: default; }
-  .rationale-box {
-    margin-top: 10px; padding: 12px 14px; border-radius: 8px; font-size: 13px; line-height: 1.6;
-  }
-  .rationale-box.correct { background: #e9f7ef; color: #145c37; }
-  .rationale-box.incorrect { background: #fdecea; color: #8f2c20; }
-  .rationale-label { font-weight: 600; margin: 0 0 4px; }
-  .nav-row { display: flex; justify-content: space-between; margin-top: 18px; }
-  .score-pill {
-    font-size: 12px; font-weight: 500; color: #3a3a36; background: #f7f7f5;
-    border-radius: 20px; padding: 4px 12px;
-  }
-  .domain-card {
-    border: 1px solid #e2e2df; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .domain-card-title { font-size: 14px; font-weight: 500; margin: 0 0 2px; }
-  .domain-card-meta { font-size: 12px; color: #9a9a94; margin: 0; }
-  .best-badge { font-size: 11px; color: #1a7f4b; font-weight: 500; }
-  .bar-row { margin-bottom: 10px; }
-  .bar-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
-  .bar-track { height: 6px; background: #eeeeeb; border-radius: 4px; }
-  .bar-fill { height: 6px; background: #6b6b66; border-radius: 4px; }
-  .review-item { border-top: 1px solid #efefec; padding: 14px 0; }
-  .review-q-meta { font-size: 11px; color: #9a9a94; margin: 0 0 4px; }
-  .review-q-text { font-size: 14px; margin: 0 0 8px; }
-  .review-opt { display: flex; gap: 8px; align-items: flex-start; padding: 3px 0; font-size: 13px; }
-  .review-opt.correct { color: #1a7f4b; }
-  .review-opt.wrong { color: #c0392b; }
-  .review-opt.neutral { color: #6b6b66; }
-  .review-rationale { font-size: 12px; color: #9a9a94; margin: 8px 0 0; line-height: 1.5; }
-  .empty-hint { font-size: 13px; color: #9a9a94; text-align: center; padding: 20px 0; }
-  .multi-note { display:inline-block; font-size:12px; font-weight:500; color:#8a6d1f; background:#faf3dd; border:1px solid #ecdfb3; border-radius:6px; padding:2px 8px; margin:0 0 10px; }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <h1>Claude Certified Architect – Foundations</h1>
-  <p class="subtitle">Exam trainer · exam mode draws 60 questions at official blueprint weights with a 120-minute countdown · training mode gives immediate feedback per domain</p>
+---
+/**
+ * /lab/ccar-f-exam/ — CCAR-F Exam Trainer intégré au design system du site.
+ * Page NON INDEXÉE (noindex) et NON LIÉE (aucune entrée menu/footer), hors sitemap
+ * (filtre dans astro.config). Logique JS + banque de questions reprises telles quelles
+ * du fichier canonique ; seul l'habillage (CSS) est repris aux tokens du site.
+ */
+import Layout from '../../../layouts/Layout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+---
+<Layout
+  title="Claude Certified Architect – Foundations · Exam trainer — Steve Deguilly"
+  description="Entraînement à la certification Anthropic Claude Certified Architect – Foundations : simulation d'examen chronométrée et entraînement par domaine."
+  canonical="/lab/ccar-f-exam"
+  noindex={true}
+>
+  <Navbar />
 
-  <div class="tabs">
-    <button class="tab-btn active" id="tab-btn-exam" onclick="switchTab('exam')">Exam simulation</button>
-    <button class="tab-btn" id="tab-btn-training" onclick="switchTab('training')">Training</button>
-  </div>
+  <main class="ccar">
+    <div class="container ccar-inner">
+      <p class="section-tag">Lab · Anthropic certification</p>
+      <h1 class="ccar-title">Claude Certified Architect — Foundations</h1>
+      <p class="ccar-sub">
+        Exam trainer · exam mode draws 60 questions at official blueprint weights with a
+        120-minute countdown · training mode gives immediate feedback per domain.
+      </p>
 
-  <div class="tab-panel active" id="tab-exam"></div>
-  <div class="tab-panel" id="tab-training"></div>
-</div>
+      <div class="tabs">
+        <button class="tab-btn active" id="tab-btn-exam" onclick="switchTab('exam')">Exam simulation</button>
+        <button class="tab-btn" id="tab-btn-training" onclick="switchTab('training')">Training</button>
+      </div>
 
-<script>
+      <div class="tab-panel active" id="tab-exam"></div>
+      <div class="tab-panel" id="tab-training"></div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script is:inline>
+
 const DOMAINS = [
   "Agentic Architecture & Orchestration",
   "Tool Design & MCP Integration",
@@ -980,6 +895,132 @@ function renderTraining() {
 
 renderExam();
 renderTraining();
+
 </script>
-</body>
-</html>
+</Layout>
+
+<!-- Habillage repris du design system (cream / jade / terracotta, Fraunces / Inter / JetBrains).
+     is:global + tout préfixé .ccar : nécessaire car l'UI du quiz est générée en JS (les styles
+     scopés Astro ne s'appliqueraient pas aux éléments créés au runtime), sans fuite hors .ccar. -->
+<style is:global>
+  .ccar {
+    --ok: #2F6D4F; --ok-bg: #E7F1EA; --ok-text: #1E4C37;
+    --ko: #B23A3A; --ko-bg: #FBEAEA; --ko-text: #822B2B;
+    --amber-bg: #F6EFD8; --amber-border: #E4D6A8; --amber-text: #7A621C;
+    --sel-bg: rgba(45, 90, 79, 0.10);
+    padding: 56px 0 96px;
+  }
+  @media (max-width: 767px) { .ccar { padding: 36px 0 64px; } }
+  .ccar .ccar-inner { max-width: 820px; }
+
+  .ccar .ccar-title {
+    font-family: var(--font-serif);
+    font-size: 40px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.06;
+    color: var(--color-text-primary); margin: 8px 0 12px;
+  }
+  @media (max-width: 767px) { .ccar .ccar-title { font-size: 30px; } }
+  .ccar .ccar-sub {
+    font-family: var(--font-sans); font-size: 15px; line-height: 1.65;
+    color: var(--color-text-muted); max-width: 640px; margin: 0 0 32px;
+  }
+
+  /* Onglets */
+  .ccar .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--color-border); margin-bottom: 28px; }
+  .ccar .tab-btn {
+    appearance: none; border: none; background: none; cursor: pointer;
+    padding: 10px 16px; font-family: var(--font-sans); font-size: 14px; font-weight: 500;
+    color: var(--color-text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color 150ms, border-color 150ms;
+  }
+  .ccar .tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+  .ccar .tab-panel { display: none; }
+  .ccar .tab-panel.active { display: block; }
+
+  /* Cartes */
+  .ccar .card {
+    background: var(--color-surface-warm); border: 1px solid var(--color-border);
+    border-radius: 14px; padding: 24px;
+  }
+  .ccar .stat-row { display: flex; gap: 14px; margin-bottom: 16px; }
+  .ccar .stat { flex: 1; background: var(--color-bg-cream); border: 1px solid var(--color-border); border-radius: 10px; padding: 14px 16px; }
+  .ccar .stat-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--color-text-muted); margin: 0 0 6px; }
+  .ccar .stat-value { font-family: var(--font-serif); font-size: 24px; font-weight: 500; color: var(--color-primary-deep); margin: 0; }
+
+  .ccar .domain-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid var(--color-border); font-size: 14px; }
+  .ccar .domain-row:first-of-type { border-top: none; }
+  .ccar .domain-name { color: var(--color-text-primary); }
+  .ccar .domain-meta { font-family: var(--font-mono); color: var(--color-text-muted); font-size: 12px; }
+
+  /* Boutons */
+  .ccar button.primary {
+    width: 100%; margin-top: 18px; padding: 12px 18px; border: none; border-radius: 8px;
+    background: var(--color-accent-cta); color: #FFFFFF; font-family: var(--font-sans);
+    font-size: 14px; font-weight: 600; cursor: pointer; transition: background 150ms;
+  }
+  .ccar button.primary:hover { background: var(--color-accent-cta-hover); }
+  .ccar button.secondary {
+    padding: 9px 14px; border: 1px solid var(--color-primary); border-radius: 8px;
+    background: transparent; color: var(--color-primary); font-family: var(--font-sans);
+    font-size: 13px; font-weight: 500; cursor: pointer; transition: background 150ms, color 150ms;
+  }
+  .ccar button.secondary:hover { background: var(--color-primary); color: var(--color-bg-cream); }
+  .ccar button:disabled { opacity: 0.4; cursor: default; }
+
+  /* Progression / méta */
+  .ccar .progress-track { height: 4px; background: var(--color-border); border-radius: 4px; margin-bottom: 16px; overflow: hidden; }
+  .ccar .progress-fill { height: 4px; background: var(--color-primary); border-radius: 4px; transition: width 0.2s; }
+  .ccar .meta-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted); }
+  .ccar .domain-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; color: var(--color-text-muted); margin: 0 0 8px; }
+  .ccar .q-text { font-size: 16px; line-height: 1.6; margin: 0 0 16px; color: var(--color-text-primary); }
+
+  /* Options */
+  .ccar .option {
+    cursor: pointer; padding: 12px 14px; margin-bottom: 8px; border-radius: 8px;
+    border: 1px solid var(--color-border); background: var(--color-bg-cream);
+    display: flex; gap: 10px; align-items: flex-start; font-size: 14px; transition: border-color 120ms, background 120ms;
+  }
+  .ccar .option:hover { border-color: var(--color-primary); }
+  .ccar .option-dot { flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--color-border); margin-top: 2px; }
+  .ccar .option.selected { border-color: var(--color-primary); background: var(--sel-bg); }
+  .ccar .option.selected .option-dot { border-color: var(--color-primary); background: var(--color-primary); }
+  .ccar .option.correct-answer { border-color: var(--ok); background: var(--ok-bg); }
+  .ccar .option.correct-answer .option-dot { border-color: var(--ok); background: var(--ok); }
+  .ccar .option.wrong-answer { border-color: var(--ko); background: var(--ko-bg); }
+  .ccar .option.wrong-answer .option-dot { border-color: var(--ko); background: var(--ko); }
+  .ccar .option.disabled { cursor: default; }
+
+  /* Justifications */
+  .ccar .rationale-box { margin-top: 10px; padding: 12px 14px; border-radius: 8px; font-size: 13px; line-height: 1.6; }
+  .ccar .rationale-box.correct { background: var(--ok-bg); color: var(--ok-text); }
+  .ccar .rationale-box.incorrect { background: var(--ko-bg); color: var(--ko-text); }
+  .ccar .rationale-label { font-weight: 600; margin: 0 0 4px; }
+
+  .ccar .nav-row { display: flex; justify-content: space-between; margin-top: 18px; }
+  .ccar .score-pill { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--color-text-primary); background: var(--color-bg-cream); border: 1px solid var(--color-border); border-radius: 20px; padding: 4px 12px; }
+
+  /* Domaines (training) */
+  .ccar .domain-card { border: 1px solid var(--color-border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; background: var(--color-surface-warm); }
+  .ccar .domain-card-title { font-size: 14px; font-weight: 500; margin: 0 0 2px; color: var(--color-text-primary); }
+  .ccar .domain-card-meta { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-muted); margin: 0; }
+  .ccar .best-badge { font-family: var(--font-mono); font-size: 11px; color: var(--ok); font-weight: 500; }
+
+  /* Barres (résultats) */
+  .ccar .bar-row { margin-bottom: 10px; }
+  .ccar .bar-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; color: var(--color-text-primary); }
+  .ccar .bar-track { height: 6px; background: var(--color-border); border-radius: 4px; }
+  .ccar .bar-fill { height: 6px; background: var(--color-primary); border-radius: 4px; }
+
+  /* Revue */
+  .ccar .review-item { border-top: 1px solid var(--color-border); padding: 14px 0; }
+  .ccar .review-q-meta { font-family: var(--font-mono); font-size: 11px; color: var(--color-text-muted); margin: 0 0 4px; }
+  .ccar .review-q-text { font-size: 14px; margin: 0 0 8px; color: var(--color-text-primary); }
+  .ccar .review-opt { display: flex; gap: 8px; align-items: flex-start; padding: 3px 0; font-size: 13px; }
+  .ccar .review-opt.correct { color: var(--ok); }
+  .ccar .review-opt.wrong { color: var(--ko); }
+  .ccar .review-opt.neutral { color: var(--color-text-muted); }
+  .ccar .review-rationale { font-size: 12px; color: var(--color-text-muted); margin: 8px 0 0; line-height: 1.5; }
+
+  .ccar .empty-hint { font-size: 13px; color: var(--color-text-muted); text-align: center; padding: 20px 0; }
+  .ccar .multi-note { display: inline-block; font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--amber-text); background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: 6px; padding: 2px 8px; margin: 0 0 10px; }
+</style>
+

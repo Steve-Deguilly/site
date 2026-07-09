@@ -9,8 +9,8 @@ export default defineConfig({
   output: 'static',
   integrations: [
     sitemap({
-      // /cv est non indexée (accès via lien footer uniquement) → hors sitemap.
-      filter: (page) => !/\/cv\/?$/.test(page),
+      // Pages non indexées → hors sitemap : /cv (lien footer) et /lab/ccar-f-exam/ (non liée).
+      filter: (page) => !/\/cv\/?$/.test(page) && !/\/lab\/ccar-f-exam\/?$/.test(page),
     }),
   ],
   vite: {
