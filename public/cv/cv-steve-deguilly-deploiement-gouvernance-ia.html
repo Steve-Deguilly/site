@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<title>CV — Steve Deguilly — Déploiement &amp; Gouvernance IA en entreprise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5F1EA; --warm:#EBE5D9; --primary:#2D5A4F; --deep:#1F4138;
+    --cta:#A55E2D; --cool-tx:#4A6168; --ink:#1A2421; --muted:#5A625E; --border:#DCD5C7;
+    --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  @page{ size:A4; margin:12mm 0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#e7e1d4;font-family:var(--sans);color:var(--ink);font-size:10.2pt;line-height:1.42;
+            -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;background:#fff;margin:18px auto;padding:14mm 15mm}
+
+  /* header */
+  .head{display:flex;gap:9mm;align-items:center;border-bottom:2px solid var(--cta);padding-bottom:6mm}
+  .photo{width:36mm;height:36mm;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--warm)}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .hi{flex:1;min-width:0}
+  .hi h1{font-family:var(--serif);font-weight:600;font-size:25pt;color:var(--deep);line-height:1.05}
+  .hi .role{font-size:12.5pt;color:var(--cta);font-weight:600;margin-top:1mm}
+  .hi .tag{font-size:10pt;color:var(--muted);margin-top:1.5mm;max-width:135mm}
+  .hi .contact{font-family:var(--mono);font-size:8.4pt;color:var(--cool-tx);margin-top:3mm;letter-spacing:.01em}
+  .hi .contact span{white-space:nowrap;margin-right:5mm}
+  .hi .contact a{color:inherit;text-decoration:none}
+
+  h2{font-family:var(--serif);font-weight:600;font-size:13pt;color:var(--primary);margin:6mm 0 2.5mm;
+     padding-bottom:1mm;border-bottom:1px solid var(--border)}
+  p{margin-bottom:2mm}
+
+  /* value box */
+  .value{background:var(--warm);border-radius:8px;padding:5mm 6mm;margin-top:5mm}
+  .value h2{margin:0 0 3mm;border:0;color:var(--deep)}
+  .value ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 7mm}
+  .value li{font-size:9.6pt;padding-left:6mm;position:relative;color:#2c3a35}
+  .value li::before{content:'▸';position:absolute;left:0;color:var(--cta);font-weight:700}
+  .value li b{color:var(--deep)}
+
+  /* experience */
+  .xp{margin-bottom:4mm;break-inside:avoid}
+  .xp .row{display:flex;justify-content:space-between;align-items:baseline;gap:6mm}
+  .xp .ti{font-weight:700;font-size:11pt;color:var(--deep)}
+  .xp .dt{font-family:var(--mono);font-size:8.4pt;color:var(--muted);white-space:nowrap}
+  .xp .co{font-family:var(--mono);font-size:8.6pt;color:var(--cta);margin:.5mm 0 1.5mm;letter-spacing:.02em}
+  .xp ul{list-style:none;margin-top:1mm}
+  .xp li{font-size:9.7pt;padding-left:5mm;position:relative;margin-bottom:1mm;color:#2c3a35}
+  .xp li::before{content:'–';position:absolute;left:0;color:var(--primary)}
+  .res{background:#f3f6f4;border-left:3px solid var(--primary);border-radius:4px;padding:1.5mm 4mm;margin-top:1.5mm;font-size:9.7pt}
+  .res b{color:var(--primary)}
+  .note{font-size:8.6pt;color:var(--muted);font-style:italic;margin-top:1mm}
+
+  /* two col bottom */
+  .cols{display:flex;gap:9mm;margin-top:2mm}
+  .cols>div{flex:1}
+  .skill{margin-bottom:2.5mm}
+  .skill .sl{font-weight:700;color:var(--deep);font-size:9.8pt}
+  .skill .sv{font-size:9.4pt;color:#3a463f}
+  .mini{font-family:var(--mono);font-size:8.6pt;color:var(--cool-tx);margin-top:1mm}
+  .foot{margin-top:7mm;padding-top:3mm;border-top:1px solid var(--border);font-family:var(--mono);
+        font-size:8.4pt;color:var(--cool-tx);text-align:center;letter-spacing:.01em}
+  .foot span{white-space:nowrap;margin:0 2.5mm}
+  .foot a{color:inherit;text-decoration:none}
+
+  @media print{
+    html,body{background:#fff}
+    .page{margin:0;box-shadow:none;width:auto;min-height:0;padding:0 15mm}
+    *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+    .xp,.value,.res{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="head">
+    <div class="photo"><img src="https://steve-deguilly.com/profil-steve-deguilly-360.jpg" alt="Steve Deguilly"></div>
+    <div class="hi">
+      <h1>Steve Deguilly</h1>
+      <div class="role">Architecte IA &amp; Automatisation</div>
+      <div class="tag">J'accompagne les entreprises dans le déploiement sécurisé de l'IA générative : cadrage, configuration des espaces de travail, gestion des droits, formation des équipes et transfert de compétences, pour une adoption maîtrisée et conforme RGPD.</div>
+      <div class="contact">
+        <span>✉ <a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a></span>
+        <span>☎ <a href="tel:+33676223585">06.76.22.35.85</a></span>
+        <span>in <a href="https://www.linkedin.com/in/steve-deguilly">LinkedIn</a></span>
+        <span>▸ <a href="https://steve-deguilly.com">Site Pro</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="value">
+    <h2>Déploiement IA en entreprise : ce que je prends en charge</h2>
+    <ul>
+      <li><b>Cadrage &amp; configuration</b> : choix de l'abonnement adapté, création et paramétrage de l'espace de travail, structuration des accès dès le premier groupe d'utilisateurs.</li>
+      <li><b>Confidentialité &amp; bonnes pratiques</b> : gestion des comptes, droits et accès, cadrage RGPD, règles d'usage claires pour des environnements sensibles.</li>
+      <li><b>Formation &amp; autonomie</b> : formation d'équipes métiers variées (presse, SAV, commerciaux, experts) à l'IA, compréhension des LLMs, sensibilisation aux données, bonnes pratiques, et documentation livrée pour que le client poursuive seul.</li>
+      <li><b>Suivi &amp; usages métier</b> : suivi des usages et des coûts, configuration de premiers cas d'usage simples et concrets pour l'équipe.</li>
+    </ul>
+  </div>
+
+  <h2>Profil</h2>
+  <p><b>18 ans d'expérience</b> dans le pilotage de projets numériques, dont 6 ans à la direction d'un groupe à Monaco (comité de direction, sécurité, conformité RGPD, management d'équipe), aujourd'hui indépendant. J'ai une pratique quotidienne et hands-on de l'écosystème Claude, 4 certifications Anthropic Academy complétées (Claude Code, MCP, Claude API, Claude Agent Skills), certification <b>Claude Certified Architect – Foundations</b> en préparation, démarche engagée auprès du <b>Claude Partner Network</b> d'Anthropic. Je sais aussi bien cadrer avec une direction que former des équipes non techniques.</p>
+
+  <h2>Expériences</h2>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Consultant, Automatisation &amp; Intelligence artificielle</span><span class="dt">Depuis sept. 2024</span></div>
+    <div class="co">Creastory Conseil · Nice</div>
+    <p style="font-size:9.5pt;color:#3a463f;margin-bottom:1.5mm">Missions de conseil indépendantes (automatisation &amp; IA appliquée), du cadrage jusqu'à la mise en service, plusieurs clients, plusieurs secteurs, environnements à données sensibles.</p>
+    <ul>
+      <li><b>E-santé (myMicroNutrition) :</b> conception « de zéro » d'une plateforme sécurisée (données de santé, conforme RGPD), cadrage de la confidentialité, protection des données patients, coordination des développeurs et des professionnels de santé.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> un dossier traité en 2 minutes au lieu de 45, sans erreur de saisie, et des soignants soulagés.</div>
+    <ul>
+      <li><b>Industrie (génie climatique) :</b> assistant IA installé isolément chez chaque client, données confidentielles hébergées en Europe ; cadrage sécurité, configuration des accès et formation des équipes commerciales et SAV à l'usage quotidien (livré en mai 2026).</li>
+      <li><b>E-formation (GRETA France / Éducation nationale) :</b> refonte du système de formation en ligne (150 000 utilisateurs) ; mise en conformité des données, tableaux de bord de suivi et accompagnement au changement.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> ouverture à de nouveaux publics, +34 % de chiffre d'affaires la première année.</div>
+    <ul>
+      <li><b>Média (groupe Batiactu) :</b> transformation d'un site vitrine en portail d'actualités, accompagnement des équipes presse dans la prise en main des nouveaux outils éditoriaux.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> +22 % de visites et +14 % de fidélisation en 6 mois.</div>
+  </div>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Directeur du numérique, membre du comité de direction</span><span class="dt">2018 — 2024</span></div>
+    <div class="co">XPair – EnerJ-meeting · Monaco</div>
+    <ul>
+      <li><b>Management d'une équipe de 8 personnes</b> (développement, marketing, design, commercial) et coordination d'une vingtaine de collaborateurs et prestataires, <b>administration centralisée</b> des accès, outils (Google Workspace, Cloudflare, BI) et budgets.</li>
+      <li><b>Pilotage</b> des feuilles de route, de la sécurité et des comités de direction pour les deux sites du groupe ; gestion des risques, suivi des délais, de la qualité et des contrats prestataires.</li>
+      <li><b>Création et pilotage d'EnerJ-meeting</b>, salon professionnel devenu une référence : sites internet, applications mobiles, espace client, système de mise en relation, messagerie interne, billetterie et gestion du parc informatique.</li>
+    </ul>
+    <div class="res"><b>Résultat →</b> 4 500+ professionnels accueillis et 27 000 mises en relation générées par édition.</div>
+    <div class="note">Départ suite au rachat du groupe en 2024.</div>
+  </div>
+
+  <div class="xp">
+    <div class="row"><span class="ti">Chef de projet &amp; responsable formation en ligne</span><span class="dt">2011 — 2017</span></div>
+    <div class="co">XPair · Monaco</div>
+    <ul>
+      <li>Responsable de la formation en ligne d'XPair (partenariat GEFEn) : refonte des parcours, modules, tests et certificats, gestion des partenaires.</li>
+      <li>Pilotage de projets numériques stratégiques : refonte des plateformes d'emploi et de formation en ligne, conception de nouveaux services, tableaux de bord.</li>
+      <li>Conception d'outils métier internes (interfaces d'administration, CRM sur mesure) ; méthodes Agile / Scrum et formation des équipes aux outils de pilotage.</li>
+    </ul>
+  </div>
+
+  <h2>Compétences techniques</h2>
+  <div class="cols">
+    <div>
+      <div class="skill"><div class="sl">Écosystème Claude</div><div class="sv">Claude Team / Enterprise, prompt engineering, <b>4 certifications Anthropic Academy</b> (Claude Code, MCP, Claude API, Claude Agent Skills), CCAR-F en préparation.</div></div>
+      <div class="skill"><div class="sl">Gouvernance, sécurité &amp; administration</div><div class="sv">Gestion des droits et accès, administration centralisée (Google Workspace, Cloudflare, BI), cadrage RGPD et confidentialité, conformité HDS.</div></div>
+      <div class="skill"><div class="sl">Formation &amp; adoption</div><div class="sv">Formation d'équipes métiers (presse, SAV, commercial, experts), documentation d'autonomie, conduite du changement, suivi des usages et des coûts.</div></div>
+    </div>
+    <div>
+      <div class="skill"><div class="sl">IA générative &amp; automatisation</div><div class="sv">Claude, OpenAI, Mistral, Gemini, LLMs auto-hébergés (Ollama, vLLM) ; n8n (expert), Make, agents IA, intégrations API (CRM, ERP, facturation).</div></div>
+      <div class="skill"><div class="sl">Infrastructure</div><div class="sv">Docker, OVH / Scaleway, déploiements souverains ; Python, SQL.</div></div>
+      <div class="skill"><div class="sl">Pilotage</div><div class="sv">GA4, Looker, BigQuery, KPIs / OKR, management d'équipe et comités de direction.</div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>✉ <a href="mailto:sdeguilly@gmail.com">sdeguilly@gmail.com</a></span>
+    <span>☎ <a href="tel:+33676223585">06.76.22.35.85</a></span>
+    <span>in <a href="https://www.linkedin.com/in/steve-deguilly">LinkedIn</a></span>
+    <span>▸ <a href="https://steve-deguilly.com">Site Pro</a></span>
+  </div>
+
+</div>
+</body>
+</html>

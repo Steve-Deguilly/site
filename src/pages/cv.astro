@@ -18,11 +18,18 @@ const cvs = [
     points: ['Pour une mission freelance', 'Automatisation, IA appliquée, RAG souverain', 'Cadrage → mise en service'],
     href: '/cv/cv-steve-deguilly-freelance.html',
   },
+  {
+    kicker: 'Déploiement · Gouvernance',
+    titre: 'Déploiement & Gouvernance IA en entreprise',
+    desc: "Profil opérationnel : cadrage et configuration des espaces de travail IA (Claude Team / Enterprise), gestion des droits et de la conformité RGPD, formation d'équipes métiers non techniques à l'adoption.",
+    points: ['Pour une mission de déploiement IA', 'Configuration, sécurité, formation', 'Certifications Anthropic Academy ×4'],
+    href: '/cv/cv-steve-deguilly-deploiement-gouvernance-ia.html',
+  },
 ];
 ---
 <Layout
   title="CV — Steve Deguilly"
-  description="Les CV de Steve Deguilly : version direction (Directeur IA & Transformation numérique) et version freelance (Automatisation & IA)."
+  description="Les CV de Steve Deguilly : version direction (Directeur IA & Transformation numérique), version freelance (Automatisation & IA) et version déploiement & gouvernance IA en entreprise."
   canonical="/cv"
   noindex={true}
 >
@@ -33,7 +40,7 @@ const cvs = [
       <p class="section-tag">Curriculum vitæ</p>
       <h1>Mes CV</h1>
       <p class="cv-intro">
-        Deux versions selon le contexte. Chacune s'ouvre dans un nouvel onglet ;
+        Trois versions selon le contexte. Chacune s'ouvre dans un nouvel onglet ;
         au format A4, elle s'imprime ou s'enregistre en PDF (<span class="cv-kbd">Ctrl/Cmd + P</span>).
       </p>
 
@@ -90,10 +97,10 @@ const cvs = [
 
   .cv-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 28px;
   }
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     .cv-grid { grid-template-columns: 1fr; gap: 20px; }
   }
 
