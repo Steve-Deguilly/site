@@ -102,6 +102,13 @@ const IMAGES = [
     titleSize: 52,
   },
   {
+    file: 'og-conformite-re2020.jpg',
+    kicker: 'POC · JUILLET 2026',
+    lines: ["L'IA qui refuse", "d'inventer"],
+    subtitle: 'Conformité RE2020 · cite le texte en vigueur, ou ne répond pas',
+    url: 'steve-deguilly.com/demos/conformite-re2020',
+  },
+  {
     file: 'og-mentions-legales.jpg',
     kicker: 'INFORMATIONS LÉGALES',
     lines: ['Mentions légales'],

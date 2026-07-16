@@ -21,6 +21,11 @@ export interface Category {
 
 export const categories: Category[] = [
   {
+    id: 'assistant-interne',
+    label: 'Assistant interne',
+    blurb: "Des agents experts qui répondent à partir de vos documents et de vos process.",
+  },
+  {
     id: 'relation-client',
     label: 'Relation client',
     blurb: "Automatiser et personnaliser la communication et le suivi de vos clients.",
@@ -29,11 +34,6 @@ export const categories: Category[] = [
     id: 'automatisation-metier',
     label: 'Automatisation métier',
     blurb: "Automatiser un process métier de bout en bout : analyse, décision, génération de livrables — sans saisie ni erreur.",
-  },
-  {
-    id: 'assistant-interne',
-    label: 'Assistant interne',
-    blurb: "Des agents experts qui répondent à partir de vos documents et de vos process.",
   },
 ];
 
@@ -83,6 +83,16 @@ export const demos: DemoEntry[] = [
     pitch:
       "Un workflow transforme une note de version technique en emails clients segmentés par module, reformulés en bénéfices. Modèle européen, validation humaine avant envoi.",
     cta: 'Voir la démo',
+  },
+  {
+    slug: 'conformite-re2020',
+    category: 'assistant-interne',
+    type: 'POC',
+    tag: 'RAG réglementaire · Mistral + Qdrant',
+    title: 'Conformité RE2020 : l’assistant qui refuse d’inventer',
+    pitch:
+      "Un assistant de conformité qui cite le texte en vigueur mot pour mot, sait quel seuil s’applique selon la date du permis, et dit « non couvert » plutôt que d’improviser. Un second agent re-vérifie chaque affirmation avant de laisser passer.",
+    cta: 'Voir le POC',
   },
   {
     slug: 'chat-document',

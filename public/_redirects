@@ -8,3 +8,6 @@
 
 # Renommage du quiz « Diagnostic » → « Test de maturité » (2026-06-18).
 /diagnostic      /maturite                  301
+
+# POC RE2020 : le slug porte le sujet, pas le type (2026-07-16). L'ancienne forme circule dans les notes.
+/demos/poc-re2020    /demos/conformite-re2020    301

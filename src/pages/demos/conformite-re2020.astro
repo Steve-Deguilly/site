@@ -1,0 +1,601 @@
+---
+// Page /demos/conformite-re2020 — POC « assistant de conformité RE2020 ».
+// Page PREUVE (destination d'un lien LinkedIn, trafic mobile majoritaire), pas page vitrine.
+// Récit sans îlot interactif ; gabarit calqué sur prospection-automatisee.astro (CSS scopé, préfixe .re-).
+// Garde-fous spec (16/07) : aucune valeur chiffrée hors liste §8, wording « corpus » verrouillé (§3.F),
+// « auto-hébergé » proscrit, « réponse à valider par un professionnel » présente. Le mécanisme est en
+// HTML (pas de SVG). Le bloc JSON est reproduit au caractère près (pre-wrap → zéro scroll horizontal mobile).
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const CALCOM_URL = 'https://cal.com/steve-deguilly/30min';
+const siteUrl = 'https://steve-deguilly.com';
+const pageUrl = `${siteUrl}/demos/conformite-re2020`;
+
+// Sortie réelle du workflow (15/07/2026), reproduite au caractère près — interpolée dans <code> pour
+// éviter tout bricolage d'entités / échappement d'accolades en Astro.
+const JSON_PROOF = `{
+  "reponse": "Le seuil Icconstruction_maxmoyen pour une maison individuelle avec un permis de construire déposé en mars 2025 est de 530 kg éq. CO2/m² (période 2025-2027), et non de 640 kg éq. CO2/m².",
+  "verdict": "satisfied",
+  "scoreboard": "Réponse: complète. Citations vérifiées 1/1. Version: à jour.",
+  "garde_fou": "Réponse à valider par un professionnel — jamais une décision automatique."
+}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CreativeWork',
+      '@id': `${pageUrl}/#demo`,
+      name: "Conformité RE2020 : l'assistant qui refuse d'inventer",
+      url: pageUrl,
+      description:
+        "Seuils carbone RE2020 : un assistant IA qui cite le texte en vigueur mot pour mot, détecte les valeurs périmées par la date du permis, et refuse de répondre hors de ses sources. Démonstration sur cas réels.",
+      inLanguage: 'fr',
+      isAccessibleForFree: true,
+      keywords: ['RE2020', 'Ic construction', 'conformité réglementaire', 'RAG', 'Mistral', 'Qdrant', 'IA souveraine', "bureau d'études"],
+      creator: { '@id': `${siteUrl}/#person` },
+      provider: { '@id': `${siteUrl}/#organization` },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}/#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
+        { '@type': 'ListItem', position: 2, name: 'Démos & POC', item: `${siteUrl}/demos/` },
+        { '@type': 'ListItem', position: 3, name: 'Conformité RE2020', item: `${pageUrl}/` },
+      ],
+    },
+  ],
+};
+---
+<Layout
+  title="POC RE2020 — l'assistant réglementaire qui refuse d'inventer | Steve Deguilly"
+  description="Seuils carbone RE2020 : un assistant IA qui cite le texte en vigueur mot pour mot, détecte les valeurs périmées par la date du permis, et refuse de répondre hors de ses sources. Démonstration sur cas réels."
+  ogImage="/og-conformite-re2020.jpg"
+  canonical="/demos/conformite-re2020"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Navbar />
+
+  <main>
+    <!-- A. Header -->
+    <header class="re-header">
+      <div class="container">
+        <p class="re-kicker">Démo · Assistant interne</p>
+        <h1>L'IA qui refuse d'inventer.</h1>
+        <p class="re-intro">
+          Un assistant de conformité RE2020 qui cite le texte en vigueur mot pour mot — et qui dit
+          « non couvert » plutôt que d'improviser.
+        </p>
+        <p class="re-doc">
+          <span class="chip"><span class="chip-dot" aria-hidden="true"></span>POC · démontré sur questions pièges · juillet 2026</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- B. Le problème -->
+    <section class="re-section" aria-labelledby="re-pb-title">
+      <div class="container">
+        <h2 id="re-pb-title" class="re-h2">Le bon seuil dépend d'une date</h2>
+        <p class="re-lead">
+          Les seuils carbone de la RE2020 changent par paliers : 2022, 2025, 2028, 2031. La bonne valeur
+          dépend de la date de dépôt du permis de construire.
+        </p>
+        <p class="re-lead re-lead-last">
+          Les assistants IA généralistes mélangent le vrai, le faux et l'omis. Testé et documenté : la
+          modulation attribuée au mauvais usage, des seuils disparus, des sources approximatives.
+          Indiscernables sans refaire tout le travail — sur des questions qui engagent une attestation.
+        </p>
+      </div>
+    </section>
+
+    <!-- C + D. Trois comportements démontrés + encadré preuve (même bloc section-alt) -->
+    <section class="re-section section-alt" aria-labelledby="re-proofs-title">
+      <div class="container">
+        <h2 id="re-proofs-title" class="re-h2">Trois comportements, testés sur questions pièges</h2>
+        <p class="re-lead">
+          Pas une démo arrangée : une batterie de questions conçues pour le faire tomber.
+        </p>
+
+        <div class="re-proofs">
+          <div class="re-proof">
+            <span class="re-proof-num" aria-hidden="true">1</span>
+            <h3>La valeur périmée</h3>
+            <p>
+              On lui souffle « 640 pour un permis 2025 ? » → « <strong>530, et non 640</strong> », avec la
+              phrase exacte du texte en vigueur. Le palier est décidé par la date du permis, mécaniquement
+              — jamais par l'appréciation du modèle.
+            </p>
+          </div>
+          <div class="re-proof">
+            <span class="re-proof-num" aria-hidden="true">2</span>
+            <h3>Le sujet absent</h3>
+            <p>
+              Une question hors de sa base documentaire → « <strong>non couvert par le corpus fourni</strong> ».
+              Le silence plutôt que l'aplomb.
+            </p>
+          </div>
+          <div class="re-proof">
+            <span class="re-proof-num" aria-hidden="true">3</span>
+            <h3>La réponse trop vague</h3>
+            <p>
+              Un agent « Validateur » indépendant re-vérifie chaque affirmation dans les textes, refuse,
+              renvoie en correction. <strong>Rien ne sort sans son accord.</strong>
+            </p>
+          </div>
+        </div>
+
+        <!-- D. Encadré preuve -->
+        <div class="re-proof-panel">
+          <p class="re-proof-panel-kicker">Sortie réelle du système — 15/07/2026</p>
+          <pre class="re-proof-pre"><code>{JSON_PROOF}</code></pre>
+          <p class="re-proof-legend">
+            Réponse brute renvoyée par le workflow, non retouchée. « satisfied » = verdict de l'agent
+            Validateur.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- E. Le mécanisme -->
+    <section class="re-section" aria-labelledby="re-mecano-title">
+      <div class="container">
+        <h2 id="re-mecano-title" class="re-h2">Deux agents, deux rôles jamais fusionnés</h2>
+        <p class="re-lead">
+          Le premier rédige, citation à l'appui. Le second, indépendant, re-récupère lui-même les textes
+          et vérifie chaque affirmation avant de laisser passer.
+        </p>
+
+        <ol class="re-flow">
+          <li class="re-step">
+            <h3>Votre question</h3>
+            <p>« Quel seuil pour un permis 2025 ? »</p>
+          </li>
+          <li class="re-step">
+            <h3>Les textes officiels</h3>
+            <p>Base sourcée et datée — chaque valeur a sa période</p>
+          </li>
+          <li class="re-step re-step-dark">
+            <h3>Agent « Rédacteur »</h3>
+            <p>Rédige la réponse, citation mot pour mot à l'appui</p>
+          </li>
+          <li class="re-step re-step-dark">
+            <h3>Agent « Validateur »</h3>
+            <p>Re-vérifie chaque affirmation dans les textes</p>
+          </li>
+          <li class="re-loop">
+            <p><span class="re-loop-mark" aria-hidden="true">↺</span> Refusée → renvoyée au Rédacteur, corrigée, puis re-contrôlée. Une seule relance, pas de boucle infinie.</p>
+          </li>
+          <li class="re-step">
+            <h3>Réponse validée</h3>
+            <p>Sources incluses — à valider par un professionnel</p>
+          </li>
+        </ol>
+
+        <!-- Sous le capot : capture du workflow réel (figure, cf. spec §6). Agrandissement au clic (lightbox CSS :target, zéro JS). -->
+        <figure class="re-shot" id="re-shot">
+          <a href="#re-shot-zoom" class="re-shot-frame" aria-label="Agrandir la capture du workflow">
+            <img src="/workflow_conformite_re2020_16072026.png"
+              alt="Le workflow réel : récupération des passages dans les textes officiels, agent Rédacteur qui rédige avec citation, agent Validateur indépendant qui contrôle, et la branche « si refusé » qui renvoie en correction avant un second contrôle."
+              width="2431" height="1070" loading="lazy" decoding="async" />
+            <span class="re-shot-hint" aria-hidden="true">Agrandir ⤢</span>
+          </a>
+          <figcaption class="re-shot-cap">
+            Sous le capot : le workflow réel. Les deux agents ne partagent rien ; la branche « si refusé »
+            renvoie au Rédacteur, corrige, puis re-contrôle. Composants standards du marché.
+          </figcaption>
+        </figure>
+
+        <div id="re-shot-zoom" class="re-shot-lightbox" role="dialog" aria-label="Capture du workflow agrandie">
+          <a href="#re-shot" class="re-shot-lightbox-bg" aria-label="Fermer"></a>
+          <img src="/workflow_conformite_re2020_16072026.png" alt="Capture du workflow, vue agrandie." />
+          <a href="#re-shot" class="re-shot-close" aria-label="Fermer">✕</a>
+        </div>
+
+        <aside class="re-note-card">
+          <p class="re-note-kicker">Ce qui n'est pas confié au modèle</p>
+          <p class="re-note-body">
+            La question « ce seuil est-il encore en vigueur ? » n'est pas un jugement de l'IA. C'est un
+            filtre sur les dates, déterministe : le permis de mars 2025 tombe dans le palier 2025-2027,
+            mécaniquement. Le modèle rédige ; la donnée tranche.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- F. Votre corpus reste chez vous -->
+    <section class="re-section section-dark" aria-labelledby="re-sov-title">
+      <div class="container">
+        <h2 id="re-sov-title" class="re-sov-h2">Votre corpus reste chez vous</h2>
+        <p class="re-sov-body">
+          Votre corpus et son index restent sur vos serveurs — et vos questions révèlent vos projets. Le
+          POC s'appuie aujourd'hui sur un modèle européen (Mistral), sans réutilisation pour l'entraînement.
+        </p>
+        <p class="re-sov-body re-lead-last">
+          Et chaque brique se remplace : base vectorielle, modèle, orchestration. En déploiement réel, le
+          modèle peut tourner entièrement sur votre infrastructure. Pas de dépendance à un fournisseur
+          unique — c'est une contrainte d'architecture, pas un slogan.
+        </p>
+      </div>
+    </section>
+
+    <!-- G + H. Les limites + encart vers /demos/chat-document -->
+    <section class="re-section section-alt" aria-labelledby="re-limites-title">
+      <div class="container">
+        <h2 id="re-limites-title" class="re-h2">Les limites, pour être honnête</h2>
+        <p class="re-lead">
+          Base documentaire de démonstration : 18 fiches sourcées, tirées du guide RE2020 du Cerema
+          (mai 2025). Un seul indicateur — l'Ic construction. Valeurs avant modulation Mi : jamais le seuil
+          final d'un projet réel.
+        </p>
+        <p class="re-lead re-lead-last">
+          Un POC prouve un mécanisme, pas l'exhaustivité. Un déploiement réel, c'est votre corpus — vos
+          textes, vos DTU, vos procédures — avec la référence Légifrance en source primaire.
+        </p>
+
+        <div class="re-chat">
+          <p class="re-chat-text">
+            La démo en vidéo arrive. En attendant, le même principe — un assistant qui ne répond que depuis
+            ses sources — est jouable tout de suite sur un document public :
+          </p>
+          <a href="/demos/chat-document" class="re-microcta">Essayer le chat sur document →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- I. CTA final -->
+    <section class="re-cta section" aria-label="Prendre rendez-vous">
+      <div class="container">
+        <h2 class="re-cta-title">Ces valeurs vous coûtent du temps à suivre&nbsp;?</h2>
+        <p class="re-cta-text">
+          15 minutes, 3 questions, pour voir si le mécanisme s'applique à vos textes — RE2020, F-Gas,
+          BACS, décret tertiaire.
+        </p>
+        <a href={CALCOM_URL} target="_blank" rel="noopener" class="btn-cta re-cta-btn">Réserver un échange →</a>
+        <p class="re-cta-sub"><a href="/methode">Comment j'interviens →</a></p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ── A. En-tête — pleine largeur (pas de max-width sur h1/intro) ── */
+  .re-header { padding: 64px 0 24px; text-align: center; }
+  .re-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+  .re-header h1 {
+    font-family: var(--font-serif);
+    font-size: 42px; font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.08;
+    color: var(--color-text-primary);
+    margin: 0 auto 20px;
+  }
+  .re-intro {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto 20px;
+  }
+  .re-doc { margin: 0; }
+  @media (max-width: 767px) {
+    .re-header { padding: 40px 0 20px; }
+    .re-header h1 { font-size: 30px; }
+    .re-intro { font-size: 16px; }
+  }
+
+  /* ── Sections récit ── */
+  .re-section { padding: 56px 0; }
+  @media (max-width: 767px) { .re-section { padding: 40px 0; } }
+
+  .re-h2 {
+    font-family: var(--font-serif);
+    font-size: 32px; font-weight: 500;
+    letter-spacing: -0.015em; line-height: 1.15;
+    color: var(--color-text-primary);
+    margin: 0 0 14px;
+  }
+  @media (max-width: 767px) { .re-h2 { font-size: 26px; } }
+
+  .re-lead {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 0 20px;
+  }
+  .re-lead-last { margin-bottom: 0; }
+  .re-lead strong { color: var(--color-text-primary); font-weight: 600; }
+
+  /* ── C. Trois comportements — motif repris de .de-proofs, + numéro d'ordre ── */
+  .re-proofs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 12px;
+  }
+  @media (max-width: 860px) { .re-proofs { grid-template-columns: 1fr; gap: 20px; } }
+  .re-proof {
+    border-left: 2px solid var(--color-primary);
+    padding: 4px 0 4px 18px;
+  }
+  .re-proof-num {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 13px; font-weight: 600;
+    color: var(--color-accent-cta);
+    margin: 0 0 6px;
+  }
+  .re-proof h3 {
+    font-family: var(--font-sans);
+    font-size: 16px; font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 8px;
+  }
+  .re-proof p {
+    font-family: var(--font-sans);
+    font-size: 14.5px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .re-proof strong { color: var(--color-text-primary); font-weight: 600; }
+
+  /* ── D. Encadré preuve — sortie JSON réelle ── */
+  .re-proof-panel { margin-top: 40px; }
+  .re-proof-panel-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-accent-cta);
+    margin: 0 0 12px;
+  }
+  .re-proof-pre {
+    background: var(--color-primary-deep);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 0;
+    overflow-x: hidden;
+    /* Contrainte n°1 : aucun scroll horizontal à 360 px */
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .re-proof-pre code {
+    font-family: var(--font-mono);
+    font-size: 13px; line-height: 1.7;
+    color: var(--color-text-on-dark);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  @media (max-width: 767px) { .re-proof-pre code { font-size: 12px; } }
+  .re-proof-legend {
+    font-family: var(--font-sans);
+    font-size: 13.5px; line-height: 1.55;
+    color: var(--color-text-muted);
+    margin: 12px 0 0;
+  }
+
+  /* ── E. Le mécanisme — flux HTML (cartes empilées + flèche CSS) ── */
+  .re-flow {
+    list-style: none;
+    max-width: 720px;
+    margin: 12px auto 40px;
+    padding: 0;
+  }
+  .re-flow li {
+    position: relative;
+    margin-bottom: 34px;
+    border-radius: 14px;
+    padding: 18px 22px;
+  }
+  .re-flow li:not(:last-child)::after {
+    content: "↓";
+    position: absolute;
+    left: 50%; bottom: -30px;
+    transform: translateX(-50%);
+    color: var(--color-accent-cta);
+    font-size: 20px; line-height: 1;
+  }
+  .re-step {
+    background: var(--color-bg-cream);
+    border: 1px solid var(--color-border);
+  }
+  .re-step h3 {
+    font-family: var(--font-serif);
+    font-size: 18px; font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 4px;
+  }
+  .re-step p {
+    font-family: var(--font-sans);
+    font-size: 14.5px; line-height: 1.55;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .re-step-dark {
+    background: var(--color-primary-deep);
+    border: none;
+  }
+  .re-step-dark h3 { color: var(--color-text-on-dark); }
+  .re-step-dark p { color: var(--color-text-on-dark-muted); }
+  /* La boucle de refus — encart accent entre Validateur et Réponse */
+  .re-loop {
+    background: var(--color-surface-warm);
+    border-left: 3px solid var(--color-accent-cta);
+    border-radius: 0 12px 12px 0;
+  }
+  .re-loop p {
+    font-family: var(--font-sans);
+    font-size: 14.5px; line-height: 1.6;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  .re-loop-mark {
+    font-family: var(--font-mono);
+    color: var(--color-accent-cta);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  /* Encart note (déterminisme) — fond surface-warm pour se détacher de la section crème */
+  .re-note-card {
+    border-left: 3px solid var(--color-primary);
+    background: var(--color-surface-warm);
+    border-radius: 0 12px 12px 0;
+    padding: 26px 24px;
+    max-width: 720px;
+    margin: 44px auto 0;
+  }
+  .re-note-kicker {
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 8px;
+  }
+  .re-note-body {
+    font-family: var(--font-sans);
+    font-size: 15px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  /* Figure « sous le capot » — capture workflow encadrée + agrandissement au clic */
+  .re-shot { max-width: 1000px; margin: 40px auto 0; }
+  .re-shot-frame {
+    display: block;
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-bg-cream);
+    box-shadow: 0 8px 24px rgba(31,65,56,0.06);
+    cursor: zoom-in;
+  }
+  .re-shot-frame img { display: block; width: 100%; height: auto; }
+  .re-shot-hint {
+    position: absolute;
+    bottom: 10px; right: 12px;
+    font-family: var(--font-sans);
+    font-size: 12px; font-weight: 500;
+    color: var(--color-text-on-dark);
+    background: var(--color-primary-deep);
+    padding: 5px 11px;
+    border-radius: 999px;
+  }
+  .re-shot-cap {
+    font-family: var(--font-sans);
+    font-size: 13.5px; line-height: 1.55;
+    color: var(--color-text-muted);
+    text-align: center;
+    max-width: 760px;
+    margin: 12px auto 0;
+  }
+  /* Lightbox — CSS :target, zéro JS */
+  .re-shot-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    padding: 24px;
+    background: var(--color-primary-deep);
+    align-items: center;
+    justify-content: center;
+  }
+  .re-shot-lightbox:target { display: flex; }
+  .re-shot-lightbox-bg { position: absolute; inset: 0; cursor: zoom-out; }
+  .re-shot-lightbox img {
+    position: relative;
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(31,65,56,0.5);
+  }
+  .re-shot-close {
+    position: absolute;
+    top: 18px; right: 22px;
+    font-family: var(--font-sans);
+    font-size: 22px; line-height: 1;
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+    padding: 6px 10px;
+  }
+
+  /* ── F. Votre corpus reste chez vous — section-dark ── */
+  .re-sov-h2 {
+    font-family: var(--font-serif);
+    font-size: 32px; font-weight: 500;
+    letter-spacing: -0.015em; line-height: 1.15;
+    color: var(--color-text-on-dark);
+    margin: 0 0 16px;
+  }
+  @media (max-width: 767px) { .re-sov-h2 { font-size: 26px; } }
+  .re-sov-body {
+    font-family: var(--font-sans);
+    font-size: 17px; line-height: 1.7;
+    color: var(--color-text-on-dark-muted);
+    margin: 0 0 18px;
+  }
+  .re-sov-body strong { color: var(--color-text-on-dark); font-weight: 600; }
+
+  /* ── H. Encart → /demos/chat-document ── */
+  .re-chat {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--color-border);
+  }
+  .re-chat-text {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 0 10px;
+  }
+  .re-microcta {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 15px; font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms;
+  }
+  .re-microcta:hover { border-bottom-color: var(--color-primary); }
+
+  /* ── I. CTA final — bandeau crème ── */
+  .re-cta { text-align: center; }
+  .re-cta-title {
+    font-family: var(--font-serif);
+    font-size: 32px; font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+    margin: 0 0 16px;
+  }
+  .re-cta-text {
+    font-family: var(--font-sans);
+    font-size: 16px; line-height: 1.65;
+    color: var(--color-text-muted);
+    margin: 0 auto 28px;
+    max-width: 620px;
+  }
+  .re-cta-btn { color: var(--color-bg-cream); font-size: 16px; padding: 15px 28px; }
+  .re-cta-sub {
+    margin: 20px 0 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+  }
+  .re-cta-sub a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms;
+  }
+  .re-cta-sub a:hover { border-bottom-color: var(--color-text-muted); }
+  @media (max-width: 767px) { .re-cta-title { font-size: 26px; } }
+</style>
