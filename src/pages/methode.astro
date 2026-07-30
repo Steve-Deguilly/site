@@ -1,5 +1,5 @@
 ---
-// Page /methode — méthode d'intervention (du diagnostic à l'autonomie).
+// Page /methode : méthode d'intervention (du diagnostic à l'autonomie).
 // Gabarit : projets.astro (page-header pleine largeur). Charte : tokens uniquement.
 // « Méthode » du menu pointe ici ; /sdd reste hors menu, lié depuis l'encart « Comment je construis ».
 import Layout from '../layouts/Layout.astro';
@@ -10,17 +10,17 @@ import CTAFinal from '../components/CTAFinal.astro';
 const siteUrl = 'https://steve-deguilly.com';
 const pageUrl = `${siteUrl}/methode`;
 
-// Étapes — `*Html` quand le texte porte un lien interne (rendu via set:html).
+// Étapes : `*Html` quand le texte porte un lien interne (rendu via set:html).
 const steps = [
   {
     n: '1',
     title: 'Diagnostic',
     duree: 'quelques jours · point d’entrée',
     fais:
-      "État des lieux — process, outils, données, conformité. Je repère les opportunités et je les classe par impact et effort : les quick wins d’abord.",
+      "État des lieux : process, outils, données, conformité. Je repère les opportunités et je les classe par impact et effort : les quick wins d’abord.",
     obtenez:
       "Un diagnostic clair et un plan d’action priorisé. Un livrable autonome, utile même si on s’arrête là.",
-    note: "Je vous dis par où commencer — et ce qui peut attendre.",
+    note: "Je vous dis par où commencer, et ce qui peut attendre.",
     textLd:
       "État des lieux (process, outils, données, conformité), puis opportunités classées par impact et effort. Vous obtenez un diagnostic clair et un plan d’action priorisé, livrable autonome.",
   },
@@ -31,7 +31,7 @@ const steps = [
     fais:
       "On prouve un cas prioritaire en conditions réelles, pour lever le risque avant de généraliser.",
     obtenezHtml:
-      'Une preuve concrète — comme celles de mes <a href="/demos">démos</a> — pas une promesse.',
+      'Une preuve concrète, comme celles de mes <a href="/demos">démos</a>.',
     note: "Si on enchaîne, le diagnostic s’impute sur le POC.",
     textLd:
       "On prouve un cas prioritaire en conditions réelles pour lever le risque avant de généraliser. Vous obtenez une preuve concrète plutôt qu’une promesse.",
@@ -41,7 +41,7 @@ const steps = [
     title: 'Industrialisation',
     duree: null,
     faisHtml:
-      'Je pilote équipes internes et prestataires, je code quand il faut, je construis avec rigueur — la méthode <a href="/sdd">spec-driven</a>. Livrables ≈ toutes les deux semaines, reporting hebdomadaire en COPIL.',
+      'Je pilote équipes internes et prestataires, je code quand il faut, je construis avec rigueur : la méthode <a href="/sdd">spec-driven</a>. Livrables ≈ toutes les deux semaines, reporting hebdomadaire en COPIL.',
     obtenez: "Ça avance en continu, sans tunnel.",
     textLd:
       "Pilotage des équipes internes et prestataires, build spec-driven, livrables toutes les deux semaines et reporting hebdomadaire en COPIL. Ça avance en continu, sans tunnel.",
@@ -51,9 +51,9 @@ const steps = [
     title: 'Autonomisation',
     duree: null,
     fais: "Documentation, formation, passation.",
-    obtenez: "Vos équipes reprennent la main. Pas de dépendance.",
+    obtenez: "Vos équipes reprennent la main et font évoluer la solution en autonomie.",
     textLd:
-      "Documentation, formation, passation. Vos équipes reprennent la main, sans créer de dépendance.",
+      "Documentation, formation, passation. Vos équipes reprennent la main et font évoluer la solution en autonomie.",
   },
 ];
 
@@ -65,7 +65,7 @@ const jsonLd = {
       '@id': `${pageUrl}/#howto`,
       name: "Ma méthode d’intervention",
       description:
-        "Comment j’interviens : un diagnostic actionnable en quelques jours, un POC pour dé-risquer, l’industrialisation, puis l’autonomisation — sans créer de dépendance.",
+        "Comment j’interviens : un diagnostic actionnable en quelques jours, un POC pour dé-risquer, l’industrialisation, puis l’autonomisation : vos équipes gardent le contrôle.",
       url: pageUrl,
       inLanguage: 'fr',
       author: { '@id': `${siteUrl}/#person` },
@@ -89,8 +89,8 @@ const jsonLd = {
 };
 ---
 <Layout
-  title="Ma méthode d'intervention — du diagnostic à l'autonomie | Steve Deguilly"
-  description="Comment j'interviens : diagnostic actionnable en quelques jours, POC pour dé-risquer, industrialisation, autonomisation. Sans créer de dépendance."
+  title="Ma méthode d'intervention · du diagnostic à l'autonomie · Steve Deguilly"
+  description="Comment j'interviens : diagnostic actionnable en quelques jours, POC pour dé-risquer, industrialisation, autonomisation. Vos équipes gardent le contrôle."
   ogImage="/og-methode.jpg"
   canonical="/methode"
 >
@@ -103,7 +103,7 @@ const jsonLd = {
       <div class="container">
         <p class="page-kicker">Méthode d’intervention</p>
         <h1>Du diagnostic à l’autonomie de vos équipes.</h1>
-        <p class="page-intro" set:html={"Une approche <b>rapide</b>, tournée vers vos <b>résultats</b>. Je transforme votre diagnostic en plan d’action en quelques jours. Pas de livrables théoriques : <b>chaque étape produit de la valeur concrète</b>. Et parce que je crois en la transmission, je forme vos équipes — 100 % autonomes dès mon départ."} />
+        <p class="page-intro" set:html={"Une approche rapide, tournée vers vos résultats. Je transforme votre diagnostic en plan d’action en quelques jours. Chaque étape produit un livrable utilisable. Et parce que je crois en la transmission, je forme vos équipes, 100 % autonomes dès mon départ."} />
       </div>
     </header>
 
@@ -162,7 +162,7 @@ const jsonLd = {
 </Layout>
 
 <style>
-  /* Header — gabarit page (kicker + H1 + intro, centré, pleine largeur) */
+  /* Header : gabarit page (kicker + H1 + intro, centré, pleine largeur) */
   .page-header { padding: 64px 0 32px; text-align: center; }
   .page-kicker {
     font-family: var(--font-sans);

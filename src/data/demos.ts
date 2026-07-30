@@ -33,7 +33,7 @@ export const categories: Category[] = [
   {
     id: 'automatisation-metier',
     label: 'Automatisation métier',
-    blurb: "Automatiser un process métier de bout en bout : analyse, décision, génération de livrables — sans saisie ni erreur.",
+    blurb: "Automatiser un process métier de bout en bout : analyse, décision, génération de livrables, sans saisie ni erreur.",
   },
 ];
 
@@ -69,7 +69,7 @@ export const demos: DemoEntry[] = [
     tag: 'Événementiel · n8n + IA',
     title: 'Moteur de recommandation de conférences',
     pitch:
-      "Conçu et déployé pour EnerJ-meeting : à l'inscription, chaque visiteur reçoit les conférences faites pour lui — profil enrichi automatiquement, agent IA, sans ressaisie.",
+      "Conçu et déployé pour EnerJ-meeting : à l'inscription, chaque visiteur reçoit les conférences faites pour lui : profil enrichi automatiquement, agent IA, sans ressaisie.",
     cta: 'Voir le cas',
     href: '/projets/enerj-meeting-recommandation',
   },
@@ -122,7 +122,7 @@ export const demos: DemoEntry[] = [
     tag: 'E-santé · n8n · HDS/RGPD',
     title: 'Questionnaire santé → bilan personnalisé',
     pitch:
-      "Conçu pour myMicroNutrition : un questionnaire santé devient un bilan PDF personnalisé en quelques minutes, sans intervention humaine ni erreur de saisie — sous contrainte HDS/RGPD.",
+      "Conçu pour myMicroNutrition : un questionnaire santé devient un bilan PDF personnalisé en quelques minutes, sans intervention humaine ni erreur de saisie, sous contrainte HDS/RGPD.",
     cta: 'Voir le cas',
     href: '/projets/mymicronutrition',
   },

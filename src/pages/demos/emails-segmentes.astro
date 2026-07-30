@@ -1,8 +1,8 @@
 ---
-// Page /demo-emails — démo "note de version → emails clients segmentés".
+// Page /demo-emails : démo "note de version → emails clients segmentés".
 // Asset démo ANONYMISÉ : produit fictif Wattia. Pas un cas client, pas un résultat réel.
 // Les aperçus sont des fichiers autonomes servis depuis /public (tables + SVG inline),
-// embarqués en <iframe> même origine (auto-redimensionnées) — leurs styles propres ne
+// embarqués en <iframe> même origine (auto-redimensionnées), leurs styles propres ne
 // touchent pas la charte du site. Liens fictifs neutralisés dans les fichiers source.
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
@@ -18,7 +18,7 @@ const jsonLd = {
     {
       '@type': 'CreativeWork',
       '@id': `${pageUrl}/#demo`,
-      name: 'Démo — notes de version transformées en emails clients segmentés',
+      name: 'Démo · notes de version transformées en emails clients segmentés',
       url: pageUrl,
       description:
         "Démonstration d'automatisation : un workflow n8n transforme une note de version technique en emails clients segmentés par module, reformulés en bénéfices, dans la charte du produit. Modèle européen (Mistral), validation humaine avant envoi. Produit fictif (Wattia) à des fins de démonstration.",
@@ -31,7 +31,7 @@ const jsonLd = {
     {
       '@type': 'VideoObject',
       '@id': `${pageUrl}/#video`,
-      name: 'Démo — une note de version transformée en emails clients segmentés',
+      name: 'Démo · une note de version transformée en emails clients segmentés',
       description:
         "Démonstration filmée (2 min) : un workflow n8n transforme une note de version technique en trois emails clients segmentés par profil et un brouillon de post LinkedIn. Modèle européen (Mistral), validation humaine avant envoi. Produit fictif (Wattia) à des fins de démonstration.",
       thumbnailUrl: [`${siteUrl}/wattia_demo_emails_segmentes_poster_23062026.png`],
@@ -50,14 +50,14 @@ const jsonLd = {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
         { '@type': 'ListItem', position: 2, name: 'Démos & POC', item: `${siteUrl}/demos/` },
-        { '@type': 'ListItem', position: 3, name: 'Démo — Emails segmentés', item: `${pageUrl}/` },
+        { '@type': 'ListItem', position: 3, name: 'Démo · Emails segmentés', item: `${pageUrl}/` },
       ],
     },
   ],
 };
 ---
 <Layout
-  title="Démo — vos notes de version en emails que vos clients lisent | Steve Deguilly"
+  title="Démo · vos notes de version en emails que vos clients lisent · Steve Deguilly"
   description="Une démo d'automatisation : un workflow n8n transforme une note de version en emails clients segmentés par module, modèle européen, validation humaine. Une preuve, pas une slide."
   ogImage="/og-emails-segmentes.jpg"
   canonical="/demos/emails-segmentes"
@@ -82,7 +82,7 @@ const jsonLd = {
       </div>
     </header>
 
-    <!-- Vidéo de démo — en tête (vidéo > captures) -->
+    <!-- Vidéo de démo : en tête (vidéo > captures) -->
     <section class="de-video" aria-label="Vidéo de démonstration">
       <div class="container">
         <figure class="de-video-figure reveal">
@@ -92,7 +92,7 @@ const jsonLd = {
               width="1720" height="720"
               aria-label="Démonstration : une note de version transformée en emails clients segmentés">
               <source src="/wattia_demo_emails_segmentes_23062026.mp4" type="video/mp4" />
-              Votre navigateur ne lit pas la vidéo —
+              Votre navigateur ne lit pas la vidéo :
               <a href="/wattia_demo_emails_segmentes_23062026.mp4">télécharger le MP4</a>.
             </video>
           </div>
@@ -103,7 +103,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- Avant / Après — le contraste est l'argument -->
+    <!-- Avant / Après : le contraste est l'argument -->
     <section class="de-section" aria-labelledby="de-ab-title">
       <div class="container">
         <h2 id="de-ab-title" class="de-h2">La même note de version. Avant, après.</h2>
@@ -117,29 +117,29 @@ const jsonLd = {
           <figure class="de-mock">
             <figcaption class="de-cap">
               <span class="de-tag de-tag-before">Avant</span>
-              <span class="de-cap-text">Générique, technique, peu lu — volontairement laissé tel quel (illisible sur mobile).</span>
+              <span class="de-cap-text">Générique, technique, peu lu, volontairement laissé tel quel (illisible sur mobile).</span>
             </figcaption>
             <div class="de-frame-wrap">
               <iframe class="mail-frame" src="/wattia_mail_avant_17062026.html"
-                title="Aperçu — email de release Wattia générique (avant)" loading="lazy" scrolling="no"></iframe>
+                title="Aperçu, email de release Wattia générique (avant)" loading="lazy" scrolling="no"></iframe>
             </div>
           </figure>
 
           <figure class="de-mock">
             <figcaption class="de-cap">
               <span class="de-tag de-tag-after">Après</span>
-              <span class="de-cap-text">Sarah, gestionnaire de parc — ne reçoit que les nouveautés de son abonnement, en clair.</span>
+              <span class="de-cap-text">Sarah, gestionnaire de parc : ne reçoit que les nouveautés de son abonnement, en clair.</span>
             </figcaption>
             <div class="de-frame-wrap">
               <iframe class="mail-frame" src="/wattia_mail_apres_exploitation_17062026.html"
-                title="Aperçu — email Wattia segmenté pour un profil exploitation (après)" loading="lazy" scrolling="no"></iframe>
+                title="Aperçu, email Wattia segmenté pour un profil exploitation (après)" loading="lazy" scrolling="no"></iframe>
             </div>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- Segmentation — une note, plusieurs métiers -->
+    <!-- Segmentation : une note, plusieurs métiers -->
     <section class="de-section section-alt" aria-labelledby="de-seg-title">
       <div class="container">
         <h2 id="de-seg-title" class="de-h2">Une note, plusieurs métiers, plusieurs emails.</h2>
@@ -154,22 +154,22 @@ const jsonLd = {
           <figure class="de-mock">
             <figcaption class="de-cap">
               <span class="de-tag de-tag-after">Profil exploitation</span>
-              <span class="de-cap-text">Sarah · gestionnaire de parc — supervision, alertes, planning.</span>
+              <span class="de-cap-text">Sarah · gestionnaire de parc : supervision, alertes, planning.</span>
             </figcaption>
             <div class="de-frame-wrap">
               <iframe class="mail-frame" src="/wattia_mail_apres_exploitation_17062026.html"
-                title="Aperçu — email Wattia profil exploitation" loading="lazy" scrolling="no"></iframe>
+                title="Aperçu, email Wattia profil exploitation" loading="lazy" scrolling="no"></iframe>
             </div>
           </figure>
 
           <figure class="de-mock">
             <figcaption class="de-cap">
               <span class="de-tag de-tag-after">Profil études</span>
-              <span class="de-cap-text">Marc · bureau d'études — conformité, reporting, performance.</span>
+              <span class="de-cap-text">Marc · bureau d'études : conformité, reporting, performance.</span>
             </figcaption>
             <div class="de-frame-wrap">
               <iframe class="mail-frame" src="/wattia_mail_apres_etudes_17062026.html"
-                title="Aperçu — email Wattia profil bureau d'études" loading="lazy" scrolling="no"></iframe>
+                title="Aperçu, email Wattia profil bureau d'études" loading="lazy" scrolling="no"></iframe>
             </div>
           </figure>
         </div>
@@ -189,14 +189,14 @@ const jsonLd = {
           <figure class="de-mock de-mock-narrow">
             <div class="de-frame-wrap">
               <iframe class="mail-frame" src="/wattia_post_linkedin_17062026.html"
-                title="Aperçu — brouillon de post LinkedIn généré (à valider)" loading="lazy" scrolling="no"></iframe>
+                title="Aperçu, brouillon de post LinkedIn généré (à valider)" loading="lazy" scrolling="no"></iframe>
             </div>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- Comment ça marche — 3 temps -->
+    <!-- Comment ça marche : 3 temps -->
     <section class="de-section section-alt" aria-labelledby="de-how-title">
       <div class="container">
         <h2 id="de-how-title" class="de-h2 de-h2-center">Comment ça marche</h2>
@@ -223,7 +223,7 @@ const jsonLd = {
             <h3>Il enrichit</h3>
             <p>
               Encart « à venir », lien traçable par fonctionnalité, et un brouillon de post LinkedIn
-              pour le marketing — tout est généré en même temps, prêt à relire.
+              pour le marketing : tout est généré en même temps, prêt à relire.
             </p>
           </article>
         </div>
@@ -268,7 +268,7 @@ const jsonLd = {
 </Layout>
 
 <style>
-  /* En-tête — calé sur /demo */
+  /* En-tête : calé sur /demo */
   .de-header { padding: 64px 0 24px; text-align: center; }
   .de-kicker {
     font-family: var(--font-sans);
@@ -298,7 +298,7 @@ const jsonLd = {
     .de-intro { font-size: 16px; }
   }
 
-  /* Vidéo de démo — en tête (vidéo > captures) */
+  /* Vidéo de démo : en tête (vidéo > captures) */
   .de-video { padding: 28px 0 8px; }
   .de-video-figure { margin: 0; }
   .de-video-frame {
@@ -400,7 +400,7 @@ const jsonLd = {
     min-height: 520px; /* fallback avant calcul JS de la hauteur */
   }
 
-  /* Comment ça marche — 3 temps */
+  /* Comment ça marche : 3 temps */
   .de-steps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -462,7 +462,7 @@ const jsonLd = {
     margin: 0;
   }
 
-  /* CTA final — bandeau clair (section-alt) */
+  /* CTA final : bandeau clair (section-alt) */
   .de-cta { text-align: center; }
   .de-cta-title {
     font-family: var(--font-serif);

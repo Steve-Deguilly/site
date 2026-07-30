@@ -1,5 +1,5 @@
 ---
-// Page /sdd — « Ma méthode : le spec-driven » (spec spec_page_sdd_08062026 + DÉCISION FINALE 2026-06-08).
+// Page /sdd, « Ma méthode : le spec-driven » (spec spec_page_sdd_08062026 + DÉCISION FINALE 2026-06-08).
 // Page statique, aucun script ajouté. Contenu citable rendu côté serveur (cible GEO). Hors menu (4 entrées).
 // CSS : tokens --color-* / --font-* uniquement, classes existantes (.section, .section-tag, .section-h2, .container).
 import Layout from '../layouts/Layout.astro';
@@ -16,7 +16,7 @@ const definition =
 
 // Contenu exact de la carte « template de spec » (addendum v2). HTML injecté via set:html
 // pour maîtriser espaces/indentation et colorer chaque token. <,> échappés ; le texte reste du texte.
-const specDocHtml = `<span class="c-h1"># Spec — <span class="c-ph">&lt;fonctionnalité&gt;</span></span>
+const specDocHtml = `<span class="c-h1"># Spec : <span class="c-ph">&lt;fonctionnalité&gt;</span></span>
 
 <span class="c-h2">## Objectif</span>
 Une phrase. Le quoi et le pourquoi.
@@ -52,7 +52,7 @@ const faq = [
   },
 ];
 
-// JSON-LD GEO (§6) — entités globales référencées par @id (Layout).
+// JSON-LD GEO (§6) : entités globales référencées par @id (Layout).
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -66,7 +66,7 @@ const jsonLd = {
     {
       '@type': 'TechArticle',
       '@id': `${pageUrl}/#article`,
-      headline: 'Le spec-driven development — la méthode de Steve Deguilly',
+      headline: 'Le spec-driven development · la méthode de Steve Deguilly',
       about: { '@id': `${pageUrl}/#term` },
       author: { '@id': `${siteUrl}/#person` },
       publisher: { '@id': `${siteUrl}/#organization` },
@@ -96,7 +96,7 @@ const jsonLd = {
 };
 ---
 <Layout
-  title="Le spec-driven development — la méthode de Steve Deguilly"
+  title="Le spec-driven development · la méthode de Steve Deguilly"
   description="Spécifier avant de générer. La méthode qui industrialise l'IA sans perdre le contrôle : code, tests, revue et conformité vérifiés contre une spécification de référence."
   ogImage="/og-sdd.jpg"
   canonical="/sdd"
@@ -121,12 +121,12 @@ const jsonLd = {
         <p class="sdd-chapo">
           Écrire la spécification avant la première ligne de code. À l'heure où l'IA génère du code en
           quelques secondes, l'intention nette en amont devient le seul vrai garde-fou. Voici comment je
-          travaille — et pourquoi ça change le risque de vos projets.
+          travaille, et pourquoi ça change le risque de vos projets.
         </p>
       </div>
     </header>
 
-    <!-- 2. Section 2 colonnes — « ce que c'est » : texte (gauche) + carte template (droite) -->
+    <!-- 2. Section 2 colonnes, « ce que c'est » : texte (gauche) + carte template (droite) -->
     <section class="section sdd-pair" aria-labelledby="sdd-def-title">
       <div class="container">
         <div class="sdd-pair-grid">
@@ -136,7 +136,7 @@ const jsonLd = {
               <h2 id="sdd-def-title" class="section-h2 sdd-block-h2">Qu'est-ce que le spec-driven development ?</h2>
               <p class="sdd-block-p">
                 Le spec-driven development (développement piloté par la spécification) consiste à formaliser
-                l'intention, les règles métier et les cas limites <strong>avant</strong> de produire le code.
+                l'intention, les règles métier et les cas limites avant de produire le code.
                 La spécification devient le contrat de référence : le code généré, les tests, la revue et la
                 mise en conformité se vérifient tous contre elle. Plus la machine produit vite, plus ce contrat compte.
               </p>
@@ -146,7 +146,7 @@ const jsonLd = {
               <p class="sdd-block-p">
                 Non. Un cahier des charges décrit un produit fini et fige le projet. Une spec tient sur une page :
                 elle formalise l'intention, les règles et les cas limites, puis évolue avec le projet. Elle ne
-                remplace pas le code, elle le gouverne. L'objectif n'est pas de tout documenter, mais de rendre
+                remplace pas le code, elle le gouverne. L'objectif : rendre
                 chaque décision vérifiable avant qu'elle ne coûte cher.
               </p>
             </div>
@@ -168,7 +168,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- 3. Schéma — « comment ça marche » (§5.3) -->
+    <!-- 3. Schéma, « comment ça marche » (§5.3) -->
     <section class="section sdd-schema-section" aria-labelledby="sdd-schema-title">
       <div class="container">
         <h2 id="sdd-schema-title" class="section-h2">Cinq étapes, un seul contrat</h2>
@@ -222,12 +222,12 @@ const jsonLd = {
     <section class="section sdd-reg" aria-labelledby="sdd-reg-title">
       <div class="container">
         <div class="sdd-reg-card">
-          <h2 id="sdd-reg-title" class="section-h2">Quand l'erreur n'est pas une option</h2>
+          <h2 id="sdd-reg-title" class="section-h2">Quand chaque décision doit être auditable</h2>
           <p class="sdd-text">
             Dans la finance, la santé ou tout traitement de données sensibles, un projet IA ne se juge pas
             à sa démo, mais à sa traçabilité. Une spécification écrite rend chaque décision auditable :
-            qui a décidé quoi, contre quelle règle, vérifié par quel test. C'est la différence entre un
-            projet qui passe en production et un projet qui n'y arrive jamais.
+            qui a décidé quoi, contre quelle règle, vérifié par quel test. C'est ce qui fait qu'un
+            projet passe en production.
           </p>
         </div>
       </div>
@@ -324,7 +324,7 @@ const jsonLd = {
   }
   .sdd-block-p strong { font-weight: 600; }
 
-  /* Carte « document » — tokens uniquement, aucune image */
+  /* Carte « document » : tokens uniquement, aucune image */
   .sdd-pair-doc { min-width: 0; } /* autorise le scroll horizontal du <pre> dans la grille */
   .spec-doc-figure { margin: 0; }
   .spec-doc {
@@ -371,7 +371,7 @@ const jsonLd = {
   }
   .sdd-cap--left { text-align: left; max-width: none; margin-left: 0; margin-right: 0; }
 
-  /* 3. Schéma — exception largeur (asset borné spec ~1040px), centré */
+  /* 3. Schéma : exception largeur (asset borné spec ~1040px), centré */
   .sdd-schema { margin: 0 auto; max-width: 1040px; }
   .sdd-schema img { width: 100%; height: auto; display: block; }
 
@@ -401,7 +401,7 @@ const jsonLd = {
     margin: 0;
   }
 
-  /* 5. Contextes réglementés — bloc encadré */
+  /* 5. Contextes réglementés : bloc encadré */
   .sdd-reg-card {
     border-left: 3px solid var(--color-accent-cta);
     background: var(--color-surface-warm);
@@ -410,7 +410,7 @@ const jsonLd = {
   }
   @media (max-width: 767px) { .sdd-reg-card { padding: 24px; } }
 
-  /* 6. Preuve — centrée et resserrée sous le bloc réglementé */
+  /* 6. Preuve : centrée et resserrée sous le bloc réglementé */
   .sdd-proof { padding-top: 8px; text-align: center; }
   .sdd-proof-text {
     font-family: var(--font-sans);

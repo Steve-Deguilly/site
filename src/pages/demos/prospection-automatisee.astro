@@ -1,9 +1,9 @@
 ---
-// Page /demos/prospection-automatisee — dogfooding : « j'automatise ma propre prospection ».
+// Page /demos/prospection-automatisee, dogfooding : « j'automatise ma propre prospection ».
 // POC / preuve de méthode (pas un cas client). Données 100 % FICTIVES (Wattia / Caloria / Foncière Helios) :
 // le mockup « brief du matin » est un fichier autonome servi depuis /public, embarqué en <iframe>
 // même origine (auto-redimensionnée), liens neutralisés. Aucune donnée réelle, aucune capture du vrai CRM.
-// Garde-fou positionnement : assistant de prospection avec validation humaine — JAMAIS « automatisation LinkedIn » de masse.
+// Garde-fou positionnement : assistant de prospection avec validation humaine, JAMAIS « automatisation LinkedIn » de masse.
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
@@ -21,7 +21,7 @@ const jsonLd = {
       name: "J'automatise la prospection, la mienne comme la vôtre",
       url: pageUrl,
       description:
-        "Le concept que Steve Deguilly applique à sa propre prospection, adapté aux outils du client : une source de vérité, de l'orchestration et un LLM souverain pour préparer briefs et relances, avec l'humain dans la boucle. Une preuve de méthode, pas un robot qui spamme. Données 100 % fictives à des fins de démonstration.",
+        "Le concept que Steve Deguilly applique à sa propre prospection, adapté aux outils du client : une source de vérité, de l'orchestration et un LLM souverain pour préparer briefs et relances, avec l'humain dans la boucle. Une preuve de méthode. Données 100 % fictives à des fins de démonstration.",
       inLanguage: 'fr',
       isAccessibleForFree: true,
       keywords: ['automatisation', 'prospection', 'n8n', 'Notion', 'LLM souverain', 'human-in-the-loop'],
@@ -42,7 +42,7 @@ const jsonLd = {
 ---
 <Layout
   title="J'automatise la prospection, la mienne comme la vôtre | Steve Deguilly"
-  description="Le concept que j'applique à ma propre prospection, adapté à vos outils : une source de vérité, de l'orchestration et un LLM souverain, avec l'humain dans la boucle. Une preuve de méthode, pas un robot qui spamme."
+  description="Le concept que j'applique à ma propre prospection, adapté à vos outils : une source de vérité, de l'orchestration et un LLM souverain, avec l'humain dans la boucle. Une preuve de méthode."
   ogImage="/og-prospection-automatisee.jpg"
   canonical="/demos/prospection-automatisee"
 >
@@ -60,7 +60,7 @@ const jsonLd = {
           Avant de vendre l'automatisation, je me l'applique à moi-même. Le système qui prépare ma
           prospection chaque jour repose sur un concept que j'adapte à <strong>vos outils et vos
           process</strong> : une logique métier qui relie vos applications habituelles, et un modèle
-          européen qui prépare le travail. Vous — comme moi — gardez la main :
+          européen qui prépare le travail. Vous, comme moi, gardez la main :
           <strong>le système propose, vous décidez d'appuyer sur envoyer.</strong>
         </p>
         <p class="pa-doc">
@@ -76,7 +76,7 @@ const jsonLd = {
         <p class="pa-lead pa-lead-last">
           Un CRM jamais à jour. Des relances oubliées ou envoyées deux fois. Des heures perdues à
           recopier les mêmes informations d'un outil à l'autre. La prospection ne souffre pas du manque
-          d'outils — elle souffre du fait qu'ils ne se parlent pas.
+          d'outils : elle souffre du fait qu'ils ne se parlent pas.
         </p>
       </div>
     </section>
@@ -84,7 +84,7 @@ const jsonLd = {
     <!-- C. Ce que j'ai construit (le flux) -->
     <section class="pa-section section-alt" aria-labelledby="pa-flux-title">
       <div class="container">
-        <h2 id="pa-flux-title" class="pa-h2">Une chaîne, pas un gadget</h2>
+        <h2 id="pa-flux-title" class="pa-h2">Une chaîne complète, de la donnée à l'action</h2>
         <p class="pa-lead">
           Cinq maillons, une seule logique : la donnée part d'un endroit unique, l'IA prépare, l'humain
           valide. La même mécanique, quels que soient vos outils.
@@ -92,14 +92,14 @@ const jsonLd = {
         <figure class="pa-schema reveal">
           <img src="/flux_prospection_25062026.svg" alt="Chaîne par fonction : source de vérité (Notion, Airtable, Excel…) → orchestration (n8n, Make, Zapier…) → LLM souverain (modèle européen) → livrables (brief, relances) → action humaine validée." loading="lazy" decoding="async" />
           <figcaption class="pa-schema-cap">
-            Chez moi, c'est Notion + n8n. Chez vous, ce sera vos outils — la logique ne change pas.
+            Chez moi, c'est Notion + n8n. Chez vous, ce sera vos outils : la logique ne change pas.
           </figcaption>
         </figure>
         <aside class="pa-note-card">
           <p class="pa-note-kicker">Rigueur d'architecte</p>
           <p class="pa-note-body">
             Un principe que je tiens : on ne stocke pas ce qu'on peut recalculer. Les dates de relance,
-            les priorités du jour ne sont pas saisies à la main — elles se déduisent. Moins de saisie,
+            les priorités du jour ne sont pas saisies à la main : elles se déduisent. Moins de saisie,
             donc moins d'erreurs, et une seule source de vérité.
           </p>
         </aside>
@@ -145,7 +145,7 @@ const jsonLd = {
           </article>
         </div>
         <p class="pa-stack-note">
-          Rien d'exotique. Des briques que vous avez peut-être déjà — assemblées avec une intention
+          Rien d'exotique. Des briques que vous avez peut-être déjà, assemblées avec une intention
           métier. Chez moi c'est Notion + n8n ; chez vous, ce sera les vôtres.
         </p>
       </div>
@@ -154,7 +154,7 @@ const jsonLd = {
     <!-- E. Le différenciateur : human-in-the-loop -->
     <section class="pa-hil section-dark" aria-labelledby="pa-hil-title">
       <div class="container">
-        <h2 id="pa-hil-title" class="pa-hil-h2">Je n'ai pas construit un robot qui spamme.</h2>
+        <h2 id="pa-hil-title" class="pa-hil-h2">La machine prépare, je décide.</h2>
         <p class="pa-hil-body">
           J'ai construit un copilote. Chaque matin, il me prépare un brief : qui relancer, qui contacter,
           avec quel angle. Je lis, je corrige, je décide. <strong>La connexion LinkedIn, l'envoi des emails, c'est moi qui le fais, à la main.</strong> Pas d'automatisation sauvage, pas d'envoi de masse, les règles des
@@ -169,19 +169,19 @@ const jsonLd = {
       <div class="container">
         <h2 id="pa-res-title" class="pa-h2">Ce que ça me rend</h2>
         <p class="pa-lead">
-          Voici le « brief du matin » que le système me prépare. Données entièrement fictives — sociétés
+          Voici le « brief du matin » que le système me prépare. Données entièrement fictives : sociétés
           et personas inventés.
         </p>
         <div class="pa-1col reveal">
           <figure class="pa-mock">
             <div class="pa-frame-wrap">
               <iframe class="pa-frame" src="/brief_matin_mockup_25062026.html"
-                title="Aperçu — le brief du matin préparé automatiquement (données fictives)" loading="lazy" scrolling="no"></iframe>
+                title="Aperçu, le brief du matin préparé automatiquement (données fictives)" loading="lazy" scrolling="no"></iframe>
             </div>
           </figure>
         </div>
         <p class="pa-result-line">
-          Le suivi commercial — briefs, relances, mises en forme — me coûtait près de
+          Le suivi commercial (briefs, relances, mises en forme) me coûtait près de
           <strong>5 heures par semaine</strong>. Il tient aujourd'hui en quelques minutes de validation
           par jour. Et plus aucune relance oubliée ni doublon.
         </p>
@@ -193,7 +193,7 @@ const jsonLd = {
       <div class="container">
         <h2 id="pa-pont-title" class="pa-h2">La même méthode, sur vos enjeux</h2>
         <p class="pa-lead pa-lead-last">
-          Cette mécanique — source de vérité, orchestration, IA souveraine, validation humaine — je
+          Cette mécanique (source de vérité, orchestration, IA souveraine, validation humaine), je
           l'adapte à d'autres process qui vous coûtent du temps : suivi commercial, réponse aux appels
           d'offres, production de documents techniques. Le cas change, la méthode tient.
         </p>
@@ -206,7 +206,7 @@ const jsonLd = {
       <div class="container">
         <h2 class="pa-cta-title">Un process manuel qui vous coûte du temps&nbsp;?</h2>
         <p class="pa-cta-text">
-          Montrez-le moi — en 20 minutes, je vous dis honnêtement ce qui est automatisable, et ce qui
+          Montrez-le moi : en 20 minutes, je vous dis honnêtement ce qui est automatisable, et ce qui
           ne vaut pas le coup de l'être.
         </p>
         <a href={CALCOM_URL} target="_blank" rel="noopener" class="btn-cta pa-cta-btn">Réserver 20 min →</a>
@@ -218,7 +218,7 @@ const jsonLd = {
 </Layout>
 
 <style>
-  /* En-tête — pleine largeur (pas de max-width sur h1/intro), calé sur les pages /demos */
+  /* En-tête : pleine largeur (pas de max-width sur h1/intro), calé sur les pages /demos */
   .pa-header { padding: 64px 0 24px; text-align: center; }
   .pa-kicker {
     font-family: var(--font-sans);
@@ -367,7 +367,7 @@ const jsonLd = {
     margin: 28px auto 0;
   }
 
-  /* E. Human-in-the-loop — bloc à fort contraste (section-dark) */
+  /* E. Human-in-the-loop : bloc à fort contraste (section-dark) */
   .pa-hil { padding: 72px 0; text-align: center; }
   @media (max-width: 767px) { .pa-hil { padding: 52px 0; } }
   .pa-hil-h2 {
@@ -396,7 +396,7 @@ const jsonLd = {
   }
   @media (max-width: 767px) { .pa-pivot { font-size: 19px; } }
 
-  /* F. Résultat — mockup en iframe */
+  /* F. Résultat : mockup en iframe */
   .pa-1col { display: flex; justify-content: center; }
   .pa-mock { margin: 0; max-width: 700px; width: 100%; }
   .pa-frame-wrap {
@@ -421,7 +421,7 @@ const jsonLd = {
     margin: 32px auto 0;
   }
 
-  /* G. Pont — micro-CTA */
+  /* G. Pont : micro-CTA */
   .pa-microcta {
     display: inline-block;
     font-family: var(--font-sans);
@@ -434,7 +434,7 @@ const jsonLd = {
   }
   .pa-microcta:hover { border-bottom-color: var(--color-primary); }
 
-  /* H. CTA final — bandeau clair (section-alt) */
+  /* H. CTA final : bandeau clair (section-alt) */
   .pa-cta { text-align: center; }
   .pa-cta-title {
     font-family: var(--font-serif);

@@ -1,5 +1,5 @@
 ---
-// Page détail d'un cas client — /projets/<slug>. Pré-rendue au build (output static).
+// Page détail d'un cas client : /projets/<slug>. Pré-rendue au build (output static).
 // Template dans CasClientDetail.astro. OG : fallback og-projets.jpg en v1 (OG dédiées = suivi).
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
@@ -19,7 +19,7 @@ const pageUrl = `${siteUrl}/projets/${cas.slug}`;
 const description =
   cas.heroPromesse.length > 155 ? `${cas.heroPromesse.slice(0, 152).trimEnd()}…` : cas.heroPromesse;
 
-// JSON-LD GEO — TechArticle + BreadcrumbList (Person/Organization référencés par @id du Layout).
+// JSON-LD GEO : TechArticle + BreadcrumbList (Person/Organization référencés par @id du Layout).
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -47,7 +47,7 @@ const jsonLd = {
 };
 ---
 <Layout
-  title={`${cas.client} — ${cas.secteur} | Steve Deguilly`}
+  title={`${cas.client} · ${cas.secteur} · Steve Deguilly`}
   description={description}
   canonical={`/projets/${cas.slug}`}
   ogImage="/og-projets.jpg"

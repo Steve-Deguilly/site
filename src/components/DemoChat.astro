@@ -49,7 +49,7 @@ import { SUGGESTED_QUESTIONS, COPY, MAX_QUESTION_LEN, TURNSTILE_SITE_KEY } from 
   }
   @media (max-width: 767px) { .demo-chat { padding: 22px; border-radius: 12px; } }
 
-  /* Questions suggérées — grille 3 colonnes (2 lignes de 3) */
+  /* Questions suggérées : grille 3 colonnes (2 lignes de 3) */
   .demo-suggested {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -264,7 +264,7 @@ import { SUGGESTED_QUESTIONS, COPY, MAX_QUESTION_LEN, TURNSTILE_SITE_KEY } from 
           answer!.textContent = mapHttpError(res.status);
         } else {
           const data = await res.json();
-          // Markdown rendu puis sanitizé (anti-XSS conservé) — voir renderAnswer().
+          // Markdown rendu puis sanitizé (anti-XSS conservé), voir renderAnswer().
           answer!.innerHTML = renderAnswer(extractAnswer(data));
           count++;
         }

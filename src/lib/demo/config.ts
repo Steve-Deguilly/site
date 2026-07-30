@@ -52,7 +52,7 @@ export const COPY = {
   rgpd: 'Steve ne conserve rien · modèle européen (Mistral) · pas de réutilisation pour l’entraînement.',
   // Attribution scindée pour insérer un lien sur « CNIL » (cf. demo.astro).
   attributionPrefix: 'Source du document :',
-  attributionSuffix: '— Licence Ouverte.',
+  attributionSuffix: 'sous Licence Ouverte.',
   ctaPrimary: 'Réserver un échange',
   // Messages d'état/erreur affichés à l'utilisateur (rendu en textContent).
   quotaReached:

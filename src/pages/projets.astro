@@ -17,7 +17,7 @@ const jsonLd = {
 };
 ---
 <Layout
-  title="Projets livrés — 18 ans, 4 secteurs — Steve Deguilly"
+  title="Projets livrés · 18 ans, 4 secteurs · Steve Deguilly"
   description="De l'UX au comité de direction, sur 4 secteurs (média B2B, formation, e-santé, événementiel) : un aperçu des projets pilotés et livrés en 18 ans."
   canonical="/projets"
   ogImage="/og-projets.jpg"
@@ -30,16 +30,16 @@ const jsonLd = {
     <header class="page-header">
       <div class="container">
         <p class="page-kicker">Parcours · 18 ans · 4 secteurs</p>
-        <h1>Des projets livrés, pas seulement présentés.</h1>
-        <p class="page-intro">De l'UX au comité de direction, sur quatre secteurs — média B2B, formation, e-santé, événementiel — voici un aperçu des projets que j'ai pilotés et livrés en 18 ans. Le fil rouge : descendre du COPIL au déploiement, et faire passer les projets en production.</p>
+        <h1>Dix-huit ans de projets passés en production.</h1>
+        <p class="page-intro">De l'UX au comité de direction, sur quatre secteurs (média B2B, formation, e-santé, événementiel), voici un aperçu des projets que j'ai pilotés et livrés en 18 ans. Le fil rouge : descendre du COPIL au déploiement, et faire passer les projets en production.</p>
       </div>
     </header>
 
-    <!-- Cas clients en détail — 3 cartes vers /projets/<slug> -->
+    <!-- Cas clients en détail : 3 cartes vers /projets/<slug> -->
     <section class="cas-hub" aria-labelledby="cas-hub-title">
       <div class="container">
         <h2 id="cas-hub-title" class="cas-hub-title">Cas clients en détail</h2>
-        <p class="cas-hub-intro">Trois réalisations en profondeur — le défi, ce que j'ai livré, les chiffres, et ce que ça transpose à votre contexte.</p>
+        <p class="cas-hub-intro">Trois réalisations en profondeur : le défi, ce que j'ai livré, les chiffres, et ce que ça transpose à votre contexte.</p>
         <div class="cas-hub-grid">
           {casClients.map((c) => (
             <a class="cas-card" href={`/projets/${c.slug}`}>
@@ -61,7 +61,7 @@ const jsonLd = {
     <div class="container">
       <div class="parcours-head">
         <h2 class="parcours-title">Le parcours complet</h2>
-        <p class="parcours-sub">18 ans, 4 secteurs — filtrez par secteur ou compétence.</p>
+        <p class="parcours-sub">18 ans, 4 secteurs. Filtrez par secteur ou compétence.</p>
       </div>
       <section class="filters-bar" aria-label="Filtres">
         <div class="filter-row">
@@ -117,7 +117,7 @@ const jsonLd = {
               <td class="td-tags">
                 {p.tags.map((t) => <span class="tag-pill">{t}</span>)}
               </td>
-              <td class={`td-result ${p.result === '—' ? 'muted' : ''}`} set:html={p.result}></td>
+              <td class={`td-result ${!p.result ? 'muted' : ''}`} title={p.result ? undefined : 'Non communiqué'} set:html={p.result ?? ''}></td>
             </tr>
           ))}
         </tbody>
@@ -135,7 +135,7 @@ const jsonLd = {
               <div>
                 {p.tags.map((t) => <span class="tag-pill">{t}</span>)}
               </div>
-              {p.result !== '—' && <span class="card-result" set:html={p.result}></span>}
+              {p.result && <span class="card-result" set:html={p.result}></span>}
             </div>
           </article>
         ))}
@@ -143,7 +143,7 @@ const jsonLd = {
 
       <aside class="page-footer-block">
         <p>
-          * Liste non exhaustive —
+          * Liste non exhaustive :
           <a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener">me contacter pour en savoir plus</a>.
           Certains projets sont anonymisés (NDA).
         </p>
@@ -276,7 +276,7 @@ const jsonLd = {
   }
   .row-case-link:hover { text-decoration: underline; }
 
-  /* Header — style page (kicker + H1 + intro, centré) */
+  /* Header : style page (kicker + H1 + intro, centré) */
   .page-header { padding: 64px 0 32px; text-align: center; }
   .page-kicker {
     font-family: var(--font-sans);

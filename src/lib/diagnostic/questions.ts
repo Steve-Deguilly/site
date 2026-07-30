@@ -17,7 +17,7 @@ export const QUESTIONS: Question[] = [
       {
         label: 'Quelques outils SaaS isolés, peu connectés',
         points: 1,
-        hint: 'ex. un CRM, un logiciel de facturation, un Trello — chacun dans son coin, on recopie d’un outil à l’autre',
+        hint: 'ex. un CRM, un logiciel de facturation, un Trello, chacun dans son coin, on recopie d’un outil à l’autre',
       },
       {
         label: 'Un socle d’outils bien adoptés mais cloisonnés',

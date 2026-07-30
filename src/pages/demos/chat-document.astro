@@ -1,5 +1,5 @@
 ---
-// Page /demos/chat-document — démo "Chat sur document" (T5).
+// Page /demos/chat-document : démo "Chat sur document" (T5).
 // Contenu citable rendu côté serveur ; l'interactif vit dans l'îlot <DemoChat>.
 //
 // Fait partie du hub /demos. Ancienne URL /demo → redirigée 301 (public/_redirects).
@@ -12,14 +12,14 @@ import { DOC_TITLE, COPY, CALCOM_URL, CNIL_PDF_URL, GITHUB_REPO_URL } from '../.
 const siteUrl = 'https://steve-deguilly.com';
 const pageUrl = `${siteUrl}/demos/chat-document`;
 
-// JSON-LD GEO — prêt pour le jour où le noindex sautera (sans effet tant que la page est noindex).
+// JSON-LD GEO : prêt pour le jour où le noindex sautera (sans effet tant que la page est noindex).
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'WebApplication',
       '@id': `${pageUrl}/#webapp`,
-      name: 'Démo — Chat sur document',
+      name: 'Démo · Chat sur document',
       url: pageUrl,
       description:
         'Démonstration interactive : posez des questions en langage naturel sur un document (recommandations IA de la CNIL). Réponses sourcées du document, sans stockage, via un modèle européen.',
@@ -37,14 +37,14 @@ const jsonLd = {
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${siteUrl}/` },
         { '@type': 'ListItem', position: 2, name: 'Démos & POC', item: `${siteUrl}/demos/` },
-        { '@type': 'ListItem', position: 3, name: 'Démo — Chat sur document', item: `${pageUrl}/` },
+        { '@type': 'ListItem', position: 3, name: 'Démo · Chat sur document', item: `${pageUrl}/` },
       ],
     },
   ],
 };
 ---
 <Layout
-  title="Démo — Chat sur document | Steve Deguilly"
+  title="Démo · Chat sur document · Steve Deguilly"
   description="Démonstration interactive : interrogez un document en langage naturel. Réponses sourcées, sans stockage, modèle européen."
   canonical="/demos/chat-document"
 >
@@ -60,8 +60,8 @@ const jsonLd = {
         <p class="demo-kicker">Démo interactive</p>
         <h1>Posez vos questions à un document.</h1>
         <p class="demo-intro">
-          Une preuve, pas une slide. L'assistant répond <strong>uniquement</strong> à partir du document
-          chargé — s'il ne sait pas, il le dit. <br>Souverain, sans stockage, modèle européen.
+          Une preuve que vous pouvez essayer. L'assistant répond uniquement à partir du document
+          chargé : s'il ne sait pas, il le dit. <br>Souverain, sans stockage, modèle européen.
         </p>
         <p class="demo-doc">
           <span class="chip"><span class="chip-dot" aria-hidden="true"></span>Vous interrogez&nbsp;: {DOC_TITLE}</span>
@@ -82,7 +82,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- Comment ça marche — titre HTML + schéma animé (SVG servi via <img> depuis /public) -->
+    <!-- Comment ça marche : titre HTML + schéma animé (SVG servi via <img> depuis /public) -->
     <section class="demo-how section" aria-labelledby="demo-how-title">
       <div class="container">
         <h2 id="demo-how-title" class="demo-how-title">Comment fonctionne la démo</h2>
@@ -94,7 +94,7 @@ const jsonLd = {
           />
         </figure>
         <p class="demo-pipe-src">
-          Le code de cette démo est public —
+          Le code de cette démo est public :
           <a href={GITHUB_REPO_URL} target="_blank" rel="noopener">voir le dépôt GitHub →</a>
         </p>
       </div>
@@ -163,7 +163,7 @@ const jsonLd = {
   }
   .demo-cnil-link:hover { color: var(--color-primary); }
 
-  /* Comment ça marche — titre HTML + schéma pipeline (padding-block = token .section standard) */
+  /* Comment ça marche : titre HTML + schéma pipeline (padding-block = token .section standard) */
   .demo-how-title {
     font-family: var(--font-serif);
     font-size: 32px;
@@ -196,7 +196,7 @@ const jsonLd = {
     text-underline-offset: 2px;
   }
 
-  /* CTA final — bandeau clair (section-alt) */
+  /* CTA final : bandeau clair (section-alt) */
   .demo-cta { text-align: center; }
   .demo-cta-title {
     font-family: var(--font-serif);

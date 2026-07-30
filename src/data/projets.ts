@@ -5,7 +5,7 @@ export interface Projet {
   mission: string;
   secteur: 'Média B2B' | 'Formation' | 'E-santé' | 'Événementiel';
   tags: string[];
-  result: string;
+  result?: string; // absent = pas de chiffre public (case vide, cf. note NDA en bas de /projets)
   period: Period;
   caseSlug?: string; // si la ligne a un cas détaillé → lien "lire le cas" vers /projets/<caseSlug>
 }
@@ -14,7 +14,7 @@ export const projets: Projet[] = [
   {
     client: 'myMicroNutrition',
     mission:
-      "Architecture from scratch d'une plateforme SaaS sécurisée HDS/RGPD — intégration LLMs + RAG, automatisation complète des flux via n8n",
+      "Architecture from scratch d'une plateforme SaaS sécurisée HDS/RGPD : intégration LLMs + RAG, automatisation complète des flux via n8n",
     secteur: 'E-santé',
     tags: ['Architecture', 'IA', 'RGPD'],
     result: "Création d'une BU sécurisée<br>Réduction de diagnostic (45 min → 2 min)",
@@ -24,7 +24,7 @@ export const projets: Projet[] = [
   {
     client: 'Batiactu Groupe',
     mission:
-      "Pilotage de la refonte stratégique d'un site de communication vers un portail presse en ligne — diagnostic, roadmap, gouvernance, pilotage prestataires, conduite du changement",
+      "Pilotage de la refonte stratégique d'un site de communication vers un portail presse en ligne : diagnostic, roadmap, gouvernance, pilotage prestataires, conduite du changement",
     secteur: 'Média B2B',
     tags: ['Pilotage', 'Produit'],
     result: '+22% consultations<br>+14% rétention',
@@ -33,7 +33,7 @@ export const projets: Projet[] = [
   {
     client: 'GRETA France',
     mission:
-      "Refonte du SI Formation d'un acteur national — parcours pédagogiques, intégration Moodle/LTI, mise en conformité RGPD, ouverture aux Académies",
+      "Refonte du SI Formation d'un acteur national : parcours pédagogiques, intégration Moodle/LTI, mise en conformité RGPD, ouverture aux Académies",
     secteur: 'Formation',
     tags: ['Refonte SI', 'RGPD', 'Pilotage'],
     result: '+34% CA<br>150 000 users',
@@ -42,7 +42,7 @@ export const projets: Projet[] = [
   {
     client: 'EnerJ-meeting',
     mission:
-      'Conception et lancement de la BU événementielle from scratch — concept, marque, modèle économique, première édition',
+      'Conception et lancement de la BU événementielle from scratch : concept, marque, modèle économique, première édition',
     secteur: 'Événementiel',
     tags: ['Produit', 'Pilotage'],
     result: "Création d'une BU événementielle<br>1ère édition 2016",
@@ -51,16 +51,16 @@ export const projets: Projet[] = [
   {
     client: 'EnerJ-meeting',
     mission:
-      'Développement de la plateforme technique complète — 3 sites (Node.js/MongoDB), 3 apps mobiles (PWA, Android, iOS), BO client avec messagerie + prise de RDV inter-participants, CMS maison de gestion événementielle',
+      'Développement de la plateforme technique complète : 3 sites (Node.js/MongoDB), 3 apps mobiles (PWA, Android, iOS), BO client avec messagerie + prise de RDV inter-participants, CMS maison de gestion événementielle',
     secteur: 'Événementiel',
     tags: ['Architecture', 'Dev', 'Produit'],
-    result: '4 100 présents (éd. 2026)',
+    result: '4 100 visiteurs (éd. 2026)',
     period: 'xpair',
   },
   {
     client: 'EnerJ-meeting',
     mission:
-      "Développement de l'algorithme de matchmaking B2B (v1 → v3) — scoring d'affinités inter-participants, recommandations personnalisées en fin d'inscription",
+      "Développement de l'algorithme de matchmaking B2B (v1 → v3) : scoring d'affinités inter-participants, recommandations personnalisées en fin d'inscription",
     secteur: 'Événementiel',
     tags: ['Architecture', 'IA', 'Analytics'],
     result: '27 300 mises en relation',
@@ -70,16 +70,15 @@ export const projets: Projet[] = [
   {
     client: 'EnerJ-meeting',
     mission:
-      'Mise en place du CRM exposants — scoring leads, relances automatiques, validation de réception des éléments (logos, fiches produit, fonds de stand)',
+      'Mise en place du CRM exposants : scoring leads, relances automatiques, validation de réception des éléments (logos, fiches produit, fonds de stand)',
     secteur: 'Événementiel',
     tags: ['Automatisation', 'Pilotage'],
-    result: '—',
     period: 'xpair',
   },
   {
     client: 'XPair',
     mission:
-      'Développement du back-office analytics clients — intégration GA4/GTM sur toutes les propriétés, dashboards de performance en self-service pour les annonceurs B2B',
+      'Développement du back-office analytics clients : intégration GA4/GTM sur toutes les propriétés, dashboards de performance en self-service pour les annonceurs B2B',
     secteur: 'Média B2B',
     tags: ['Analytics', 'Architecture'],
     result: '8 propriétés déployées',
@@ -88,16 +87,15 @@ export const projets: Projet[] = [
   {
     client: 'XPair',
     mission:
-      'Refonte des moteurs de recherche XPair.com et Emploi.xpair.com — indexation sémantique, pertinence des résultats',
+      'Refonte des moteurs de recherche XPair.com et Emploi.xpair.com : indexation sémantique, pertinence des résultats',
     secteur: 'Média B2B',
     tags: ['Architecture', 'Produit'],
-    result: '—',
     period: 'xpair',
   },
   {
     client: 'XPair',
     mission:
-      'Mise en conformité RGPD des propriétés numériques du groupe — audit, rôle DPO délégué, documentation (7 domaines, 150 000+ abonnés)',
+      'Mise en conformité RGPD des propriétés numériques du groupe : audit, rôle DPO délégué, documentation (7 domaines, 150 000+ abonnés)',
     secteur: 'Média B2B',
     tags: ['RGPD', 'Pilotage'],
     result: '7 domaines · 150K+ abonnés',
@@ -106,7 +104,7 @@ export const projets: Projet[] = [
   {
     client: 'XPair',
     mission:
-      'Définition et mise en place du design system groupe — charte UI, composants réutilisables, guidelines équipes',
+      'Définition et mise en place du design system groupe : charte UI, composants réutilisables, guidelines équipes',
     secteur: 'Média B2B',
     tags: ['Produit', 'UX'],
     result: 'Design system v1',
@@ -124,7 +122,7 @@ export const projets: Projet[] = [
   {
     client: 'XPair',
     mission:
-      'Direction de la transformation numérique du groupe pendant 6 ans au CODIR — stratégie pluriannuelle, pilotage équipes pluridisciplinaires, budget',
+      'Direction de la transformation numérique du groupe pendant 6 ans au CODIR : stratégie pluriannuelle, pilotage équipes pluridisciplinaires, budget',
     secteur: 'Média B2B',
     tags: ['Pilotage', 'Stratégie'],
     result: 'CODIR · 6 ans',

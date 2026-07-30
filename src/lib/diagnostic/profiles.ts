@@ -1,4 +1,4 @@
-// Mini-diagnostic d'automatisation — textes des 4 profils + CTA (A3).
+// Mini-diagnostic d'automatisation : textes des 4 profils + CTA (A3).
 // Textes repris mot pour mot de la spec A3. Chaque profil = diagnostic + exactement 3 leviers + 1 CTA.
 
 import type { CTA, Profile, ProfileId } from './types';
@@ -37,7 +37,7 @@ export const PROFILES: Record<ProfileId, Profile> = {
     leviers: [
       'Cartographier vos 2-3 process les plus chronophages et automatiser ceux-là d’abord (quick wins).',
       'Connecter vos outils existants pour supprimer la ressaisie.',
-      'Viser un premier résultat mesurable en quelques semaines — pas un chantier de 12 mois.',
+      'Viser un premier résultat mesurable en quelques semaines, pas un chantier de 12 mois.',
     ],
     cta: CAL_STANDARD,
   },
@@ -63,7 +63,7 @@ export const PROFILES: Record<ProfileId, Profile> = {
     emoji: '🌱',
     title: 'Le Prudent',
     diagnostic:
-      'Pas d’urgence côté outillage, pas de douleur criante aujourd’hui. C’est une position saine — automatiser pour automatiser n’aurait aucun sens. Votre enjeu n’est pas d’agir maintenant, mais de repérer le moment où un process commencera à vous coûter cher.',
+      'Pas d’urgence côté outillage, pas de douleur criante aujourd’hui. C’est une position saine : automatiser pour automatiser n’aurait aucun sens. Votre enjeu n’est pas d’agir maintenant, mais de repérer le moment où un process commencera à vous coûter cher.',
     leviers: [
       'Identifier en amont les process qui grossiront avec votre activité.',
       'Documenter vos processus actuels : la base indispensable avant toute automatisation.',
@@ -78,7 +78,7 @@ export const PROFILES: Record<ProfileId, Profile> = {
     emoji: '📈',
     title: 'L’Optimisateur',
     diagnostic:
-      'Vous êtes bien outillés et la douleur est maîtrisée. Vous n’avez pas un problème à régler, mais une marge à aller chercher — c’est souvent là qu’on passe de « ça marche » à « ça crée un avantage ».',
+      'Vous êtes bien outillés et la douleur est maîtrisée. Vous n’avez pas un problème à régler, mais une marge à aller chercher : c’est souvent là qu’on passe de « ça marche » à « ça crée un avantage ».',
     leviers: [
       'Industrialiser ce qui fonctionne déjà : supervision, fiabilité, passage à l’échelle.',
       'Explorer un cas d’usage IA à fort levier sur votre cœur de métier.',

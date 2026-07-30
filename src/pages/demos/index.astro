@@ -1,5 +1,5 @@
 ---
-// Hub /demos — « Démos & POC ». Liste les preuves interactives et POC anonymisés.
+// Hub /demos : « Démos & POC ». Liste les preuves interactives et POC anonymisés.
 // Piloté par src/data/demos.ts : ajouter une entrée + une page src/pages/demos/<slug>.astro.
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
@@ -47,8 +47,8 @@ const jsonLd = {
 };
 ---
 <Layout
-  title="Démos & POC — des preuves, pas des slides | Steve Deguilly"
-  description="Démos interactives et preuves de concept : automatisation n8n, IA souveraine, RAG. Des preuves qu'on peut essayer plutôt que des promesses."
+  title="Démos & POC · à essayer en ligne · Steve Deguilly"
+  description="Démos interactives et preuves de concept : automatisation n8n, IA souveraine, RAG. À essayer en ligne."
   canonical="/demos"
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
@@ -59,10 +59,10 @@ const jsonLd = {
     <header class="page-header">
       <div class="container">
         <p class="page-kicker">Démos &amp; POC</p>
-        <h1>Des preuves, pas des slides.</h1>
+        <h1>Des preuves à essayer en ligne.</h1>
         <p class="page-intro">
           Je préfère montrer. Voici des démos que vous pouvez essayer en ligne et des preuves de
-          concept livrées pour de vrais besoins — anonymisées quand il le faut. Chacune illustre la
+          concept livrées pour de vrais besoins, anonymisées quand il le faut. Chacune illustre la
           même approche&nbsp;: de l'IA souveraine, de l'automatisation, et des projets qui passent en
           production.
         </p>
@@ -85,7 +85,7 @@ const jsonLd = {
 </Layout>
 
 <style>
-  /* Header — même gabarit que /projets et /maturite */
+  /* Header : même gabarit que /projets et /maturite */
   .page-header { padding: 64px 0 32px; text-align: center; }
   .page-kicker {
     font-family: var(--font-sans);

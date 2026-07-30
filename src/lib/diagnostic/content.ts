@@ -1,11 +1,11 @@
-// Mini-diagnostic — contenu éditorial CITABLE (Partie B).
+// Mini-diagnostic : contenu éditorial CITABLE (Partie B).
 // Source UNIQUE partagée par le rendu HTML (diagnostic.astro) et le JSON-LD FAQPage,
 // pour garantir que la FAQ visible et les données structurées sont strictement identiques.
 // Textes FAQ repris mot pour mot de la spec B3.
 
 /** Paragraphe d'intro autonome (~60 mots) : ce qu'est le diagnostic, pour qui, ce qu'il donne. */
 export const INTRO =
-  'Ce diagnostic gratuit situe votre organisation sur deux axes : votre maturité (vos outils et leur niveau de connexion) et votre douleur (le volume de tâches répétitives chronophages). En six questions, vous obtenez un profil parmi quatre et des leviers d’action concrets. Il s’adresse aux dirigeants de PME/ETI et aux responsables qui se demandent par où commencer pour automatiser — sans audit lourd ni jargon.';
+  'Ce diagnostic gratuit situe votre organisation sur deux axes : votre maturité (vos outils et leur niveau de connexion) et votre douleur (le volume de tâches répétitives chronophages). En six questions, vous obtenez un profil parmi quatre et des leviers d’action concrets. Il s’adresse aux dirigeants de PME/ETI et aux responsables qui se demandent par où commencer pour automatiser, sans audit lourd ni jargon.';
 
 /** Étapes « Comment ça marche » (statique, citable). */
 export const HOW_IT_WORKS: string[] = [
@@ -22,7 +22,7 @@ export interface FaqItem {
   a: string;
 }
 
-/** FAQ citable — réponses courtes, factuelles, qui portent le cadrage de Steve (spec B3, verbatim). */
+/** FAQ citable : réponses courtes, factuelles, qui portent le cadrage de Steve (spec B3, verbatim). */
 export const FAQ: FaqItem[] = [
   {
     q: 'Comment savoir si mon entreprise doit automatiser ses processus ?',
@@ -38,7 +38,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: 'Combien de temps faut-il pour automatiser un processus métier ?',
-    a: 'Un processus simple et bien cadré peut être automatisé en quelques semaines. La durée dépend moins de la technique que de la clarté du processus existant : un processus documenté s’automatise vite, un processus flou doit d’abord être cartographié. L’approche par MVP — livrer un premier résultat utile, puis itérer — réduit ce délai.',
+    a: 'Un processus simple et bien cadré peut être automatisé en quelques semaines. La durée dépend moins de la technique que de la clarté du processus existant : un processus documenté s’automatise vite, un processus flou doit d’abord être cartographié. L’approche par MVP (livrer un premier résultat utile, puis itérer) réduit ce délai.',
   },
   {
     q: 'Faut-il de l’IA pour automatiser, ou de simples outils suffisent-ils ?',

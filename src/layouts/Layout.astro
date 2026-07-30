@@ -10,8 +10,8 @@ export interface Props {
 }
 
 const {
-  title = 'Steve Deguilly — Architecte IA & Automatisation (RAG, n8n, LLMs souverains)',
-  description = "RAG souverain, n8n, LLMs sécurisés. 18 ans à automatiser les processus métier qui freinent vos équipes. Freelance — Nice, Monaco, Sophia Antipolis.",
+  title = 'Steve Deguilly · Architecte IA & Automatisation (RAG, n8n, LLMs souverains)',
+  description = "RAG souverain, n8n, LLMs sécurisés. 18 ans à automatiser les processus métier qui freinent vos équipes. Freelance · Nice, Monaco, Sophia Antipolis.",
   ogImage = '/og-image.jpg',
   canonical = Astro.url.pathname,
   noindex = false,
@@ -92,7 +92,7 @@ const umamiDomains = 'steve-deguilly.com';
     />
   </noscript>
 
-  <!-- JSON-LD — entités globales (Person + Organization), référencées par @id sur toutes les pages -->
+  <!-- JSON-LD : entités globales (Person + Organization), référencées par @id sur toutes les pages -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
@@ -196,7 +196,7 @@ const umamiDomains = 'steve-deguilly.com';
     });
   </script>
 
-  <!-- Umami — analytics d'events, cookieless (chargé seulement si PUBLIC_UMAMI_WEBSITE_ID est défini) -->
+  <!-- Umami : analytics d'events, cookieless (chargé seulement si PUBLIC_UMAMI_WEBSITE_ID est défini) -->
   {umamiWebsiteId && (
     <script defer src={umamiSrc} data-website-id={umamiWebsiteId} data-domains={umamiDomains}></script>
   )}

@@ -1,5 +1,5 @@
 ---
-// Page /maturite (« Test de maturité ») — Partie B : wrapper éditorial + SEO + GEO + FAQ + bloc preuve.
+// Page /maturite (« Test de maturité »), Partie B : wrapper éditorial + SEO + GEO + FAQ + bloc preuve.
 // ⚠ Contenu citable (intro, "comment ça marche", FAQ) = rendu côté serveur, HORS de l'îlot JS.
 //    Le quiz (DiagnosticQuiz) est un îlot interactif hydraté par-dessus.
 //    Interne (module lib/diagnostic/ + events analytics diagnostic_*) volontairement inchangé.
@@ -12,7 +12,7 @@ import { INTRO, HOW_IT_WORKS, FAQ } from '../lib/diagnostic/content';
 const siteUrl = 'https://steve-deguilly.com';
 const pageUrl = `${siteUrl}/maturite`;
 
-// ── JSON-LD @graph (GEO) — rendu statique dans le <head> via slot="head" ──
+// ── JSON-LD @graph (GEO) : rendu statique dans le <head> via slot="head" ──
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -52,7 +52,7 @@ const jsonLd = {
 };
 ---
 <Layout
-  title="Test de maturité (automatisation) gratuit — Steve Deguilly"
+  title="Test de maturité (automatisation) gratuit · Steve Deguilly"
   description="Évaluez en 6 questions la maturité et la douleur de votre organisation face à l'automatisation. Profil et leviers d'action concrets. Gratuit, sans email."
   canonical="/maturite"
   ogImage="/og-maturite.jpg"
@@ -83,7 +83,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- Le quiz (îlot interactif) — son CTA résultat clôt le parcours -->
+    <!-- Le quiz (îlot interactif) : son CTA résultat clôt le parcours -->
     <section class="diag-quiz-section" aria-label="Questionnaire">
       <div class="container">
         <DiagnosticQuiz />
