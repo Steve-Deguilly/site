@@ -6,17 +6,38 @@ import PourQui from '../components/PourQui.astro';
 import DomainesIntervention from '../components/DomainesIntervention.astro';
 import Approche from '../components/Approche.astro';
 import CasConcrets from '../components/CasConcrets.astro';
+import Testimonial from '../components/Testimonial.astro';
 import APropos from '../components/APropos.astro';
 import DiagnosticTeaser from '../components/DiagnosticTeaser.astro';
 import DemosTeaser from '../components/DemosTeaser.astro';
 import CTAFinal from '../components/CTAFinal.astro';
 import Footer from '../components/Footer.astro';
+
+const siteUrl = 'https://steve-deguilly.com';
+// Témoignage Pierre Garcia — recommandation LinkedIn publique (08/07/2026, réutilisation accordée).
+// Verbatim, extrait home. Review sans reviewRating (aucune note donnée : on n'en invente pas).
+const pgarciaQuote =
+  "Je suis médecin. Il a construit la plateforme e-santé sur laquelle je m’appuie : traitement des dossiers automatisé, données de santé gérées sérieusement (conforme HDS). Ce qui me prenait 45 minutes par dossier m’en prend 2.";
+const reviewJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Review',
+  '@id': `${siteUrl}/#review-pgarcia`,
+  itemReviewed: { '@id': `${siteUrl}/#organization` },
+  author: {
+    '@type': 'Person',
+    name: 'Pierre Garcia',
+    sameAs: 'https://www.linkedin.com/in/pierre-garcia-918779320/',
+  },
+  datePublished: '2026-07-08',
+  reviewBody: pgarciaQuote,
+};
 ---
 <Layout
   title="Steve Deguilly · Architecte IA & Automatisation freelance"
   description="RAG souverain, n8n, LLMs sécurisés. 18 ans à automatiser les processus métier qui freinent vos équipes. Freelance · Nice, Monaco, Sophia Antipolis."
   canonical="/"
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(reviewJsonLd)} />
   <Navbar />
   <main>
     <Hero />
@@ -24,6 +45,16 @@ import Footer from '../components/Footer.astro';
     <DomainesIntervention />
     <Approche />
     <CasConcrets />
+    <section class="section" aria-label="Témoignage client">
+      <div class="container">
+        <Testimonial
+          paragraphs={[pgarciaQuote]}
+          author="Pierre Garcia"
+          role="médecin, directeur scientifique de myMicroNutrition"
+          sourceUrl="https://www.linkedin.com/in/pierre-garcia-918779320/"
+        />
+      </div>
+    </section>
     <APropos />
     <section class="section home-teasers" aria-label="Outils gratuits">
       <div class="container">

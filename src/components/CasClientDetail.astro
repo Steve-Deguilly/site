@@ -121,6 +121,13 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
   </div>
 </article>
 
+<!-- Témoignage (optionnel, injecté par la page via slot) -->
+{Astro.slots.has('testimonial') && (
+  <section class="cas-testi">
+    <div class="container"><slot name="testimonial" /></div>
+  </section>
+)}
+
 <!-- 10. CTA partagé -->
 <CTAFinal />
 
@@ -392,4 +399,7 @@ const defiParagraphs = cas.defi.split('\n\n').map((p) => p.trim()).filter(Boolea
     text-decoration: none;
   }
   .cas-retour a:hover { color: var(--color-primary); }
+
+  /* Témoignage optionnel — bande avant le CTA */
+  .cas-testi { padding: 40px 0 8px; }
 </style>

@@ -5,6 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import CasClientDetail from '../../components/CasClientDetail.astro';
+import Testimonial from '../../components/Testimonial.astro';
 import { casClients } from '../../data/casClients';
 
 export function getStaticPaths() {
@@ -18,6 +19,27 @@ const pageUrl = `${siteUrl}/projets/${cas.slug}`;
 // Description SEO : la promesse héro, tronquée proprement si trop longue.
 const description =
   cas.heroPromesse.length > 155 ? `${cas.heroPromesse.slice(0, 152).trimEnd()}…` : cas.heroPromesse;
+
+// Témoignage Pierre Garcia (recommandation LinkedIn 08/07/2026, réutilisation accordée) — MMN uniquement.
+// Verbatim, 3 premiers paragraphes. On coupe (4e paragraphe retiré), on ne reformule pas.
+const isMMN = cas.slug === 'mymicronutrition';
+const pgarciaParagraphs = [
+  "Steve, c’est le genre de personne à qui tu décris un besoin à moitié, et qui revient quelques jours plus tard avec l’outil qui tourne.",
+  "Je suis médecin. Il a construit la plateforme e-santé sur laquelle je m’appuie : traitement des dossiers automatisé, données de santé gérées sérieusement (conforme HDS). Ce qui me prenait 45 minutes par dossier m’en prend 2. Et quand un truc doit bouger, c’est réglé dans la journée — sans que j’aie à comprendre la technique.",
+  "Ce que j’apprécie le plus : il comprend vite, pas de blabla, et on peut compter sur lui. C’est rare de trouver quelqu’un d’aussi carré sur la donnée et avec qui c’est aussi simple de bosser.",
+];
+const pgarciaReview = {
+  '@type': 'Review',
+  '@id': `${pageUrl}/#review-pgarcia`,
+  itemReviewed: { '@id': `${siteUrl}/#organization` },
+  author: {
+    '@type': 'Person',
+    name: 'Pierre Garcia',
+    sameAs: 'https://www.linkedin.com/in/pierre-garcia-918779320/',
+  },
+  datePublished: '2026-07-08',
+  reviewBody: pgarciaParagraphs.join('\n\n'),
+};
 
 // JSON-LD GEO : TechArticle + BreadcrumbList (Person/Organization référencés par @id du Layout).
 const jsonLd = {
@@ -43,6 +65,7 @@ const jsonLd = {
         { '@type': 'ListItem', position: 3, name: cas.client, item: `${pageUrl}/` },
       ],
     },
+    ...(isMMN ? [pgarciaReview] : []),
   ],
 };
 ---
@@ -56,7 +79,18 @@ const jsonLd = {
 
   <Navbar />
   <main>
-    <CasClientDetail cas={cas} />
+    <CasClientDetail cas={cas}>
+      {isMMN && (
+        <Testimonial
+          slot="testimonial"
+          paragraphs={pgarciaParagraphs}
+          author="Pierre Garcia"
+          role="médecin, directeur scientifique de myMicroNutrition"
+          sourceUrl="https://www.linkedin.com/in/pierre-garcia-918779320/"
+          sourceLabel="Lire la recommandation complète sur LinkedIn"
+        />
+      )}
+    </CasClientDetail>
   </main>
   <Footer />
 </Layout>
