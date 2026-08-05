@@ -18,6 +18,7 @@
   --color-text-on-dark: #E8E1D0;      /* high-contrast cream for text on primary-deep (~10:1) */
   --color-text-on-dark-muted: #BBC5BD; /* AA-compliant muted on primary-deep (~5.5:1) */
   --color-border: #DCD5C7;
+  --color-input-bg: #FFFFFF;          /* blanc pur : fond des champs de saisie (contraste avec le crème) */
 
   /* Fonts */
   --font-serif: 'Fraunces', Georgia, serif;
