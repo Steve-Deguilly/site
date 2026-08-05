@@ -160,7 +160,9 @@ const umamiDomains = 'steve-deguilly.com';
         "url": "https://batiment-ia.fr/",
         "description": "Observatoire de l'IA appliquée au BTP et au CVC : outils testables, annuaire d'outils analysés et veille praticien.",
         "founder": { "@id": `${siteUrl}/#person` },
-        "publisher": { "@id": `${siteUrl}/#organization` }
+        // parentOrganization, pas publisher : publisher a pour domaine CreativeWork,
+        // il serait inerte sur une Organization. Bâtiment IA est éditée par Creastory Conseil.
+        "parentOrganization": { "@id": `${siteUrl}/#organization` }
       },
       {
         "@type": "WebSite",
