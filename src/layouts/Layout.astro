@@ -151,6 +151,18 @@ const umamiDomains = 'steve-deguilly.com';
         ]
       },
       {
+        // Pont d'entité vers batiment-ia.fr : l'@id est celui que BAI déclare lui-même
+        // (vérifié le 05/08/2026), c'est lui qui fait converger les deux graphes.
+        // Pas de sameAs sur le Person : BAI est un site que Steve édite, pas un profil de Steve.
+        "@type": "Organization",
+        "@id": "https://batiment-ia.fr/#organization",
+        "name": "Bâtiment IA",
+        "url": "https://batiment-ia.fr/",
+        "description": "Observatoire de l'IA appliquée au BTP et au CVC : outils testables, annuaire d'outils analysés et veille praticien.",
+        "founder": { "@id": `${siteUrl}/#person` },
+        "publisher": { "@id": `${siteUrl}/#organization` }
+      },
+      {
         "@type": "WebSite",
         "@id": `${siteUrl}/#website`,
         "url": siteUrl,
