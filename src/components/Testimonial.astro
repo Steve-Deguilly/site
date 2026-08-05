@@ -11,6 +11,8 @@ interface Props {
   sourceLabel?: string;
   /** Base du portrait sans extension : le composant sert <base>.avif puis <base>.webp. */
   photo?: string;
+  /** Version plus discrète (texte + padding réduits), pour les pages où le témoignage est secondaire. */
+  compact?: boolean;
 }
 const {
   paragraphs,
@@ -19,9 +21,10 @@ const {
   sourceUrl,
   sourceLabel = 'Voir la recommandation sur LinkedIn',
   photo,
+  compact = false,
 } = Astro.props;
 ---
-<figure class:list={['testi', 'reveal', !photo && 'testi-nophoto']}>
+<figure class:list={['testi', 'reveal', !photo && 'testi-nophoto', compact && 'testi-compact']}>
   {photo && (
     <div class="testi-portrait">
       <picture>
@@ -61,6 +64,17 @@ const {
     margin: 0;
   }
   .testi-nophoto { grid-template-columns: minmax(0, 1fr); }
+
+  /* Version compacte (pages cas) : plus discrète que la home */
+  .testi-compact {
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 32px;
+    padding: 36px 40px;
+  }
+  .testi-compact.testi-nophoto { grid-template-columns: minmax(0, 1fr); }
+  .testi-compact .testi-portrait img { width: 108px; height: 108px; }
+  .testi-compact .testi-quote p { font-size: 18px; margin-bottom: 12px; }
+  .testi-compact .testi-attr { margin-top: 22px; padding-top: 16px; }
 
   .testi-portrait img {
     display: block;
