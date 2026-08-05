@@ -1,78 +1,129 @@
 ---
 // Témoignage client — citation verbatim (on coupe, on ne reformule pas).
 // Utilisé sur la home (extrait) et /projets/mymicronutrition (3 paragraphes).
-// CSS 100 % tokens. Le JSON-LD Review est porté par la page, pas par ce composant.
+// Bloc pleine largeur de .container, fond vert profond. CSS 100 % tokens.
+// Le JSON-LD Review est porté par la page, pas par ce composant.
 interface Props {
   paragraphs: string[];
   author: string;
   role: string;
   sourceUrl: string;
   sourceLabel?: string;
+  /** Base du portrait sans extension : le composant sert <base>.avif puis <base>.webp. */
+  photo?: string;
 }
-const { paragraphs, author, role, sourceUrl, sourceLabel = 'Voir la recommandation sur LinkedIn' } = Astro.props;
+const {
+  paragraphs,
+  author,
+  role,
+  sourceUrl,
+  sourceLabel = 'Voir la recommandation sur LinkedIn',
+  photo,
+} = Astro.props;
 ---
-<figure class="testi reveal">
-  <blockquote class="testi-quote">
-    {paragraphs.map((p) => <p>{p}</p>)}
-  </blockquote>
-  <figcaption class="testi-attr">
-    <span class="testi-author">{author}</span>
-    <span class="testi-role">{role}</span>
-    <a href={sourceUrl} target="_blank" rel="noopener" class="testi-link">{sourceLabel} →</a>
-  </figcaption>
+<figure class:list={['testi', 'reveal', !photo && 'testi-nophoto']}>
+  {photo && (
+    <div class="testi-portrait">
+      <picture>
+        <source srcset={`${photo}.avif`} type="image/avif" />
+        <img
+          src={`${photo}.webp`}
+          alt={`Portrait de ${author}`}
+          width="152"
+          height="152"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+    </div>
+  )}
+  <div class="testi-body">
+    <blockquote class="testi-quote">
+      {paragraphs.map((p) => <p>{p}</p>)}
+    </blockquote>
+    <figcaption class="testi-attr">
+      <span class="testi-author">{author}</span>
+      <span class="testi-role">{role}</span>
+      <a href={sourceUrl} target="_blank" rel="noopener" class="testi-link">{sourceLabel} →</a>
+    </figcaption>
+  </div>
 </figure>
 
 <style>
   .testi {
-    max-width: 760px;
-    margin: 0 auto;
-    background: var(--color-surface-warm);
-    border: 1px solid var(--color-border);
-    border-left: 3px solid var(--color-primary);
-    border-radius: 14px;
-    padding: 32px 36px;
+    display: grid;
+    grid-template-columns: 152px minmax(0, 1fr);
+    gap: 44px;
+    align-items: start;
+    background: var(--color-primary-deep);
+    border-radius: 16px;
+    padding: 48px 56px;
+    margin: 0;
   }
+  .testi-nophoto { grid-template-columns: minmax(0, 1fr); }
+
+  .testi-portrait img {
+    display: block;
+    width: 152px;
+    height: 152px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
   .testi-quote { margin: 0; }
   .testi-quote p {
     font-family: var(--font-serif);
-    font-size: 20px;
+    font-size: 23px;
     line-height: 1.55;
     letter-spacing: -0.01em;
-    color: var(--color-text-primary);
-    margin: 0 0 14px;
+    color: var(--color-text-on-dark); /* crème sur vert profond, ~10:1 ✓ */
+    margin: 0 0 16px;
   }
   .testi-quote p:last-child { margin-bottom: 0; }
+
   .testi-attr {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 18px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(245, 241, 234, 0.15);
   }
   .testi-author {
     font-family: var(--font-sans);
     font-size: 15px;
     font-weight: 600;
-    color: var(--color-text-primary);
+    color: var(--color-text-on-dark);
   }
   .testi-role {
     font-family: var(--font-sans);
     font-size: 13px;
-    color: var(--color-text-muted);
+    color: var(--color-text-on-dark-muted); /* ~5.5:1 ✓ AA */
   }
   .testi-link {
     font-family: var(--font-sans);
     font-size: 13px;
     font-weight: 500;
-    color: var(--color-accent-cta);
+    color: var(--color-accent-cta-on-dark);
     text-decoration: none;
-    margin-top: 10px;
+    margin-left: auto;
     transition: color 150ms;
   }
-  .testi-link:hover { color: var(--color-accent-cta-hover); }
-  @media (max-width: 767px) {
-    .testi { padding: 24px 22px; }
-    .testi-quote p { font-size: 17px; }
+  .testi-link:hover { color: var(--color-bg-cream); }
+
+  @media (max-width: 900px) {
+    .testi {
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 24px;
+      padding: 32px 28px;
+    }
+    .testi-portrait img { width: 96px; height: 96px; }
+    .testi-quote p { font-size: 18px; }
+    .testi-link { margin-left: 0; }
+  }
+  @media (max-width: 600px) {
+    .testi { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   }
 </style>

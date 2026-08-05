@@ -45,13 +45,14 @@ const reviewJsonLd = {
     <DomainesIntervention />
     <Approche />
     <CasConcrets />
-    <section class="section" aria-label="Témoignage client">
+    <section class="section home-testi" aria-label="Témoignage client">
       <div class="container">
         <Testimonial
           paragraphs={[pgarciaQuote]}
           author="Pierre Garcia"
           role="médecin, directeur scientifique de myMicroNutrition"
           sourceUrl="https://www.linkedin.com/in/pierre-garcia-918779320/"
+          photo="/portrait-pierre-garcia-320"
         />
       </div>
     </section>
@@ -70,6 +71,10 @@ const reviewJsonLd = {
 </Layout>
 
 <style>
+  /* Témoignage : la section précédente (Cas concrets) porte déjà 96px de padding bas,
+     on ne les double pas. Le bloc respire par sa propre marge intérieure. */
+  .home-testi { padding-top: 8px; }
+
   /* Teasers Diagnostic + Démos & POC côte à côte (2 colonnes), empilés en mobile. */
   .home-teasers-grid {
     display: grid;
