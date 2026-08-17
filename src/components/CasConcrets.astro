@@ -40,15 +40,27 @@ const cas = [
     italicNote: 'Créé, exploité et fait évoluer sur 8 ans',
     body: "Conception et développement from scratch : 3 sites (Node.js/MongoDB), 3 apps mobiles (PWA, Android, iOS), BO client avec messagerie + prise de RDV, CMS maison, algorithme de matchmaking propriétaire.",
   },
+  {
+    chip: 'Média B2B · IA appliquée au BTP',
+    status: 'En cours',
+    statusType: 'ongoing',
+    title: "Bâtiment IA, l'observatoire que j'édite",
+    metricNum: '3 outils',
+    metricLabel: 'publiés en ligne · 2 testables sans inscription',
+    italicNote: 'Lancé en 2026 · même socle technique que mes missions',
+    body: "Un observatoire de l'IA appliquée au BTP et au génie climatique, que j'édite et que je développe : actualités analysées, dossiers de fond, et des outils que n'importe qui peut essayer. Le terrain où je teste en public ce que je déploie ensuite chez mes clients.",
+    wide: true,
+    link: { href: 'https://batiment-ia.fr/', label: 'Voir Bâtiment IA' },
+  },
 ];
 ---
 <section class="section" id="cas-concrets" aria-labelledby="cas-title">
   <div class="container">
     <p class="section-tag">Transformations livrées</p>
-    <h2 class="section-h2" id="cas-title">Quatre transformations, leurs résultats chiffrés.</h2>
+    <h2 class="section-h2" id="cas-title">Cinq transformations, leurs résultats chiffrés.</h2>
     <div class="cas-grid reveal">
       {cas.map((c) => (
-        <article class="cas-card">
+        <article class={`cas-card${c.wide ? ' cas-card-wide' : ''}`}>
           <div class="cas-header">
             <span class="cas-chip">{c.chip}</span>
             <span class={`cas-status ${c.statusType}`}>{c.status}</span>
@@ -60,6 +72,9 @@ const cas = [
           </div>
           <p class="cas-italic">{c.italicNote}</p>
           <p class="cas-body">{c.body}</p>
+          {c.link && (
+            <a class="cas-card-link" href={c.link.href} target="_blank" rel="noopener">{c.link.label} ↗</a>
+          )}
         </article>
       ))}
     </div>
@@ -87,6 +102,21 @@ const cas = [
     transition: transform 200ms ease-out;
   }
   .cas-card:hover { transform: translateY(-4px); }
+
+  .cas-card-wide { grid-column: 1 / -1; }
+  @media (max-width: 1023px) { .cas-card-wide { grid-column: auto; } }
+
+  .cas-card-link {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-accent-cta);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms;
+    align-self: flex-start;
+  }
+  .cas-card-link:hover { border-bottom-color: var(--color-accent-cta); }
 
   .cas-header {
     display: flex;

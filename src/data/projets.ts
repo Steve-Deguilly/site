@@ -12,6 +12,15 @@ export interface Projet {
 
 export const projets: Projet[] = [
   {
+    client: 'Bâtiment IA',
+    mission:
+      "Édition d'un observatoire B2B de l'IA appliquée au BTP et au génie climatique : ligne éditoriale, veille automatisée, puis développement et mise en ligne des outils métier (pré-contrôle réglementaire sourcé, comparateur d'indices de plans)",
+    secteur: 'Média B2B',
+    tags: ['Produit', 'IA', 'Automatisation', 'Dev'],
+    result: '3 outils publiés<br>2 testables en ligne',
+    period: 'creastory',
+  },
+  {
     client: 'myMicroNutrition',
     mission:
       "Architecture from scratch d'une plateforme SaaS sécurisée HDS/RGPD : intégration LLMs + RAG, automatisation complète des flux via n8n",

@@ -9,7 +9,7 @@
 // L'ordre de `demos[]` = ordre d'affichage à l'intérieur de chaque catégorie.
 
 /** Rubriques métier du hub. Ajouter une catégorie = une entrée ici. */
-export type CategoryId = 'relation-client' | 'automatisation-metier' | 'assistant-interne';
+export type CategoryId = 'outils-en-ligne' | 'relation-client' | 'automatisation-metier' | 'assistant-interne';
 
 export interface Category {
   id: CategoryId;
@@ -20,6 +20,11 @@ export interface Category {
 }
 
 export const categories: Category[] = [
+  {
+    id: 'outils-en-ligne',
+    label: 'Outils en ligne',
+    blurb: "Des outils métier que je développe et publie sur Bâtiment IA, l'observatoire que j'édite. Deux s'essaient en ligne sans inscription, le troisième sort d'un chantier réel.",
+  },
   {
     id: 'assistant-interne',
     label: 'Assistant interne',
@@ -37,7 +42,7 @@ export const categories: Category[] = [
   },
 ];
 
-/** Nature : preuve de concept (POC) ou MVP client réel déployé. Le côté "testable en direct" est porté par `live` (cf. pill « Testez-moi »), pas par le type. */
+/** Nature : preuve de concept (POC) ou service réellement déployé et exploité (MVP), pour un client ou en propre. Le côté "testable en direct" est porté par `live` (cf. pill « Testez-moi »), pas par le type. */
 export type DemoType = 'POC' | 'MVP';
 
 export interface DemoEntry {
@@ -62,6 +67,41 @@ export interface DemoEntry {
 }
 
 export const demos: DemoEntry[] = [
+  {
+    slug: 'bai-comparateur-indices',
+    category: 'outils-en-ligne',
+    type: 'MVP',
+    live: true,
+    tag: 'Lecture de plans · déterministe',
+    title: "Comparateur d'indices de plans",
+    pitch:
+      "Vous déposez deux indices d'un même jeu de plans, vous obtenez ce qui a bougé : quantités, repères, planches sans équivalent, cartouche mis à jour. Lecture déterministe du PDF, sans modèle de langage et sans OCR. Les plans sont effacés après le relevé.",
+    cta: 'Essayer sur Bâtiment IA',
+    href: 'https://batiment-ia.fr/outils/comparaison-indices-plans/',
+  },
+  {
+    slug: 'bai-pre-controle-re2020',
+    category: 'outils-en-ligne',
+    type: 'MVP',
+    live: true,
+    tag: 'RAG réglementaire · Mistral + Qdrant',
+    title: 'Pré-contrôle RE2020',
+    pitch:
+      "La mise en ligne du POC détaillé dans la rubrique Assistant interne. Vous posez une question sur l'Ic construction, vous obtenez la valeur applicable à votre date de permis et sa source exacte, ou un « non couvert » assumé. Corpus : 18 fiches du guide Cerema.",
+    cta: 'Essayer sur Bâtiment IA',
+    href: 'https://batiment-ia.fr/outils/pre-controle-re2020/',
+  },
+  {
+    slug: 'bai-rapprochement-dpgf',
+    category: 'outils-en-ligne',
+    type: 'POC',
+    tag: 'Chantier réel · contractant général',
+    title: 'Rapprochement devis et DPGF',
+    pitch:
+      "Construit avec une conductrice de travaux chez un contractant général, sur une affaire d'aménagement tertiaire : reporter chaque ligne de devis sur la bonne ligne de la trame, signaler les métrés modifiés et les postes hors trame. Mesuré sur 9 devis et 46 lignes, aucune ligne posée au mauvais endroit. Accès sur demande.",
+    cta: 'Voir le chantier',
+    href: 'https://batiment-ia.fr/outils/consolidation-dpgf/',
+  },
   {
     slug: 'enerj-recommandation',
     category: 'relation-client',
@@ -91,7 +131,7 @@ export const demos: DemoEntry[] = [
     tag: 'RAG réglementaire · Mistral + Qdrant',
     title: 'Conformité RE2020 : l’assistant qui refuse d’inventer',
     pitch:
-      "Un assistant de conformité qui cite le texte en vigueur mot pour mot, sait quel seuil s’applique selon la date du permis, et dit « non couvert » plutôt que d’improviser. Un second agent re-vérifie chaque affirmation avant de laisser passer.",
+      "Un assistant de conformité qui cite le texte en vigueur mot pour mot, sait quel seuil s’applique selon la date du permis, et dit « non couvert » plutôt que d’improviser. Un second agent re-vérifie chaque affirmation avant de laisser passer. Sa version en ligne est dans la rubrique Outils en ligne.",
     cta: 'Voir le POC',
   },
   {

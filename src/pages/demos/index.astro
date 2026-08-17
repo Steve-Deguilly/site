@@ -32,7 +32,9 @@ const jsonLd = {
         '@type': 'ListItem',
         position: i + 1,
         name: d.title,
-        url: `${siteUrl}/demos/${d.slug}`,
+        url: d.href
+          ? (d.href.startsWith('http') ? d.href : `${siteUrl}${d.href}`)
+          : `${siteUrl}/demos/${d.slug}`,
       })),
     },
     {
@@ -64,7 +66,8 @@ const jsonLd = {
           Je préfère montrer. Voici des démos que vous pouvez essayer en ligne et des preuves de
           concept livrées pour de vrais besoins, anonymisées quand il le faut. Chacune illustre la
           même approche&nbsp;: de l'IA souveraine, de l'automatisation, et des projets qui passent en
-          production.
+          production. Certains de ces outils sont publiés sur Bâtiment IA, l'observatoire de l'IA
+          appliquée au BTP que j'édite.
         </p>
       </div>
     </header>

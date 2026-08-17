@@ -13,8 +13,15 @@ const items = demosOf(cat.id);
     <h2 class="demos-cat-title">{cat.label}</h2>
     <p class="demos-cat-desc">{cat.blurb}</p>
     <div class="demos-grid">
-      {items.map((d) => (
-        <a class="demo-card" href={d.href ?? `/demos/${d.slug}`}>
+      {items.map((d) => {
+        const isExternal = (d.href ?? '').startsWith('http');
+        return (
+        <a
+          class="demo-card"
+          href={d.href ?? `/demos/${d.slug}`}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener' : undefined}
+        >
           <span class="demo-card-head">
             <span class={`demo-card-type type-${d.type === 'MVP' ? 'mvp' : 'poc'}`}>{d.type}</span>
             {d.live && <span class="demo-card-live">Testez-moi</span>}
@@ -25,9 +32,10 @@ const items = demosOf(cat.id);
           </span>
           <span class="demo-card-title">{d.title}</span>
           <span class="demo-card-pitch">{d.pitch}</span>
-          <span class="demo-card-cta">{d.cta} →</span>
+          <span class="demo-card-cta">{d.cta}{isExternal ? ' ↗' : ' →'}</span>
         </a>
-      ))}
+        );
+      })}
     </div>
   </div>
 )}
