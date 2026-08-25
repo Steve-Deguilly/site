@@ -408,7 +408,297 @@ const QUESTIONS = [
 `Include both values, annotated with source attribution and publication dates, and let the coordinator decide how to reconcile them before synthesis.`,
 `Report the 41% figure, since the more recent study supersedes the older industry report.`,
 `Report the average of the two figures (37.5%), citing both sources as joint support for the estimate.`,
-`Report the academic figure, since peer-reviewed sources outrank industry reports in credibility.`], correct:0, rationale:`Conflicting statistics from credible sources should be preserved and annotated with attribution and dates — not resolved by recency or authority heuristics, which discard information. The two figures may measure different populations or timeframes; publication dates prevent temporal differences from being misread as contradictions.`}
+`Report the academic figure, since peer-reviewed sources outrank industry reports in credibility.`], correct:0, rationale:`Conflicting statistics from credible sources should be preserved and annotated with attribution and dates — not resolved by recency or authority heuristics, which discard information. The two figures may measure different populations or timeframes; publication dates prevent temporal differences from being misread as contradictions.`},
+{domain:0, official:false, q:`Your agentic loop calls the API, then decides whether to keep going. Which condition should drive the decision to execute tools and iterate again?`, options:[
+`The response carries stop_reason "tool_use", so you execute the requested tools and send their results back for the next iteration.`,
+`The response text contains a phrase such as "let me check that", which signals the model intends to use a tool.`,
+`A fixed iteration counter has not yet reached its cap, so another turn is allowed.`,
+`The response contains no text block, which indicates the model is still working rather than answering.`], correct:0, rationale:`The loop is driven by stop_reason: continue on "tool_use", terminate on "end_turn". Parsing natural language signals, relying on an iteration cap as the primary stopping mechanism, or inspecting text presence are the three anti-patterns the blueprint names explicitly.`},
+{domain:0, official:false, q:`After executing the tools Claude requested, what must happen before the next API call for the loop to work correctly?`, options:[
+`The tool results are appended to the conversation history so the model can reason about them when choosing the next action.`,
+`The tool results are summarised into a single sentence and placed in the system prompt.`,
+`The conversation is reset and only the original user request plus the final tool result are sent.`,
+`The tool results are stored server-side and referenced by identifier, since the model retains them between calls.`], correct:0, rationale:`Tool results must be added to the conversation as messages: that is how the model incorporates new information into its reasoning. The model retains nothing between requests, so resetting or referencing results externally breaks the loop.`},
+{domain:0, official:false, q:`You add an iteration cap of 10 to your agentic loop as a safety net. A reviewer objects to how you are using it. What is the legitimate role of that cap?`, options:[
+`A backstop against runaway loops, while stop_reason remains the actual termination signal.`,
+`The primary termination mechanism, since stop_reason is unreliable in long conversations.`,
+`A cost control that should be tuned down until most tasks finish exactly at the cap.`,
+`A signal to the model, passed in the system prompt, telling it how many tools it may call.`], correct:0, rationale:`An arbitrary iteration cap as the primary stopping mechanism is a named anti-pattern. It is acceptable only as a backstop; correct termination comes from stop_reason "end_turn".`},
+{domain:0, official:false, q:`You spent a long session mapping a legacy payment module with Claude Code. Two days later the team merged a refactor of that module and you want to continue the investigation. What is the most reliable approach?`, options:[
+`Start a fresh session with a structured summary of the prior findings, since the earlier tool results no longer reflect the code on disk.`,
+`Resume the named session with --resume and continue asking questions, since the prior analysis is already loaded.`,
+`Resume the session and immediately run /compact so the stale results are compressed rather than dropped.`,
+`Fork the earlier session so both the pre-refactor and post-refactor views stay available.`], correct:0, rationale:`When prior tool results are stale, injecting a structured summary into a fresh session is more reliable than resuming with outdated file contents. Resumption is the right choice when prior context is mostly still valid.`},
+{domain:0, official:false, q:`You resume a named session with --resume after changing three files that Claude analysed earlier. The rest of the codebase is untouched. What should you do first?`, options:[
+`Tell the session which specific files changed so it re-analyses only those, rather than re-exploring everything.`,
+`Ask it to re-read the entire module to be safe, since you cannot know what it still remembers.`,
+`Clear the context and paste the three diffs as the only starting material.`,
+`Start a new session, since any file change invalidates a resumed one.`], correct:0, rationale:`Informing a resumed session about specific file changes enables targeted re-analysis and preserves the valid parts of the prior exploration. Full re-exploration wastes context; the prior analysis is not globally invalid here.`},
+{domain:0, official:false, q:`Your team wants to compare two refactoring strategies for the same module, both starting from the codebase analysis Claude just completed. What is the appropriate mechanism?`, options:[
+`fork_session, to create independent branches from the shared analysis baseline.`,
+`Two --resume calls against the same session name, run one after the other.`,
+`A subagent per strategy, each re-exploring the codebase from scratch.`,
+`A single session that evaluates both strategies in one conversation, to keep the comparison consistent.`], correct:0, rationale:`fork_session exists precisely to explore divergent approaches from a shared baseline. Sequential resumes contaminate the second branch with the first, and re-exploration wastes the analysis you already paid for.`},
+{domain:0, official:false, q:`Policy states that refunds above 500 dollars must go to a human. In testing, the agent occasionally processes a 780 dollar refund itself despite a clear system-prompt rule. What is the correct fix?`, options:[
+`A hook that intercepts the outgoing tool call, blocks it above the threshold, and redirects to the escalation workflow.`,
+`A stronger system prompt stating the rule twice, once at the top and once at the end.`,
+`Few-shot examples showing several above-threshold refunds being escalated.`,
+`A post-hoc audit job that flags refunds above 500 dollars for reversal the next day.`], correct:0, rationale:`When a business rule requires guaranteed compliance, hooks give a deterministic block; prompt instructions and few-shot examples have a non-zero failure rate. A next-day audit accepts the violation rather than preventing it.`},
+{domain:0, official:false, multi:true, q:`Your coordinator delegates to four subagents. Which TWO practices follow the blueprint for context passing?`, options:[
+`Include the complete findings from prior agents directly in the synthesis subagent's prompt.`,
+`Use structured formats that separate content from metadata such as source URLs and page numbers.`,
+`Rely on the subagent inheriting the coordinator's conversation history automatically.`,
+`Store findings in a shared memory the subagents read at spawn time without being told about it.`], correct:[0,1], rationale:`Subagents operate with isolated context: nothing is inherited automatically and nothing is shared implicitly between invocations. Context must be provided explicitly in the prompt, and structured formats preserve attribution through the handoff.`},
+{domain:1, official:false, q:`A single analyze_document tool is used for summarising, pulling out data points, and comparing versions. The agent frequently returns the wrong shape of output. What is the appropriate remedy?`, options:[
+`Split it into purpose-specific tools such as extract_data_points, summarize_content and compare_versions, each with a defined input and output contract.`,
+`Keep one tool and add a mode parameter with an enum of the three behaviours.`,
+`Keep one tool and describe the three behaviours in detail in the system prompt instead.`,
+`Have the agent call the tool twice and pick whichever output looks better.`], correct:0, rationale:`Generic overloaded tools produce unreliable selection and unclear contracts. The blueprint prescribes splitting them into purpose-specific tools with defined input and output contracts.`},
+{domain:1, official:false, q:`Your tool descriptions are detailed and well differentiated, yet the agent still routes document questions to the web search tool. The system prompt tells it to "search for relevant information before answering". What should you investigate first?`, options:[
+`The system prompt wording, since keyword-sensitive instructions can create unintended tool associations that override good descriptions.`,
+`The order of the tools in the tools array, since the model favours the first entries.`,
+`The temperature setting, since lower values make tool selection more deterministic.`,
+`The token count of the descriptions, since long descriptions are truncated before selection.`], correct:0, rationale:`Keyword-sensitive system prompt wording ("search") can pull the model toward a tool whose name matches, regardless of description quality. Tool ordering and temperature are not the mechanisms the blueprint identifies.`},
+{domain:1, official:false, q:`Your MCP tools currently return the string "Operation failed" for every failure. The agent retries permission errors forever and gives up on transient ones. What should the tools return instead?`, options:[
+`Structured error metadata with an errorCategory (transient, validation, permission), an isRetryable boolean, and a human-readable description.`,
+`A numeric error code the agent can look up in a table provided in the system prompt.`,
+`The raw upstream exception and stack trace, so the agent has maximum information.`,
+`A uniform failure message plus an instruction in the system prompt to retry at most twice.`], correct:0, rationale:`Uniform errors prevent appropriate recovery decisions. Structured metadata with a category and a retryable flag lets the agent retry transient failures and stop wasting attempts on non-retryable ones. Raw stack traces burn context without conveying the decision.`},
+{domain:1, official:false, q:`A refund is refused because the order is outside the 30-day window. How should the process_refund tool report this to the agent?`, options:[
+`As a structured business error with retriable set to false and a customer-friendly explanation the agent can relay.`,
+`As a transient error, so the agent retries in case the policy engine was momentarily out of date.`,
+`As a successful call returning an empty result, so the agent moves on to the next step.`,
+`As a generic failure, leaving the agent to infer the reason from the conversation.`],  correct:0, rationale:`Policy violations are business errors: not retryable, and accompanied by a customer-friendly explanation so the agent can communicate rather than retry. Marking them transient wastes attempts; returning success silently suppresses the outcome.`},
+{domain:1, official:false, q:`A search tool returns nothing. The coordinator cannot tell whether the backend was unreachable or whether the query legitimately had no matches. Why does this distinction matter?`, options:[
+`An access failure calls for a retry or an alternative approach, whereas a valid empty result is a successful query the coordinator should record as such.`,
+`Both cases should be retried, so the distinction only affects logging quality.`,
+`An empty result should always terminate the workflow, so the distinction determines the error message.`,
+`The distinction matters only for cost accounting, since failed calls are not billed.`], correct:0, rationale:`Distinguishing access failures from valid empty results is what allows the coordinator to make the right recovery decision. Conflating them causes either pointless retries or a coverage gap recorded as a real finding.`},
+{domain:1, official:false, q:`A document-analysis subagent hits a transient timeout on one of its six sources. What is the appropriate behaviour?`, options:[
+`Recover locally by retrying the transient failure, and propagate to the coordinator only what it cannot resolve, with partial results and what was attempted.`,
+`Propagate every failure to the coordinator immediately, so all error handling stays in one place.`,
+`Return the five successful sources as a complete result, since one timeout is within tolerance.`,
+`Abort the whole delegation so the coordinator can restart the subagent from scratch.`], correct:0, rationale:`Subagents implement local recovery for transient failures and propagate only unresolvable ones, including partial results and the attempted query. Silently returning partial work as complete, and terminating the workflow on a single failure, are both named anti-patterns.`},
+{domain:1, official:false, q:`Each of your four subagents has access to all 18 tools in the system, "so any of them can handle anything". Selection reliability has degraded. What is the fix?`, options:[
+`Scope each subagent to the four or five tools its role needs, adding limited cross-role tools only for high-frequency cases.`,
+`Keep all 18 tools and add a system-prompt section telling each agent which ones belong to its role.`,
+`Keep all 18 tools and set tool_choice to "any" so the model must commit to a tool.`,
+`Reduce the shared set to a single generic tool that dispatches internally to the other 17.`], correct:0, rationale:`Too many tools increases decision complexity and degrades selection. Scoped access per role is the prescribed remedy; prompt-level scoping is probabilistic, tool_choice does not address which tool, and a dispatcher recreates the overloaded-tool problem.`},
+{domain:1, official:false, q:`Your synthesis agent keeps launching its own web searches instead of synthesising what it was given, occasionally introducing unvetted sources. It does legitimately need to check the odd fact. What is the best configuration?`, options:[
+`Remove the general web search tool and give it a narrow verify_fact tool, routing anything more complex back through the coordinator.`,
+`Keep web search but instruct the synthesis agent in its system prompt to use it only for verification.`,
+`Remove all tools from the synthesis agent and have it flag uncertain claims in its output for the coordinator to check.`,
+`Give the search subagent a second turn after synthesis to validate every claim in the report.`], correct:0, rationale:`A scoped cross-role tool covers the high-frequency need while preventing cross-specialisation misuse; complex cases route through the coordinator. Prompt-level restriction is probabilistic, and the two other options either lose the capability or add a full extra pass.`},
+{domain:1, official:false, q:`Your extraction service must never return conversational prose: every call has to produce structured output, but several schemas exist and the document type is unknown in advance. Which setting applies?`, options:[
+`tool_choice "any", so the model must call a tool while remaining free to choose which schema fits.`,
+`tool_choice "auto", so the model can explain itself when no schema matches.`,
+`A forced tool selection naming the most common schema, with a retry on the others if validation fails.`,
+`tool_choice "any" plus a post-processing step that discards any text block returned alongside the tool call.`], correct:0, rationale:`"any" guarantees a tool call while leaving schema selection to the model, which is exactly the unknown-document-type case. "auto" permits a text reply; forcing one named schema pre-empts a decision the model is better placed to make.`},
+{domain:1, official:false, q:`Your pipeline requires extract_metadata to run before any enrichment tool, because enrichment depends on the document identifier it returns. How do you guarantee the order on the first turn?`, options:[
+`Force the first call with tool_choice set to that specific tool, then handle the enrichment steps in follow-up turns.`,
+`Set tool_choice to "any" and list extract_metadata first in the tools array.`,
+`Describe the required order in the tool descriptions of the enrichment tools.`,
+`Merge extract_metadata into each enrichment tool so the dependency disappears.`], correct:0, rationale:`Forced tool selection with an explicit tool name guarantees which tool runs first; subsequent steps are handled in later turns. Ordering in the array and descriptive hints are not enforcement mechanisms.`},
+{domain:1, official:false, q:`Your agent repeatedly runs exploratory tool calls just to discover what documentation exists before it can answer anything. What MCP capability addresses this directly?`, options:[
+`Exposing the documentation hierarchy as MCP resources, giving the agent visibility into available content without exploratory calls.`,
+`Adding a list_everything tool that returns the full catalogue as a tool result on demand.`,
+`Caching prior tool results in the system prompt at the start of each session.`,
+`Increasing the description length of each existing tool to mention what content it can reach.`], correct:0, rationale:`MCP resources exist to expose content catalogues such as documentation hierarchies, issue summaries or database schemas, reducing exploratory tool calls. The alternatives reproduce the discovery cost on every session.`},
+{domain:1, official:false, q:`You added an MCP server that exposes a rich code-search tool, but Claude Code keeps using the built-in Grep instead. What is the most effective first step?`, options:[
+`Enhance the MCP tool's description to explain in detail what it does and what it returns, so the model can see why it beats a plain text search.`,
+`Disable the built-in Grep tool for the session so the MCP tool is the only option.`,
+`Move the MCP server from user scope to project scope so it loads earlier.`,
+`Add a CLAUDE.md instruction telling the model never to use Grep.`], correct:0, rationale:`Detailed MCP tool descriptions are the mechanism that prevents the agent from defaulting to built-in tools. Disabling built-ins and blanket prohibitions remove useful capability, and scope has no bearing on preference.`},
+{domain:1, official:false, q:`Your team needs Jira access from Claude Code, plus a tool that queries your in-house deployment ledger. What is the appropriate build-versus-adopt split?`, options:[
+`Adopt an existing community MCP server for Jira, and write a custom server only for the in-house ledger.`,
+`Write both as one custom server, so credentials and error handling stay consistent.`,
+`Adopt community servers for both and extend the closest match to cover the ledger.`,
+`Write a custom Jira server, since community servers cannot be scoped to a single project.`], correct:0, rationale:`The blueprint favours existing community servers for standard integrations, reserving custom implementations for team-specific workflows. Rebuilding Jira integration is effort spent on a solved problem.`},
+{domain:1, official:false, multi:true, q:`You are tracing every caller of a helper that is re-exported through two wrapper modules. Which TWO tool choices match the blueprint?`, options:[
+`Grep for each exported name across the codebase to find the call sites.`,
+`Glob for the file patterns that define the wrapper modules, to identify the exported names first.`,
+`Read every file in the repository up front so nothing is missed.`,
+`Bash with a recursive listing, then Read on each result in turn.`], correct:[0,1], rationale:`The prescribed pattern is to identify the exported names first, then search for each name across the codebase: Glob for path patterns, Grep for content. Reading everything up front exhausts context, and a shell listing duplicates Glob without its pattern semantics.`},
+{domain:1, official:false, q:`Edit fails on a file because the anchor text you targeted appears four times. What is the reliable fallback?`, options:[
+`Read the full file, then Write it back with the modification applied.`,
+`Retry Edit with a shorter anchor string so the match is easier to find.`,
+`Use Bash with a stream editor to perform the substitution in place.`,
+`Delete the file and Write a fresh version from memory of its contents.`], correct:0, rationale:`When Edit cannot find unique anchor text, Read followed by Write is the documented fallback. A shorter anchor makes ambiguity worse, and rewriting from memory risks losing content.`},
+{domain:2, official:false, q:`Your monorepo has eight packages with different standards. A single root CLAUDE.md has grown to the point where maintainers no longer update it. What is the most maintainable structure?`, options:[
+`Keep a lean root CLAUDE.md and use @import in each package's CLAUDE.md to pull in the standards files that package actually needs.`,
+`Duplicate the relevant sections of the root file into each package's CLAUDE.md.`,
+`Move everything into a single .claude/rules/ file that loads on every edit.`,
+`Move the standards into a wiki and reference the URL from the root CLAUDE.md.`], correct:0, rationale:`@import keeps CLAUDE.md modular by referencing external standards files, so each package includes what its maintainers judge relevant. Duplication drifts, one monolithic rules file defeats the purpose, and an external URL is not loaded as context.`},
+{domain:2, official:false, q:`Two developers get different behaviour from Claude Code in the same repository and neither can explain why. What is the first diagnostic step?`, options:[
+`Run /memory in each environment to see which memory files are actually loaded.`,
+`Compare the two machines' CLI versions and update the older one.`,
+`Move all instructions into the root CLAUDE.md and delete the other configuration files.`,
+`Ask both developers to clear their session history and retry the same prompt.`], correct:0, rationale:`/memory shows which memory files are loaded, which is how you diagnose inconsistent behaviour across sessions. It usually reveals a user-level file that one developer has and the other does not.`},
+{domain:2, official:false, q:`Test files sit next to the code they test, throughout the repository. You want one set of testing conventions to apply to all of them. Which mechanism fits best?`, options:[
+`A .claude/rules/ file with YAML frontmatter listing a glob such as **/*.test.* so it loads only when a test file is being edited.`,
+`A CLAUDE.md in each directory that contains test files.`,
+`A section in the root CLAUDE.md, since it is always loaded and therefore always applies.`,
+`A custom slash command developers run before writing tests.`], correct:0, rationale:`Glob-pattern rules apply conventions by file type regardless of directory, which is exactly the case for tests spread across the codebase. Per-directory CLAUDE.md files multiply maintenance, and always-loaded content spends context on every unrelated edit.`},
+{domain:2, official:false, q:`You describe a data transformation in prose and get a different interpretation each time. What is the most effective correction?`, options:[
+`Give two or three concrete input and output examples of the transformation.`,
+`Rewrite the prose description with more precise adjectives and constraints.`,
+`Ask the model to restate its understanding before implementing, then correct it.`,
+`Lower the temperature so the interpretation stops varying between runs.`], correct:0, rationale:`Concrete input and output examples are the most effective way to communicate an expected transformation when prose is interpreted inconsistently. Restating helps, but the examples remove the ambiguity at the source.`},
+{domain:2, official:false, q:`Your CI job posts Claude Code review findings as inline pull-request comments. The parsing step breaks whenever the output prose varies. What is the documented fix?`, options:[
+`Run with --output-format json and --json-schema so the findings come back machine-parseable.`,
+`Ask for a markdown table in the prompt and parse the table rows.`,
+`Post the raw output as a single comment and let reviewers read it.`,
+`Add a second Claude call that converts the first output into JSON.`], correct:0, rationale:`--output-format json with --json-schema is the CLI mechanism for structured, machine-parseable output in CI. Parsing prose or tables remains fragile, and a second call adds cost and another failure mode.`},
+{domain:2, official:false, q:`Your CI review re-runs on every push and repeats the same comments on issues that were already discussed. What should you change?`, options:[
+`Include the prior review findings in context and instruct Claude to report only new or still-unaddressed issues.`,
+`Run the review only on the final commit before merge.`,
+`Deduplicate comments after the fact by comparing their text to previous ones.`,
+`Reduce the review scope to the files changed in the most recent commit only.`], correct:0, rationale:`Passing prior findings and asking for only new or unresolved issues is the prescribed approach. Post-hoc text deduplication is brittle, and restricting scope to the last commit loses cross-commit issues.`},
+{domain:3, official:false, q:`Your code review prompt says "only report high-confidence findings" and "be conservative", yet the false positive rate stays high. What actually reduces it?`, options:[
+`Explicit categorical criteria stating which issues to report, such as bugs and security defects, and which to skip, such as minor style.`,
+`A numeric confidence threshold the model must clear before reporting a finding.`,
+`An instruction to report at most five findings per pull request.`,
+`A second pass asking the model to delete any finding it is unsure about.`], correct:0, rationale:`General instructions to be conservative do not improve precision; specific categorical criteria do. Self-assessed confidence is poorly calibrated, and capping the count hides findings rather than improving them.`},
+{domain:3, official:false, q:`One review category produces so many false positives that developers now ignore the whole review, including its accurate categories. What is the pragmatic move?`, options:[
+`Temporarily disable that category to restore trust, while you improve its prompt separately.`,
+`Keep it enabled and add a warning that this category is less reliable.`,
+`Keep it enabled but lower its severity so it appears at the bottom of the report.`,
+`Disable the review entirely until every category has been re-validated.`], correct:0, rationale:`A high false positive category undermines confidence in the accurate ones. Disabling it temporarily preserves trust in the rest while the prompt is improved. Warnings and severity changes leave the noise in place.`},
+{domain:3, official:false, q:`Your extraction handles well-structured reports but fails on documents that cite sources inline rather than in a bibliography. What is the most effective addition?`, options:[
+`Few-shot examples demonstrating correct extraction from both document structures.`,
+`A preprocessing step that converts inline citations into a bibliography before extraction.`,
+`A stricter schema that requires a bibliography field, so the failure is caught by validation.`,
+`A longer instruction describing in prose how inline citations differ from bibliographies.`], correct:0, rationale:`Few-shot examples covering varied document structures are the prescribed remedy for structural variety; they let the model generalise to novel layouts. A required field turns a miss into a validation error without fixing the extraction.`},
+{domain:3, official:false, q:`Your reviewer flags a deliberate team pattern as a defect on almost every pull request. You still want genuine instances of that defect class reported. What do you add?`, options:[
+`Few-shot examples that contrast the acceptable pattern with a genuine issue, so the model generalises the distinction.`,
+`A rule listing the specific files where the pattern is allowed.`,
+`An instruction to never report that defect class.`,
+`A post-filter that removes any finding whose text matches the accepted pattern.`], correct:0, rationale:`Few-shot examples distinguishing acceptable patterns from genuine issues reduce false positives while preserving generalisation. A file allowlist and a blanket prohibition both suppress real findings, and a text post-filter matches on wording rather than substance.`},
+{domain:3, official:false, q:`Your extraction pipeline asks for JSON in the prompt and parses the reply. Roughly one call in twenty fails to parse. What is the reliable fix?`, options:[
+`Define the extraction as a tool with a JSON schema and read the structured input from the tool_use response.`,
+`Add "respond with valid JSON only, no prose" in bold at the end of the prompt.`,
+`Wrap the parser in a retry that strips markdown fences before the second attempt.`,
+`Lower the temperature to zero so the output format stops varying.`], correct:0, rationale:`Tool use with a JSON schema is the most reliable route to schema-compliant output and eliminates syntax errors outright. Prompt emphasis, fence-stripping and temperature reduce the failure rate without removing the failure mode.`},
+{domain:3, official:false, q:`Since moving to tool use with a strict schema, no extraction has failed to parse. Yet finance still finds invoices where the line items do not sum to the stated total. What does this show?`, options:[
+`Strict schemas eliminate syntax errors but not semantic ones, so the pipeline needs its own semantic validation.`,
+`The schema is missing a constraint that would have enforced the sum.`,
+`The model is ignoring the schema on long documents and falling back to free text.`,
+`Tool use is the wrong mechanism for numeric extraction, which needs a dedicated parser.`], correct:0, rationale:`A strict schema guarantees shape, not meaning: values in the wrong field and totals that do not add up pass validation. Semantic checks belong in the pipeline, not the schema.`},
+{domain:3, official:false, q:`Extraction of a required "contract_value" field returns fabricated figures on documents where no value is stated. What is the correct schema change?`, options:[
+`Make the field optional and nullable, so the model can report that the source does not contain it.`,
+`Keep it required and add a prompt instruction not to invent values.`,
+`Keep it required with a sentinel default of zero for absent values.`,
+`Split it into two required fields, a value and a stated-or-inferred flag.`], correct:0, rationale:`Required fields push the model to fabricate values to satisfy the schema. Nullable and optional fields give it an honest way to report absence; a sentinel default is indistinguishable from a real extraction downstream.`},
+{domain:3, official:false, q:`Your Pydantic validation rejects an extraction because a date is in the wrong format. What is the most effective retry?`, options:[
+`A follow-up request containing the original document, the failed extraction, and the specific validation error.`,
+`An identical retry, since the failure is likely to be a one-off sampling artefact.`,
+`A retry at a lower temperature with the same prompt.`,
+`A retry against a relaxed schema that accepts the date as a free string.`], correct:0, rationale:`Retry with error feedback works because the specific validation error guides the correction. A blind retry does not communicate what went wrong, and relaxing the schema moves the problem downstream.`},
+{domain:3, official:false, q:`Your validation-retry loop keeps failing on a field that turns out to be documented only in an appendix that is never sent with the document. What follows?`, options:[
+`Retries are ineffective here, because the information is absent from the source rather than misformatted.`,
+`The retry count should be raised, since the model eventually locates hard-to-find fields.`,
+`The field should be marked required so the retry loop is triggered earlier.`,
+`The document should be resubmitted with a stronger instruction to search thoroughly.`], correct:0, rationale:`Retries fix format and structural errors. When the required information is simply not in the material provided, no amount of retrying will produce it, and the pipeline should route the case rather than loop.`},
+{domain:3, official:false, multi:true, q:`You want the extraction itself to surface likely errors instead of relying on downstream checks. Which TWO schema designs do that?`, options:[
+`Extract calculated_total alongside stated_total so discrepancies are visible in the output.`,
+`Add a conflict_detected boolean the model sets when the source contradicts itself.`,
+`Add an overall quality_score the model assigns to its own extraction.`,
+`Add a free-text notes field where the model may mention anything unusual.`], correct:[0,1], rationale:`Self-correction validation flows put the check in the schema: a computed value next to the stated one, and an explicit conflict flag. A self-assigned quality score is poorly calibrated, and free-text notes are not machine-actionable.`},
+{domain:3, official:false, q:`You plan to move a nightly documentation-generation job to the Message Batches API. The job currently runs an agentic loop that calls three tools per document. What is the blocking constraint?`, options:[
+`The batch API does not support multi-turn tool calling within a single request, so the loop cannot execute tools mid-request.`,
+`The batch API caps each request at a single document, so the job must be split.`,
+`The batch API does not accept system prompts, so the tool instructions would be lost.`,
+`The batch API returns results in a non-deterministic order, so responses cannot be matched to documents.`], correct:0, rationale:`Batch is suited to latency-tolerant single-pass work; it cannot execute tools mid-request and return their results. Ordering is handled by custom_id, which does correlate requests and responses.`},
+{domain:3, official:false, q:`A batch of 100 documents returns with 6 failures, all of them oversized documents that exceeded the context limit. What is the appropriate handling?`, options:[
+`Resubmit only those 6, identified by custom_id, after chunking them.`,
+`Resubmit the whole batch, since partial resubmission breaks the correlation of results.`,
+`Move the 6 to the synchronous API, where context limits do not apply.`,
+`Drop the 6 and flag them for manual processing, since chunking changes the extraction basis.`], correct:0, rationale:`custom_id correlates request and response, so failed items can be resubmitted individually with modifications such as chunking. Resubmitting everything wastes 94 successful extractions, and context limits are not lifted by the synchronous API.`},
+{domain:3, official:false, q:`Your SLA promises processed results within 30 hours of upload, and batch processing can take up to 24 hours. What submission cadence guarantees the SLA?`, options:[
+`Submit accumulated documents every 4 hours, so the worst case stays within the window.`,
+`Submit once a day at a fixed hour, since the average batch completes in far less than 24 hours.`,
+`Submit each document as its own batch immediately on upload.`,
+`Submit twice a day and fall back to the synchronous API for anything still pending at 24 hours.`], correct:0, rationale:`With a 24-hour worst-case processing window, a 4-hour submission cadence leaves margin inside a 30-hour SLA. Planning against the average, not the worst case, breaks the guarantee, and per-document batches forfeit the point of batching.`},
+{domain:3, official:false, q:`Claude generated a payments module and, asked to review its own work in the same session, reported no issues. An independent instance found two. Why?`, options:[
+`The generating session retains its own reasoning context, which makes it less likely to question the decisions it just made.`,
+`Review quality degrades with conversation length regardless of what the conversation contains.`,
+`Self-review requires extended thinking to be enabled, which was not the case here.`,
+`The model cannot read code it produced in the same session without re-reading the file.`], correct:0, rationale:`Self-review is limited by retained generation context. An independent instance without that reasoning history is more effective at catching subtle issues than self-review instructions or extended thinking.`},
+{domain:3, official:false, q:`A pull request touches 14 files. Your single-pass review produces shallow findings and occasionally contradicts itself between files. What architecture fixes this?`, options:[
+`Per-file passes for local issues, plus a separate cross-file pass for integration and data-flow concerns.`,
+`One pass with the files ordered by size, largest first, so attention is spent where it matters.`,
+`Three parallel passes over all 14 files, keeping findings reported by at least two of them.`,
+`A single pass with an instruction to be thorough and to check consistency between files.`], correct:0, rationale:`Splitting into focused per-file passes plus a separate integration pass addresses attention dilution directly. Majority voting triples cost without fixing the cause, and reordering does not change the dilution.`},
+{domain:4, official:false, q:`In long support conversations, your summarisation step turns "refund of 148.50 dollars approved on 3 March for order 88214" into "a refund was discussed". What is the fix?`, options:[
+`Extract the transactional facts into a persistent case-facts block included in every prompt, outside the summarised history.`,
+`Summarise less aggressively, keeping a larger proportion of the original turns.`,
+`Summarise only after the conversation exceeds a much higher token threshold.`,
+`Instruct the summariser to preserve all numbers, dates and identifiers.`], correct:0, rationale:`Amounts, dates and identifiers belong in a persistent facts layer that summarisation cannot touch. Tuning the summariser reduces the frequency of the loss without removing the risk.`},
+{domain:4, official:false, q:`You aggregate the output of six subagents into one long input for synthesis. Findings from the middle sections are regularly missing from the report. What mitigates this?`, options:[
+`Place a key-findings summary at the beginning and organise the detail with explicit section headers.`,
+`Sort the sections by expected importance so the weakest material sits in the middle.`,
+`Split the synthesis into six separate calls and concatenate the outputs.`,
+`Ask the synthesis agent to confirm it has read every section before writing.`], correct:0, rationale:`The lost-in-the-middle effect is mitigated by putting key findings up front and structuring the rest with explicit headers. Sorting by importance still sacrifices the middle, and concatenating six outputs is not synthesis.`},
+{domain:4, official:false, q:`Every lookup_order call returns 40-plus fields; only about five are relevant to a return. Sessions now run out of context after a dozen turns. What should change?`, options:[
+`Trim the tool output to the relevant fields before it enters the conversation.`,
+`Summarise the accumulated conversation more often as the session grows.`,
+`Increase the number of turns before compaction so fewer summaries are needed.`,
+`Move the order data into the system prompt so it is not repeated per turn.`], correct:0, rationale:`Verbose tool results accumulate in context disproportionately to their relevance. Trimming them at the source addresses the cause; compaction strategies only manage the consequence.`},
+{domain:4, official:false, q:`A customer writes "I have been going in circles, please just put me through to a person." The request itself is a straightforward damage replacement your agent can handle. What is the correct behaviour?`, options:[
+`Escalate immediately, because an explicit request for a human is honoured without first attempting to resolve.`,
+`Resolve the case, since the agent is capable and escalation would waste a human's time.`,
+`Acknowledge the frustration, resolve the case, and offer escalation only if the customer objects afterwards.`,
+`Run a sentiment check and escalate only if frustration exceeds the threshold.`], correct:0, rationale:`An explicit request for a human is honoured immediately. Acknowledging frustration and offering to resolve applies when the customer has not asked for a person; sentiment scoring is not a proxy for that request.`},
+{domain:4, official:false, q:`A customer asks you to match a competitor's lower price. Your published policy covers price adjustments on your own site only, and says nothing about competitors. What should the agent do?`, options:[
+`Escalate, because the policy is silent on this request rather than merely complex.`,
+`Refuse, because anything not permitted by the policy is excluded by default.`,
+`Apply the own-site adjustment rule by analogy and grant the match.`,
+`Ask the customer to provide the competitor's URL and then decide case by case.`], correct:0, rationale:`Policy gaps and exceptions are escalation triggers. Refusing invents a rule that is not written, and applying the rule by analogy invents an entitlement.`},
+{domain:4, official:false, q:`get_customer returns three accounts matching the name the caller gave. What should the agent do?`, options:[
+`Ask the customer for an additional identifier, such as an order number or postal code.`,
+`Select the most recently active account, which is the likeliest match.`,
+`Escalate to a human, since identity is now ambiguous.`,
+`Proceed with the first result and correct course if the order details do not line up.`], correct:0, rationale:`Multiple matches call for clarification, not heuristic selection. Recency and first-result heuristics risk acting on the wrong account; escalation is disproportionate when one question resolves it.`},
+{domain:4, official:false, q:`Your search subagent times out. It currently reports "search unavailable" to the coordinator. What should it report instead?`, options:[
+`Structured error context: the failure type, the query attempted, any partial results, and possible alternative approaches.`,
+`The raw timeout exception, so the coordinator has the complete technical detail.`,
+`An empty result set, so the coordinator continues without special handling.`,
+`A termination signal, so the coordinator stops the workflow and surfaces the failure to the user.`], correct:0, rationale:`Structured error context enables an intelligent recovery decision. Generic statuses hide what happened, empty results silently suppress the failure, and terminating on a single subagent failure is a named anti-pattern.`},
+{domain:4, official:false, multi:true, q:`One of four subagents failed and the coordinator produced a report anyway. Which TWO behaviours are correct?`, options:[
+`Proceeding with partial results rather than aborting the whole workflow.`,
+`Annotating the report with coverage gaps for the topic areas the failed subagent was to cover.`,
+`Returning the failed subagent's empty output as a successful result to keep the pipeline uniform.`,
+`Substituting the closest available findings from another subagent so the report has no gaps.`], correct:[0,1], rationale:`Partial results plus explicit coverage annotations is the prescribed pattern. Silently reporting a failure as success and papering over the gap with unrelated findings both mislead the reader about what was actually covered.`},
+{domain:4, official:false, q:`Three hours into a codebase exploration, the agent starts describing "typical patterns" instead of the specific classes it identified earlier. What is the appropriate countermeasure?`, options:[
+`Have the agent maintain a scratchpad file of key findings and consult it for subsequent questions.`,
+`Increase the detail of each question so the agent has more to work with.`,
+`Restart the session and cover the same ground faster.`,
+`Ask the agent to repeat its earlier conclusions at the start of every new question.`], correct:0, rationale:`Scratchpad files persist key findings across context boundaries and counteract context degradation. Restarting loses the work, and restating conclusions each turn spends the context you are trying to conserve.`},
+{domain:4, official:false, q:`Your multi-agent run is long enough that a crash means losing hours of work. What design makes resumption reliable?`, options:[
+`Each agent exports its state to a known location, and the coordinator loads a manifest on resume and injects it into agent prompts.`,
+`The coordinator keeps the full conversation in memory and rewrites it to disk after every turn.`,
+`Each agent re-runs its tools on resume, since deterministic tools reproduce the same results.`,
+`The system checkpoints only the final synthesis, which can regenerate the intermediate findings.`], correct:0, rationale:`Structured state exports plus a manifest the coordinator loads on resume is the prescribed crash-recovery design. Re-running tools repeats the cost, and the final synthesis cannot regenerate inputs it never stored.`},
+{domain:4, official:false, q:`A multi-phase task begins with a verbose discovery phase that fills the context before the real work starts. What is the appropriate structure?`, options:[
+`Delegate discovery to a subagent that returns a summary, keeping the main agent on high-level coordination.`,
+`Run discovery in the main session and use /compact once it fills up.`,
+`Skip discovery and let the implementation phase read files as it needs them.`,
+`Split the task into separate sessions with no shared context between phases.`], correct:0, rationale:`Subagent delegation isolates verbose exploration output while the main agent preserves coordination context. /compact is a mitigation during an extended session, not a substitute for isolating the output in the first place.`},
+{domain:4, official:false, q:`Your synthesis agent produces well-written reports in which claims can no longer be traced to sources. The subagents did have the sources. Where is the loss occurring?`, options:[
+`In the summarisation steps, where findings are compressed without preserving claim-to-source mappings.`,
+`In the synthesis prompt, which does not ask for a bibliography at the end of the report.`,
+`In the search subagent, which returns excerpts without the full document text.`,
+`In the coordinator, which passes findings in the order received rather than grouped by source.`], correct:0, rationale:`Attribution is lost when findings are compressed without carrying the claim-source mapping through. The remedy is structured claim-source mappings that downstream agents must preserve, not a bibliography appended at the end.`},
+{domain:4, official:false, q:`Two findings in your report look contradictory: one gives an adoption rate of 22 percent, the other 38 percent. Both subagents were correct. What requirement in the subagent output format prevents this confusion?`, options:[
+`Requiring publication or data-collection dates in structured outputs, so temporal differences are not read as contradictions.`,
+`Requiring a confidence score on each finding, so the weaker figure can be dropped.`,
+`Requiring the coordinator to reconcile numeric conflicts before synthesis.`,
+`Requiring each subagent to cover a distinct source type so figures cannot overlap.`], correct:0, rationale:`Dates in structured outputs let downstream agents interpret figures temporally instead of treating them as conflicting. Confidence scores would discard a correct value, and reconciliation cannot happen without the dates.`},
+{domain:4, official:false, q:`Your report renders financial data, news items and technical findings all as the same bulleted list, and readers complain it is hard to use. What does the blueprint prescribe?`, options:[
+`Render each content type appropriately: financial data as tables, news as prose, technical findings as structured lists.`,
+`Keep a uniform format, which makes the report predictable to skim.`,
+`Split the report into three separate documents, one per content type.`,
+`Let the synthesis agent choose a single format per report based on the dominant content type.`], correct:0, rationale:`Synthesis outputs should render different content types in the form that suits them rather than flattening everything into one uniform format.`}
 ];
 
 function loadProgress() {
