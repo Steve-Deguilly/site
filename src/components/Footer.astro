@@ -244,6 +244,13 @@ const credlyUrl = 'https://www.credly.com/badges/a293ac29-a4a2-4f9b-95c8-4e3efc9
     width: 72px;
     height: auto;
   }
+  /* Le <picture> du badge certif est le flex item direct de .footer-mark :
+     sans flex-shrink:0 sur LUI, il se comprime et écrase le badge. */
+  .footer-mark > picture {
+    flex-shrink: 0;
+    display: block;
+    line-height: 0;
+  }
   .mark-badge-img {
     display: block;
     flex-shrink: 0;
