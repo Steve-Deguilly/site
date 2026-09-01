@@ -1,43 +1,75 @@
 ---
+// Pied de page : disposition reprise de batiment-ia.fr (grille de colonnes + barre
+// de bas de page à trois blocs). Couleurs et typo : tokens du site, inchangés.
 const year = new Date().getFullYear();
+const credlyUrl = 'https://www.credly.com/badges/a293ac29-a4a2-4f9b-95c8-4e3efc961c39';
 ---
 <footer>
   <div class="container">
 
     <div class="footer-grid">
 
-      <!-- Colonne 1 : Contact -->
-      <div class="footer-col">
-        <p class="col-label">Contact</p>
+      <!-- Colonne 1 : identité + contact -->
+      <div class="footer-col footer-brand">
         <p class="footer-name">Steve Deguilly</p>
-        <p class="footer-tagline">Architecte IA &amp; Automatisation, freelance · Nice</p>
-        <ul class="footer-contact-links">
+        <p class="footer-tagline">
+          Architecte IA &amp; Automatisation, freelance. Nice, Monaco, Sophia Antipolis.
+        </p>
+        <p class="footer-entity">
+          Opère via <strong>Creastory Conseil</strong> (SASU), Nice. SIRET 93182223300017.
+        </p>
+        <p class="col-label">Contact</p>
+        <ul class="footer-links">
           <li><a href="mailto:steve@creastory.fr">steve@creastory.fr</a></li>
-          <li><a href="https://linkedin.com/in/steve-deguilly" target="_blank" rel="noopener">LinkedIn → steve-deguilly</a></li>
-          <li><a href="https://batiment-ia.fr/" target="_blank" rel="noopener">Bâtiment IA → l'observatoire que j'édite</a></li>
+          <li><a href="https://www.linkedin.com/in/steve-deguilly" target="_blank" rel="noopener">LinkedIn, steve-deguilly</a></li>
+          <li><a href="https://batiment-ia.fr/" target="_blank" rel="noopener">Bâtiment IA, l'observatoire que j'édite</a></li>
         </ul>
       </div>
 
-      <!-- Colonne 2 : Navigation -->
+      <!-- Colonne 2 : navigation principale -->
       <div class="footer-col">
         <p class="col-label">Navigation</p>
-        <ul class="footer-nav">
-          <li><a href="/#aqui-title">Pour qui</a></li>
-          <li><a href="/#domaines-title">Domaines d'intervention</a></li>
-          <li><a href="/#approche">Mon approche</a></li>
-          <li><a href="/#cas-concrets">Cas concrets</a></li>
+        <ul class="footer-links">
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/methode">Méthode</a></li>
           <li><a href="/maturite">Test de maturité</a></li>
           <li><a href="/projets">Réalisations</a></li>
-          <li><a href="/sdd">Ma méthode (spec-driven)</a></li>
-          <li><a href="/#apropos">À propos</a></li>
+          <li><a href="/demos">Démos &amp; POC</a></li>
         </ul>
       </div>
 
-      <!-- Colonne 3 : Accréditations -->
+      <!-- Colonne 3 : démos et POC -->
       <div class="footer-col">
-        <p class="col-label">Accréditations</p>
+        <p class="col-label">Démos &amp; POC</p>
+        <ul class="footer-links">
+          <li><a href="/demos/chat-document">Chat sur un document</a></li>
+          <li><a href="/demos/conformite-re2020">Conformité RE2020</a></li>
+          <li><a href="/demos/emails-segmentes">Emails clients segmentés</a></li>
+          <li><a href="/demos/prospection-automatisee">Prospection automatisée</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne 4 : le site -->
+      <div class="footer-col">
+        <p class="col-label">Le site</p>
+        <ul class="footer-links">
+          <li><a href="/#apropos">À propos</a></li>
+          <li><a href="/sdd">Le spec-driven</a></li>
+          <li><a href="/cv">CV</a></li>
+          <li><a href="/mentions-legales">Mentions légales</a></li>
+          <li><a href="/confidentialite">Confidentialité</a></li>
+          <li><a href="https://cal.com/steve-deguilly/30min" target="_blank" rel="noopener">Réserver un échange</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Barre de bas de page : accréditation, certification, mentions -->
+    <div class="footer-bottom">
+
+      <div class="footer-mark">
         <a
-          class="badge-francenum"
+          class="mark-badge"
           href="https://www.francenum.gouv.fr/activateurs/creastory-conseil"
           target="_blank"
           rel="noopener"
@@ -48,7 +80,6 @@ const year = new Date().getFullYear();
             <img
               src="/marques-filles-Activateur.webp"
               alt="Activateur France Num"
-              class="badge-img"
               width="100"
               height="91"
               loading="lazy"
@@ -56,25 +87,39 @@ const year = new Date().getFullYear();
             />
           </picture>
         </a>
-        <p class="badge-desc">Programme gouvernemental d'accompagnement numérique des PME</p>
+        <p class="mark-text">
+          Creastory Conseil est <strong>activateur France Num</strong>, le programme public
+          d'accompagnement numérique des PME.
+        </p>
+      </div>
+
+      <div class="footer-mark">
+        <picture>
+          <source srcset="/badge-claude-certified-architect-160.webp" type="image/webp" />
+          <img
+            class="mark-badge-img"
+            src="/badge-claude-certified-architect-160.png"
+            alt="Badge Anthropic Claude Certified Architect – Foundations"
+            width="160"
+            height="160"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+        <p class="mark-text">
+          <strong>Claude Certified Architect – Foundations</strong><br />
+          Certification Anthropic, 2026.
+          <a href={credlyUrl} target="_blank" rel="noopener">Vérifiable sur Credly</a>.
+        </p>
+      </div>
+
+      <div class="footer-copy">
+        <p>© {year} Steve Deguilly, via Creastory Conseil.</p>
+        <p><a href="/sdd">Conçu en méthode spec-driven</a>. Sans cookie ni tracking.</p>
+        <p class="footer-techno">Astro · Cloudflare Pages</p>
       </div>
 
     </div>
-
-    <!-- Barre légale -->
-    <div class="footer-bottom">
-      <p class="footer-meta">
-        Steve Deguilly opère via <strong>Creastory Conseil</strong> · SIRET : 93182223300017 · Nice, France
-      </p>
-      <ul class="footer-legal">
-        <li><a href="/cv">CV</a></li>
-        <li><a href="/mentions-legales">Mentions légales</a></li>
-        <li><a href="/confidentialite">Confidentialité</a></li>
-        <li>© {year}</li>
-      </ul>
-    </div>
-
-    <p class="footer-proof"><a href="/sdd">Conçu en méthode spec-driven</a> · Sans cookie ni tracking · Optimisé pour les moteurs IA</p>
 
   </div>
 </footer>
@@ -82,29 +127,24 @@ const year = new Date().getFullYear();
 <style>
   footer {
     background: var(--color-primary-deep);
-    padding: 56px 0 32px;
+    padding: 64px 0 32px;
     border-top: 1px solid rgba(245,241,234,0.08);
   }
 
-  /* Grille 3 colonnes */
+  /* Grille de colonnes : identité large, puis trois colonnes de liens */
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
     gap: 48px;
     padding-bottom: 40px;
     border-bottom: 1px solid rgba(245,241,234,0.08);
   }
-  @media (max-width: 900px) {
-    .footer-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
+  @media (max-width: 1023px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+    .footer-brand { grid-column: 1 / -1; }
   }
   @media (max-width: 600px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   }
 
   /* Étiquettes de colonne */
@@ -114,44 +154,41 @@ const year = new Date().getFullYear();
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-text-on-dark-muted); /* atténué sur fond sombre, 5.5:1 ✓ AA */
+    color: var(--color-text-on-dark-muted); /* 5.5:1 ✓ AA sur primary-deep */
     margin: 0 0 14px;
   }
 
-  /* Colonne Contact */
+  /* Colonne identité */
+  .footer-brand { max-width: 420px; }
   .footer-name {
     font-family: var(--font-serif);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
-    color: var(--color-text-on-dark); /* crème sur fond sombre, ~10:1 ✓ */
-    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+    color: var(--color-text-on-dark); /* ~10:1 ✓ */
+    margin: 0 0 8px;
   }
   .footer-tagline {
     font-family: var(--font-sans);
-    font-size: 13px;
-    color: var(--color-text-on-dark-muted); /* 5.5:1 ✓ AA */
-    margin: 0 0 16px;
-    line-height: 1.5;
+    font-size: 14px;
+    color: var(--color-text-on-dark);
+    line-height: 1.6;
+    margin: 0 0 12px;
   }
-  .footer-contact-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .footer-contact-links a {
+  .footer-entity {
     font-family: var(--font-sans);
     font-size: 13px;
-    color: var(--color-text-on-dark); /* ~10:1 ✓ */
-    text-decoration: none;
-    transition: color 150ms;
+    color: var(--color-text-on-dark-muted);
+    line-height: 1.6;
+    margin: 0 0 24px;
   }
-  .footer-contact-links a:hover { color: var(--color-bg-cream); }
+  .footer-entity strong {
+    font-weight: 500;
+    color: var(--color-text-on-dark);
+  }
 
-  /* Colonne Navigation */
-  .footer-nav {
+  /* Listes de liens, communes aux quatre colonnes */
+  .footer-links {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -159,101 +196,106 @@ const year = new Date().getFullYear();
     flex-direction: column;
     gap: 10px;
   }
-  .footer-nav a {
+  .footer-links a {
     font-family: var(--font-sans);
     font-size: 13px;
-    color: var(--color-text-on-dark); /* ~10:1 ✓ */
+    color: var(--color-text-on-dark);
     text-decoration: none;
     transition: color 150ms;
   }
-  .footer-nav a:hover { color: var(--color-bg-cream); }
+  .footer-links a:hover { color: var(--color-accent-cta-on-dark); }
 
-  /* Colonne Accréditations */
-  .badge-francenum {
+  /* Barre de bas de page : trois blocs alignés */
+  .footer-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 40px;
+    align-items: start;
+    padding-top: 32px;
+  }
+  @media (max-width: 1023px) {
+    .footer-bottom { grid-template-columns: 1fr 1fr; gap: 28px 32px; }
+    .footer-copy { grid-column: 1 / -1; }
+  }
+  @media (max-width: 600px) {
+    .footer-bottom { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  .footer-mark {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .mark-badge {
     display: inline-block;
-    padding: 10px 14px;
+    flex-shrink: 0;
+    padding: 8px 12px;
     border: 1px solid rgba(245,241,234,0.15);
     border-radius: 8px;
     text-decoration: none;
     transition: border-color 150ms, background 150ms;
   }
-  .badge-francenum:hover {
+  .mark-badge:hover {
     border-color: rgba(245,241,234,0.3);
     background: rgba(245,241,234,0.05);
   }
-  .badge-img {
+  .mark-badge img {
     display: block;
-    width: 100px;
+    width: 72px;
     height: auto;
   }
-  .badge-desc {
-    font-family: var(--font-sans);
-    font-size: 11px;
-    color: var(--color-text-on-dark-muted); /* 5.5:1 ✓ AA */
-    margin: 12px 0 0;
-    line-height: 1.5;
-    max-width: 180px;
+  .mark-badge-img {
+    display: block;
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
   }
-
-  /* Barre légale */
-  .footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    padding-top: 24px;
-    flex-wrap: wrap;
-  }
-  .footer-meta {
+  .mark-text {
     font-family: var(--font-sans);
     font-size: 12px;
-    color: var(--color-text-on-dark-muted); /* 5.5:1 ✓ AA */
+    color: var(--color-text-on-dark-muted);
+    line-height: 1.6;
     margin: 0;
   }
-  .footer-meta strong {
+  .mark-text strong {
     font-weight: 500;
-    color: var(--color-text-on-dark); /* ~10:1 ✓ */
-  }
-  .footer-legal {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .footer-legal li {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    color: var(--color-text-on-dark-muted); /* 5.5:1 ✓ AA */
-  }
-  .footer-legal a {
-    color: var(--color-text-on-dark-muted);
-    text-decoration: none;
-    transition: color 150ms;
-  }
-  .footer-legal a:hover { color: var(--color-text-on-dark); }
-  @media (max-width: 600px) {
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-
-  /* Mention de preuve : une ligne discrète, sur toutes les pages */
-  .footer-proof {
-    margin: 20px 0 0;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.02em;
-    color: var(--color-text-on-dark-muted);
-    text-align: center;
-  }
-  .footer-proof a {
     color: var(--color-text-on-dark);
+  }
+  .mark-text a {
+    color: var(--color-text-on-dark-muted);
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: color 150ms;
   }
-  .footer-proof a:hover { color: var(--color-bg-cream); }
+  .mark-text a:hover { color: var(--color-accent-cta-on-dark); }
+
+  /* Mentions de droite */
+  .footer-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: right;
+  }
+  @media (max-width: 1023px) {
+    .footer-copy { text-align: left; }
+  }
+  .footer-copy p {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--color-text-on-dark-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .footer-copy a {
+    color: var(--color-text-on-dark-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 150ms;
+  }
+  .footer-copy a:hover { color: var(--color-accent-cta-on-dark); }
+  .footer-copy .footer-techno {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
 </style>
