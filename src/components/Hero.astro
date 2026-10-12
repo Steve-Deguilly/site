@@ -84,7 +84,7 @@ const credlyUrl = 'https://www.credly.com/badges/a293ac29-a4a2-4f9b-95c8-4e3efc9
           </picture>
           <span class="hero-certif-text">
             <strong>Claude Certified Architect · Foundations</strong>
-            <span>Certification Anthropic, 2026. Vérifiable sur Credly ↗</span>
+            <span>Certification Anthropic, 2026 ↗</span>
           </span>
         </a>
       </div>
@@ -191,19 +191,26 @@ const credlyUrl = 'https://www.credly.com/badges/a293ac29-a4a2-4f9b-95c8-4e3efc9
     .hero-scroll { animation: none; }
   }
 
-  /* Colonne photo calée en haut (alignée sur le chip), plus centrée verticalement */
+  /* Colonne photo étirée sur toute la hauteur de la colonne texte :
+     haut de la photo = haut du chip, bas de la certif = bas de la note de confiance */
   .hero-right {
-    align-self: start;
+    align-self: stretch;
     display: flex;
     flex-direction: column;
     gap: 16px;
   }
-  .hero-photo-block { position: relative; }
+  .hero-photo-block {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
   .hero-photo-wrap {
+    flex: 1;
+    min-height: 360px;
     border-radius: 12px;
     overflow: hidden;
     background: var(--color-surface-warm);
-    aspect-ratio: 1/1; /* était 4/5 : on rogne le haut et le bas */
   }
   .hero-photo-wrap img {
     width: 100%;
@@ -220,7 +227,7 @@ const credlyUrl = 'https://www.credly.com/badges/a293ac29-a4a2-4f9b-95c8-4e3efc9
     padding: 10px 14px;
     border: 1px solid var(--color-border);
     border-radius: 10px;
-    background: var(--color-surface-warm);
+    background: var(--color-input-bg);
     text-decoration: none;
     transition: border-color 150ms;
   }
@@ -242,7 +249,7 @@ const credlyUrl = 'https://www.credly.com/badges/a293ac29-a4a2-4f9b-95c8-4e3efc9
     font-family: var(--font-sans);
     font-size: 12px;
     line-height: 1.4;
-    color: var(--color-text-muted-warm);
+    color: var(--color-text-muted);
   }
   .hero-certif-text strong {
     font-size: 14px;
@@ -283,6 +290,8 @@ const credlyUrl = 'https://www.credly.com/badges/a293ac29-a4a2-4f9b-95c8-4e3efc9
     .hero-inner { grid-template-columns: 1fr; gap: 40px; }
     .hero-h1 { font-size: 44px; }
     .hero-right { max-width: 400px; }
+    /* En une colonne, plus de hauteur à épouser : on revient à un format fixe */
+    .hero-photo-wrap { flex: none; min-height: 0; aspect-ratio: 1/1; }
   }
   @media (max-width: 767px) {
     .hero { padding: 40px 0 56px; }
