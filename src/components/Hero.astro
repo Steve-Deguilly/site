@@ -1,5 +1,6 @@
 ---
 // Hero section
+const credlyUrl = 'https://www.credly.com/badges/a293ac29-a4a2-4f9b-95c8-4e3efc961c39';
 ---
 <section class="hero">
   <div class="container">
@@ -44,28 +45,48 @@
         </p>
       </div>
       <div class="hero-right">
-        <div class="hero-photo-wrap">
+        <div class="hero-photo-block">
+          <div class="hero-photo-wrap">
+            <picture>
+              <source srcset="/profil-steve-deguilly.avif" type="image/avif" />
+              <img
+                src="/profil-steve-deguilly-360.jpg"
+                alt="Portrait de Steve Deguilly, Architecte IA & Automatisation freelance"
+                width="800"
+                height="1000"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </picture>
+          </div>
+          <div class="hero-badge">
+            <span class="hero-badge-num">
+              <span class="hero-badge-accent">Stratégie</span>
+              <span class="hero-badge-arrow">🤝</span>
+              <span class="hero-badge-accent">Exécution</span>
+            </span>
+            <span class="hero-badge-label">L'alignement parfait entre votre stratégie IA et son exécution.</span>
+          </div>
+        </div>
+        <a class="hero-certif" href={credlyUrl} target="_blank" rel="noopener">
           <picture>
-            <source srcset="/profil-steve-deguilly.avif" type="image/avif" />
+            <source srcset="/badge-claude-certified-architect-160.webp" type="image/webp" />
             <img
-              src="/profil-steve-deguilly-360.jpg"
-              alt="Portrait de Steve Deguilly, Architecte IA & Automatisation freelance"
-              width="800"
-              height="1000"
+              class="hero-certif-img"
+              src="/badge-claude-certified-architect-160.png"
+              alt="Badge Anthropic Claude Certified Architect, Foundations"
+              width="160"
+              height="160"
               loading="eager"
               decoding="async"
-              fetchpriority="high"
             />
           </picture>
-        </div>
-        <div class="hero-badge">
-          <span class="hero-badge-num">
-            <span class="hero-badge-accent">Stratégie</span>
-            <span class="hero-badge-arrow">🤝</span>
-            <span class="hero-badge-accent">Exécution</span>
+          <span class="hero-certif-text">
+            <strong>Claude Certified Architect · Foundations</strong>
+            <span>Certification Anthropic, 2026. Vérifiable sur Credly ↗</span>
           </span>
-          <span class="hero-badge-label">L'alignement parfait entre votre stratégie IA et son exécution.</span>
-        </div>
+        </a>
       </div>
     </div>
   </div>
@@ -170,19 +191,63 @@
     .hero-scroll { animation: none; }
   }
 
-  .hero-right { position: relative; }
+  /* Colonne photo calée en haut (alignée sur le chip), plus centrée verticalement */
+  .hero-right {
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .hero-photo-block { position: relative; }
   .hero-photo-wrap {
     border-radius: 12px;
     overflow: hidden;
     background: var(--color-surface-warm);
-    aspect-ratio: 4/5;
+    aspect-ratio: 1/1; /* était 4/5 : on rogne le haut et le bas */
   }
   .hero-photo-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
+    object-position: center 40%;
     display: block;
+  }
+
+  .hero-certif {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface-warm);
+    text-decoration: none;
+    transition: border-color 150ms;
+  }
+  .hero-certif:hover { border-color: var(--color-primary); }
+  .hero-certif > picture {
+    flex-shrink: 0;
+    display: block;
+    line-height: 0;
+  }
+  .hero-certif-img {
+    display: block;
+    width: 56px;
+    height: 56px;
+  }
+  .hero-certif-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--color-text-muted-warm);
+  }
+  .hero-certif-text strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
   }
   .hero-badge {
     position: absolute;
